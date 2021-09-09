@@ -30,7 +30,7 @@
           <input class="hidden" type="checkbox" id="menu-toggle" />
             <div class=" md:flex md:items-center md:w-auto  order-3 md:order-2 lg:order-2 hidden  w-full" id="menu">
                
-                    <ul class="grid grid-cols-2 gap-2 md:flex items-center md:justify-between text-base text-gray-700 pt-4 md:pt-0  md:space-y-0 ">
+                    <ul class="grid grid-cols-2 gap-3 md:flex items-center md:justify-between text-base text-gray-700 pt-4 md:pt-0  md:space-y-0 ">
                       <li class=" hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent"> 
                         <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="/">
                           Homepage

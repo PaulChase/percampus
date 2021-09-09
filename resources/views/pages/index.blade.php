@@ -10,7 +10,7 @@
         height: 90vh;" class=" relative text-white  ">
         
         
-        <div class=" bg-black top-0 right-0 w-full h-full absolute opacity-80 ">
+        <div class=" bg-black top-0 right-0 w-full h-full absolute opacity-90 ">
             <nav class=" flex flex-row justify-between max-w-7xl mx-auto align-middle p-4">
                 <h1 class=" no-underline hover:no-underline font-extrabold  text-2xl lg:text-3xl tracking-widest"> {{config('app.name')}}</h1>
                 @guest
@@ -45,7 +45,7 @@
                 </p>
             </div>
 
-            <div class=" px-5 py-3 text-lg">
+            <div class=" px-7 py-3 text-lg">
                 <h3 class=" text-3xl font-bold my-4">How It Works</h3>
                 <div class="mb-10">
                     <i class="fa fa-check-circle fa-3x my-4"></i>
@@ -82,15 +82,21 @@
         </div>
         
         
+        <div class=" mt-4 mb-10 px-4 py-2 text-2xl text-gray-600 font-bold text-center">
+            <p>No need to share your product in few whatsapp groups and your status hoping someone will buy it, be rest assured that students coming here are ready to buy.</p>
+        </div>
 
-        {{-- call to action --}}
+        @guest
+            {{-- call to action --}}
         <div class="mx-3 shadow-2xl rounded-md bg-gray-800 px-3 py-8 h-auto text-xl text-white font-semibold text-center my-5 lg:h-72 lg:flex  lg:items-center lg:px-10">
             <p class=" md:w-3/12"><i class="fa fa-rocket fa-3x text-green-500 mb-4"></i></p>
             <div>
-                <p class=" lg:text-3xl italic">No need to share your product in few whatsapp groups and your status hoping someone will buy it, be rest assured that students coming here are ready to buy. <br>  If you start posting now, your items will be seen first when buyers start flooding in.  <br> So what are you waiting for?</p> 
+                <p class=" lg:text-3xl italic"> If you start posting now, your items will be seen first when buyers start flooding in.  <br> So what are you waiting for?</p> 
                 <p class=" mt-5"> <a href="/register" class=" rounded-full border-2 py-3 px-5 text-base bg-green-500 border-green-500 focus:bg-green-500 focus:border-green-500 md:text-lg">Sign Me up ASAP</a></p>
             </div>
         </div>
+        @endguest
+        
 
         
         

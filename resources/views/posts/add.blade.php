@@ -14,7 +14,7 @@
                 <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                 <div>
                     
-                    <label for="">Title <b class=" text-red-500">*</b></label><br>
+                    <label for="">Name of the item <b class=" text-red-500">*</b></label><br>
                     <input name="title" type="text" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder=" e.g Tecno hot 8 for sale"><br>
                     @error('title')
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">please enter a valid title</small>
@@ -28,7 +28,7 @@
                     @enderror
                 </div>
                 <div class="">
-                    <label for="campus">Pick the category of the item <br> <small>note you can't change this later</small></label>           
+                    <label for="campus">Pick the category of the item <b class=" text-red-500">*</b> <br> <small>note you can't change this later</small></label>           
                    <select name="subcategory" id="" class=" p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200">
                     
                        @foreach ($subcategories as $subcategory)

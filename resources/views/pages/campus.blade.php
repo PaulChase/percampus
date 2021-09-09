@@ -15,20 +15,20 @@
 <section class="py-6 px-3 max-w-7xl mx-auto">
     <div class=" grid lg:grid-cols-3 gap-3">
         @foreach ($categories as $category)
-            <div class=" border-2  border-gray-200 border-solid py-3 px-5 rounded-md hover:shadow-lg lg:text-lg lg:p-5">
+            <div class=" border-2  border-gray-200 border-solid py-4 px-5 rounded-md hover:shadow-lg lg:text-lg lg:p-5">
                 <a href="{{route('subcategory', ['campus'=> $campus->nick_name,'c'=> $category->name])}}" class=" ">
-                    <h3 class="font-semibold text-green-400 my-3 block text-lg lg:text-xl"><span class=" uppercase">{{$campus->nick_name.' '}}</span>{{ $category->name}} <i class=" fa fa-chevron-right "></i></h3>
+                    <h3 class="font-semibold text-green-400 mb-3 block text-lg lg:text-xl uppercase">{{ $category->name}} <i class=" fa fa-chevron-right "></i></h3>
                     <p>{{ $category->excerpt}}</p>
                 </a>
             </div>
         @endforeach
-        <div class=" border-2  border-gray-200 border-solid p-3 rounded-md hover:shadow-lg lg:text-lg lg:p-5">
+        <div class=" border-2  border-gray-200 border-solid py-4 px-5 rounded-md hover:shadow-lg lg:text-lg lg:p-5">
             <a href="  @if ($campus->e_library == null)
                             /{{$campus->nick_name}}/library
                         @else
                             {{$campus->e_library}}
                         @endif" target="_blank">
-                <h3 class="font-semibold text-green-400 my-3 block text-lg lg:text-xl "><span class=" uppercase">{{$campus->nick_name.' '}}</span>E-library <i class=" fa fa-chevron-right "></i></h3>
+                <h3 class="font-semibold text-green-400 mb-3 block text-lg lg:text-xl "><span class=" uppercase">{{$campus->nick_name.' '}}</span>E-library <i class=" fa fa-chevron-right "></i></h3>
                 <p> A place to get all {{$campus->nick_name}} course materials such as PDFs, slides, scanned photos etc. Submitted by fellow {{$campus->nick_name}} students for you to search and download.</p>
             </a>
         </div>

@@ -22,9 +22,9 @@
                 @if (count($posts) > 0)
                     
                     @foreach ($posts as $each_post)
-                    <div class=" border-2 border-gray-200 rounded-md my-3 px-4 py-3 grid   grid-cols-1">
-                        <div class=" col-span-3">
-                            <h2 class="text-base text-gray-700 font-semibold">{{$each_post->title}}</h2>
+                    <div class=" border-2 border-gray-200 rounded-md my-3 px-4 py-3 ">
+                        <div class="">
+                            <h2 class="text-xl text-gray-700 font-semibold mb-2">{{$each_post->title}}</h2>
                             <small> Added: {{$each_post->created_at->diffForHumans()}}</small>
                         </div>
         
@@ -47,7 +47,7 @@
                 @endforeach
                 
                 @else
-                <div class=" bg-gray-100 text-xl rounded-md p-4  my-3 text-center"><p>You have No Posts</p></div>
+                <div class=" bg-gray-100 text-xl rounded-md p-4  my-3 text-center"><p>You have no Posts yet, Try Adding some.</p></div>
                 @endif
                 
             </div>
@@ -85,7 +85,7 @@
                             </div>
                         @endforeach
                 @else
-                    <div> There No Ads</div>
+                    <div> There are No Ads</div>
                 @endif
                 </div>
             @endif

@@ -48,7 +48,7 @@
                         <td class="p-3 font-semibold"> Are they more of these?</td>
                         <td class=" float-right p-3">{{ $post->in_stock}}</td>
                     </tr>
-                    <tr class=" border-b border-gray-200">
+                    <tr class=" border-b border-gray-200 hidden lg:flex lg:justify-between">
                         <td class="p-3 font-semibold"> Contact Me at</td>
                         <td class=" float-right p-3">0{{$post->contact_info}}</td>
                     </tr>
