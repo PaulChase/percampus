@@ -9,17 +9,23 @@
         Please selct the Category of the Post 
         
     </div>
-    {{-- <div class=" grid lg:grid-cols-3 gap-3">
-        @foreach ($categories as $category)
+    <div class=" grid lg:grid-cols-3 gap-6">
+        
             <div class=" border-2  border-gray-200 border-solid p-3 rounded-sm hover:shadow-lg lg:text-lg lg:p-5">
-                <a href="" class=" ">
-                    <h3 class="font-semibold text-green-400 my-3 block text-lg lg:text-xl ">{{ $category->name}} <i class=" fa fa-chevron-right "></i></h3>
-                    <p>{{ $category->excerpt}}</p>
+                <a href="/posts/create" class=" ">
+                    <h3 class="font-semibold text-green-400 my-3 block text-lg lg:text-xl "> An Item for sale <i class=" fa fa-chevron-right "></i></h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur illo ullam eaque magni ipsa natus sint exercitationem aperiam ex, earum at blanditiis aut, cupiditate expedita, repudiandae quis. Sit, eveniet unde.</p>
                 </a>
             </div>
-        @endforeach
+            
+            <div class=" border-2  border-gray-200 border-solid p-3 rounded-sm hover:shadow-lg lg:text-lg lg:p-5">
+                <a href="{{ route('opportunities.create')}}" class=" ">
+                    <h3 class="font-semibold text-green-400 my-3 block text-lg lg:text-xl "> A scholarship opportunity <i class=" fa fa-chevron-right "></i></h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur illo ullam eaque magni ipsa natus sint exercitationem aperiam ex, earum at blanditiis aut, cupiditate expedita, repudiandae quis. Sit, eveniet unde.</p>
+                </a>
+            </div>
         
-    </div> --}}
+    </div>
     
 </section>
     

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdvertsController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\OpportunitiesController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,11 +34,15 @@ Route::post('/submitPost', 'PostsController@store')->name('posts.save');
 Route::post('/posts/{id}', 'PostsController@update')->name('posts.update');
 Route::delete('/posts/{id}', 'PostsController@destroy')->name('posts.delete');
 
+// for Adverts
 Route::get('/ads/create', [AdvertsController::class, 'create']);
 Route::get('/ads/edit/{id}', [AdvertsController::class, 'edit']);
 Route::put('/ads/update/{id}', [AdvertsController::class, 'update'])->name('ads.update');
 Route::delete('/ads/{id}', [AdvertsController::class, 'destroy'])->name('ads.delete');
 Route::post('/ads/save', [AdvertsController::class, 'store'])->name('ads.save');
+
+// for opportunities
+Route::resource('opportunities', 'OpportunitiesController');
 
 Auth::routes();
 
