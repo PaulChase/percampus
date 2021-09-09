@@ -30,7 +30,7 @@
                </div>
                 
                 <div class=" mt-3 p-3 bg-gray-50 lg:rounded-sm">
-                    <h3 class=" font-semibold border-b border-gray-200 pb-2">Description</h3>
+                    <h3 class=" font-semibold border-b border-gray-200 pb-2">More Info</h3>
                     <p class=" whitespace-pre-line">{{$post->description}}</p>
                 </div>
 
@@ -83,7 +83,7 @@
                 
                 {{-- Social share --}}
                 <div class=" bg-gray-50 px-4 py-6 rounded-sm  my-3 border  text-center lg:rounded-sm">
-                    <p class=" md:text-lg mb-5">Share to a friend who you think might also be interested in this item</p>
+                    <p class=" md:text-lg mb-5">Share to a friend who you think might also be interested in this opportunity</p>
                     {!! $social!!}
                 </div>
                 {{-- end of Social share --}}

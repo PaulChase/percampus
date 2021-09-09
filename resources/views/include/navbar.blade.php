@@ -101,7 +101,7 @@
               <ul class=" list-none flex">
                 
                 <li class="md:ml-2">
-                  <a class=" inline-block bg-green-500 px-3 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-600" href="/posts/create"> <i class="la la-pencil"></i>
+                  <a class=" inline-block bg-green-500 px-3 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-600" href="/post-type"> <i class="la la-pencil"></i>
                     Add post
                   </a>
                 </li>

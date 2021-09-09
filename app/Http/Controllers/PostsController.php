@@ -138,10 +138,10 @@ class PostsController extends Controller
                 $imageResize->save($path);
 
                 // saving it to the s3 bucket and also making it public so my website can access it
-                Storage::disk('local')->put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
+                Storage::disk('s3')->put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
 
                 // get the public url from s3
-                $url  = Storage::disk('local')->url('public/images/' . $fileNameToStore);
+                $url  = Storage::disk('s3')->url('public/images/' . $fileNameToStore);
 
                 // then save the image record to the Db
                 $this->saveImage($thePostId, $fileNameToStore, $url);

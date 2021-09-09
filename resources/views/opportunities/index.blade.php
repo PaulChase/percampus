@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title') Recent Posts in {{$cName ?? ''}} @endsection
+@section('title') Latest scholarships opportunities for university students @endsection
 
 @section('content')
    <div class=" bg-gray-50 px-3 py-3">
