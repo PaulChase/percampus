@@ -26,9 +26,12 @@ class OpportunitiesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function latest($categoryName)
     {
-        //
+        $category = SubCategory::where('slug', $categoryName)->firstOrFail();
+        $posts = $category->posts()->where('status', 'active')->orderBy('created_at', 'desc')->paginate(16);
+
+        return view('opportunities.index')->with('posts', $posts);
     }
 
     /**

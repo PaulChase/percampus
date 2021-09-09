@@ -43,6 +43,7 @@ Route::post('/ads/save', [AdvertsController::class, 'store'])->name('ads.save');
 
 // for opportunities
 Route::resource('opportunities', 'OpportunitiesController');
+Route::get('opportunities/latest/{categoryName}', [OpportunitiesController::class, 'latest']);
 
 Auth::routes();
 

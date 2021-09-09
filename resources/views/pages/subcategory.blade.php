@@ -9,7 +9,7 @@
         
         @foreach ($subCategories as $subcategory)
             <div class=" border-2  border-gray-200 border-solid p-3 rounded-md hover:shadow-lg lg:text-lg lg:p-5">
-                <a href="{{route('posts.latest', ['campus'=>$campus->nick_name ,'c'=> $subcategory->slug])}}" class=" ">
+                <a href="{{route('posts.latest', ['campus'=>$campus->nick_name ,'c'=> $subcategory->slug, 'm'=> $mainCategory])}}" class=" ">
                     <h3 class="font-semibold text-green-600 my-3 block text-lg lg:text-xl">{{ $subcategory->name}} <i class=" fa fa-chevron-right "></i></h3>
                     
                 </a>

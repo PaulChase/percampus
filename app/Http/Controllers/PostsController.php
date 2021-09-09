@@ -54,7 +54,8 @@ class PostsController extends Controller
      */
     public function create()
     {
-        $subcategories = SubCategory::get();
+        // get subcatrgories for marketplace
+        $subcategories = SubCategory::where('category_id', 2)->get();
         return view('posts.add')->with('subcategories', $subcategories);
     }
 
@@ -113,7 +114,10 @@ class PostsController extends Controller
                 $fileNameWithExt = $image->getClientOriginalName();
 
                 // get only the file name
-                $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+                // $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+                // the name should be the title of the post bcoz of some SEO tactics
+                $fileName = $request->input('title');
 
                 // get the extension e.g .png, .jpg etc
                 $extension = $image->getClientOriginalExtension();
@@ -134,10 +138,10 @@ class PostsController extends Controller
                 $imageResize->save($path);
 
                 // saving it to the s3 bucket and also making it public so my website can access it
-                Storage::disk('s3')->put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
+                Storage::disk('local')->put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
 
                 // get the public url from s3
-                $url  = Storage::disk('s3')->url('public/images/' . $fileNameToStore);
+                $url  = Storage::disk('local')->url('public/images/' . $fileNameToStore);
 
                 // then save the image record to the Db
                 $this->saveImage($thePostId, $fileNameToStore, $url);
@@ -177,6 +181,7 @@ class PostsController extends Controller
 
         $post = Post::where('slug', $slug)->firstOrFail();
 
+
         // get the logged in user campus ID
         if (Auth::user()) {
             $campusID = auth()->user()->campus_id;
@@ -190,6 +195,10 @@ class PostsController extends Controller
         $allCategory = 0;
 
         $ads = Advert::whereIn('campus_id',  [$allCampus, $campusID])->whereIn('subcategory_id', [$categoryID, $allCategory])->where('status', 'active')->get();
+
+        if ($post->subcategory->category->name == 'opportunities') {
+            return view('opportunities.single')->with('post', $post)->with('social', $socialLinks)->with('ads', $ads);
+        }
 
         return view('posts.single')->with('post', $post)->with('social', $socialLinks)->with('ads', $ads);
     }
@@ -366,6 +375,10 @@ class PostsController extends Controller
     {
 
         $categoryName = $request->get('c');
+        $mainCategory = $request->get('m');
+        if ($mainCategory == 'opportunities') {
+            return redirect()->action([OpportunitiesController::class, 'latest'], ['categoryName' => $categoryName]);
+        }
         // get the logged user campus
         if (Auth::user()) {
             $campus = auth()->user()->campus;
