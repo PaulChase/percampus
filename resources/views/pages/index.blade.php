@@ -13,7 +13,10 @@
         <div class=" bg-black top-0 right-0 w-full h-full absolute opacity-80 ">
             <nav class=" flex flex-row justify-between max-w-7xl mx-auto align-middle p-4">
                 <h1 class=" no-underline hover:no-underline font-extrabold  text-2xl lg:text-3xl tracking-widest"> {{config('app.name')}}</h1>
+                @guest
                 <a href="/login" class=" inline-block border-2 px-4 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-700">Log In</a >
+                @endguest
+                
                 
             </nav>
             <div class=" flex flex-row justify-center items-center h-full p-3 ">

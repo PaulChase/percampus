@@ -17,9 +17,9 @@ class PagesController extends Controller
     public function index()
     {
         // if the user is logged in, redirect to the user's campus homepage
-        if (Auth::User()) {
-            return redirect()->route('campus.home', ['campus' => auth()->user()->campus->nick_name]);
-        }
+        // if (Auth::User()) {
+        //     return redirect()->route('campus.home', ['campus' => auth()->user()->campus->nick_name]);
+        // }
 
         // get the list of all the supported campus
         $campuses = Campus::orderBy('name', 'asc')->get();
@@ -62,9 +62,9 @@ class PagesController extends Controller
         /*
         check for the logged in user campus nickname instead
         */
-        if (Auth::User()) {
-            $campusNickName = auth()->user()->campus->nick_name;
-        }
+        // if (Auth::User()) {
+        //     $campusNickName = auth()->user()->campus->nick_name;
+        // }
 
 
         $campus = Campus::where('nick_name', $campusNickName)->firstOrFail();

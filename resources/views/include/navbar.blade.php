@@ -15,9 +15,17 @@
             </label>
 
             <div class="order-1">
-              <a class=" tracking-wide no-underline hover:no-underline font-bold text-green-600 text-2xl " href="/"> 
-                  <b> {{config('app.name')}} </b>
-              </a>
+              @auth
+              <a class=" tracking-wide no-underline hover:no-underline font-bold text-green-600 text-2xl " href="{{route('campus.home', ['campus'=> Auth::user()->campus->nick_name])}}"> 
+                <b> {{config('app.name')}} | {{Auth::user()->campus->nick_name }} </b>
+            </a> 
+
+                  @else
+                  <a class=" tracking-wide no-underline hover:no-underline font-bold text-green-600 text-2xl " href="/"> 
+                    <b> {{config('app.name')}} </b>
+                </a>
+              @endauth
+              
           </div>
           <input class="hidden" type="checkbox" id="menu-toggle" />
             <div class=" md:flex md:items-center md:w-auto  order-3 md:order-2 lg:order-2 hidden  w-full" id="menu">
@@ -25,7 +33,12 @@
                     <ul class="grid grid-cols-2 gap-2 md:flex items-center md:justify-between text-base text-gray-700 pt-4 md:pt-0  md:space-y-0 ">
                       <li class=" hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent"> 
                         <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="/">
-                          Home
+                          Homepage
+                        </a>
+                      </li>
+                      <li class="md:ml-2 hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+                        <a class=" block no-underline py-2 text-grey-darkest hover:text-black md:border-none md:font-medium md:p-0 hover:no-underline font-semibold " href="/allcampuses">
+                          All Campuses
                         </a>
                       </li>
                       <li class=" hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent"> 
@@ -44,11 +57,7 @@
                           Feedback
                         </a>
                       </li>
-                      <li class="md:ml-2 hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
-                        <a class=" block no-underline py-2 text-grey-darkest hover:text-black md:border-none md:font-medium md:p-0 hover:no-underline font-semibold " href="/allcampuses">
-                          All Campuses
-                        </a>
-                      </li>
+                      
                      
 
                           <!-- Authentication Links -->
