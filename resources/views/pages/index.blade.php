@@ -14,7 +14,7 @@
             <nav class=" flex flex-row justify-between max-w-7xl mx-auto align-middle p-4">
                 <h1 class=" no-underline hover:no-underline font-extrabold  text-2xl lg:text-3xl tracking-widest"> {{config('app.name')}}</h1>
                 @guest
-                <a href="/login" class=" inline-block border-2 px-4 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-700">Log In</a >
+                <a href="/register" class=" inline-block border-2 px-4 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-700">Register</a >
                 @endguest
                 
                 
@@ -25,7 +25,7 @@
                     </p>
                     <p>Welcome to our campus marketplace, you will be able to sell new and used items very fast to students on your campus  </p>
                     <p class="grid gap-3 grid-cols-2">
-                        <a href="/register" class=" inline-block bg-green-500 opacity-100 py-4  rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-700 mt-5 border-2 border-green-500 shadow-xl  text-center">Start selling for FREE</a>
+                        <a href="/register" class=" inline-block bg-green-500 opacity-100 py-4  rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-800 mt-5 border-2 border-green-500 shadow-xl  text-center">Start selling for FREE</a>
                         <a href="/allcampuses" class=" inline-block opacity-100 py-4  rounded-md text-white text-sm font-semibold md:text-base border-2 border-white focus:border-green-700 mt-5 shadow-xl  text-center">View Items for Sale</a>
                     </p>
                 </div>

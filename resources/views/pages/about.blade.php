@@ -15,7 +15,7 @@
           <p><strong>Ajonye Paul</strong> is a 300L Mechanical Engineering student in Federal University of Technology, Minna.</p>
           <p>He is a Full stack Web developer with great interest in programming, BlockChain, business and tech in general. If he is not coding then he is probably watching a TV Series, a documentary or reading about recent innovations in the Tech Industry.</p>
           <p>The thought of this website (which was initially just a side project) came when a friend of his has to travel all the way from makurdi to Minna just to find and book a lodge here in minna. </p>
-          <p>He goal is to provide a way for students to solve most their problems online and also aid the student Entrepreneurs to run  a successful business within thier respective campuses (<i>features coming soon</i>).</p>
+          <p>He goal is to provide a way for students to solve most of their problems online and also aid the student Entrepreneurs to run  a successful business within their respective campuses (<i>features coming soon</i>).</p>
           <p>Our lecturers already exists to frustrate us, our stay throughout the university should also not be that stressful.</p>
           
         </div>

@@ -22,7 +22,7 @@
                 </div>
                 <div>
                     <label for="description">Description <b class=" text-red-500">*</b></label><br>
-                    <textarea name="description" id="" cols="30" rows="4" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder="give accurate information concerning the opportunity such as who is eligible and the necessary requirements to apply etc"></textarea><br>
+                    <textarea name="description" id="" cols="30" rows="8" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder="give accurate information concerning the opportunity such as who is eligible and the necessary requirements to apply etc"></textarea><br>
                     @error('description')
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">{{ $message }}</small>
                     @enderror

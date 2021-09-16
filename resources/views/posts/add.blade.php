@@ -38,7 +38,7 @@
                </div>
                 <div>
                     <label for="price">Price of the item <b class=" text-red-500">*</b></label>
-                    <input type="text" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" name="price" placeholder="a fair price for the item " >
+                    <input type="text" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" name="price" placeholder="a fair price for the item e.g 2,500 " >
                     @error('price')
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">{{ 'the price of the item is Required' }}</small>
                     @enderror
