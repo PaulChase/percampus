@@ -21,7 +21,7 @@
             </nav>
             <div class=" flex flex-row justify-center items-center h-full p-3 ">
                 <div class="px-2 ">
-                    <p class=" text-3xl lg:text-5xl lg:max-w-3xl  font-semibold my-3">Discover  cheap products up For Sale  by other Students on your Campus.
+                    <p class=" text-3xl lg:text-5xl lg:max-w-3xl  font-semibold my-3">Discover  low cost products up For Sale  by other Students on your Campus.
                     </p>
                     <p>Welcome to our campus marketplace, you will be able to sell new and used items very fast to students on your campus  </p>
                     <p class="grid gap-3 grid-cols-2">
@@ -47,20 +47,20 @@
 
             <div class=" px-7 py-3 text-lg">
                 <h3 class=" text-3xl font-bold my-4">How It Works</h3>
-                <div class="mb-10">
-                    <i class="fa fa-check-circle fa-3x my-4"></i>
+                <div class="mb-10 py-6">
+                    <i class="fa fa-edit fa-3x my-4"></i>
                     <p>If you  have an item for sale whether used or new, the first step is to create your account for FREE <a href="/register" class=" text-green-500">here.</a> </p>
                 </div>
-                <div class="mb-10">
-                    <i class="fa fa-check-circle fa-3x my-4"></i>
+                <div class="mb-10 py-6">
+                    <i class="fa fa-user fa-3x my-4"></i>
                     <p>In your account dashboard, you can click on the add post button to go to  the add post page. </p>
                 </div>
-                <div class="mb-10">
-                    <i class="fa fa-check-circle fa-3x my-4"></i>
+                <div class="mb-10 py-6">
+                    <i class="fa fa-save fa-3x my-4"></i>
                     <p> Fill out the information about the item correctly and review it again for any possible errors and click the submit button when you are done.</p>
                 </div>
-                <div class="mb-10">
-                    <i class="fa fa-check-circle fa-3x my-4"></i>
+                <div class="mb-10 py-6">
+                    <i class="fa fa-phone-square fa-3x my-4"></i>
                     <p>In a few seconds your post will go live on the website. Students on your campus who are interested in the item will call you with the contact you provided. </p>
                 </div>
 
@@ -88,11 +88,11 @@
 
         @guest
             {{-- call to action --}}
-        <div class="mx-3 shadow-2xl rounded-md bg-gray-800 px-3 py-8 h-auto text-xl text-white font-semibold text-center my-5 lg:h-72 lg:flex  lg:items-center lg:px-10">
-            <p class=" md:w-3/12"><i class="fa fa-rocket fa-3x text-green-500 mb-4"></i></p>
+        <div class="mx-3 shadow-2xl rounded-md bg-gray-800 px-4 py-12 h-auto text-xl text-white font-semibold text-center my-5 lg:h-72 lg:flex  lg:items-center lg:px-10">
+            <p class=" md:w-3/12"><i class="fa fa-rocket fa-3x text-green-500 mb-6"></i></p>
             <div>
                 <p class=" lg:text-3xl italic"> If you start posting now, your items will be seen first when buyers start flooding in.  <br> So what are you waiting for?</p> 
-                <p class=" mt-5"> <a href="/register" class=" rounded-full border-2 py-3 px-5 text-base bg-green-500 border-green-500 focus:bg-green-500 focus:border-green-500 md:text-lg">Sign Me up ASAP</a></p>
+                <p class=""> <a href="/register" class=" rounded-full border-2 py-3 px-5 text-base bg-green-500 border-green-500 focus:bg-green-500 focus:border-green-500 md:text-lg block my-7">Sign Me up ASAP</a></p>
             </div>
         </div>
         @endguest
@@ -104,8 +104,8 @@
         <div class=" grid lg:grid-cols-2 gap-4 p-4"> 
             
 
-            <div class=" p-4 rounded-sm space-y-4 my-4 text-center">
-                <p class=" md:text-lg font-semibold">You know a friend that this website may change his/her life for good? Don't hesitate to click the share buttons below </p>
+            <div class=" p-4  my-4 text-center">
+                <p class=" md:text-lg font-semibold mb-7">You know a friend that this website may change his/her life for good? Don't hesitate to click the share buttons below </p>
                 {!! $social!!}
             </div>
         </div>

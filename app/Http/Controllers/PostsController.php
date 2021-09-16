@@ -218,6 +218,11 @@ class PostsController extends Controller
             return redirect('/dashboard')->with('error', 'You are not allowed to edit this post');
         }
 
+        // if the post is in opportunities category, return the view of the edit opportunity
+        if ($post->subcategory->category->name == 'opportunities') {
+            return view('opportunities.edit')->with('post', $post);
+        }
+
         return view('posts.edit')->with('post', $post);
     }
 

@@ -65,7 +65,7 @@
                     <h3 class=" font-semibold border-b border-gray-200 pb-2">Posted by:</h3>
                     <p class=" text-xl my-3 flex items-center"> <span class="fa fa-user-circle fa-2x text-gray-400 mr-2"></span>  {{ $post->user->name}}</p>
                     <div class=" grid grid-cols-2 gap-3">
-                            <a href="tel:+234{{$post->contact_info}}" class=" block p-3 border-2 border-gray-200 text-center focus:border-green-500 rounded-sm"><i class="fa fa-phone mr-3  text-green-500"></i> Call</a>
+                            <a href="tel:0{{$post->contact_info}}" class=" block p-3 border-2 border-gray-200 text-center focus:border-green-500 rounded-sm"><i class="fa fa-phone mr-3  text-green-500"></i> Call</a>
                             <a href="https://wa.me/234{{$post->contact_info}}?text=Hello%20{{$post->user->name}},%20I%20saw%20your%20adverstisement%20on%20www.percampus.com%20I%20want%20to%20ask%20if%20the%20item%20you%20posted%20is%20still%20available%20for%20sale" class=" block p-3 border-2 border-gray-200 text-center focus:border-green-500 rounded-sm"><i class="fab fa-whatsapp mr-3  text-green-500"></i> Whatsapp</a>
                         </div>
                         

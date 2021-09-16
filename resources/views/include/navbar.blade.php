@@ -17,7 +17,7 @@
             <div class="order-1">
               @auth
               <a class=" tracking-wide no-underline hover:no-underline font-bold text-green-600 text-2xl " href="{{route('campus.home', ['campus'=> Auth::user()->campus->nick_name])}}"> 
-                <b> {{config('app.name')}} | {{Auth::user()->campus->nick_name }} </b>
+                <b> {{config('app.name')}}_<small class=" font-thin">{{Auth::user()->campus->nick_name }}</small>  </b>
             </a> 
 
                   @else

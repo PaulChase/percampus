@@ -3,7 +3,7 @@
 @section('title') Latest scholarships opportunities for university students @endsection
 
 @section('content')
-   <div class=" bg-gray-50 px-3 py-3">
+   <div class=" bg-gray-50 px-2 py-3">
 
         <div class="text-lg font-medium  px-2 md:text-center md:text-xl">
             <h2>Recent Posts <i>{{$cName ?? ''}}</i></h2>

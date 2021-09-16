@@ -12,10 +12,22 @@
                 <span>{{ Auth::user()->campus->name}}</span> <br>
             <span class=" italic">Email: {{  Auth::user()->email}}</span></p>
             </div>
+
+            {{-- for only admins --}}
+            @if (Auth::user()->role_id == 1)
+                <div class=" my-2 bg-gray-50 p-3 grid grid-cols-2 gap-x-3">
+                    <a href="/bossarena" class="border-2 border-green-200 rounded-md p-3 text-center font-semibold " target="_blank">Boss Arena</a>
+                    <a href="/admin" class="border-2 border-green-200 rounded-md p-3 text-center font-semibold " target="_blank">Admin Panel</a>
+                </div>
+            @endif
+
+
             <div class=" my-2 font-semibold bg-gray-50 p-3 flex justify-between items-center">
                 <span>Your Recent Posts</span>
                 <a href="/posts/create" class=" bg-green-500 py-2 px-3 rounded-sm text-white">Add a Post</a>
             </div>
+
+            
     
             <div class=" my-2 bg-gray-50 p-3" >
                 

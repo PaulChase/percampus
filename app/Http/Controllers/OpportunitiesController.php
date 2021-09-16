@@ -179,7 +179,76 @@ class OpportunitiesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required',
+            'image.*' => 'mimes:jpeg,jpg,png|max:2048', //validate for file extensions and image size
+
+        ]);
+
+
+
+        // dd('yes here');
+
+        $post = Post::find($id);
+        // add post to Database
+        $post->title = $request->input('title');
+        $post->description = $request->input('description');
+        $post->price = $request->input('reward');
+        $post->apply_link = $request->input('apply_link');
+        $post->apply_deadline = $request->input('deadline');
+        $post->save();
+
+
+
+        //  checking if image is set and valid
+        if (
+            $request->hasFile('image')
+        ) {
+            // array of all the images uploaded 
+            $image = $request->file('image');
+
+
+            $fileNameWithExt = $image->getClientOriginalName();
+
+            // get only the file name
+            // $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+            // the name should be the title of the post bcoz of some SEO tactics
+            $fileName = $request->input('title');
+
+            // get the extension e.g .png, .jpg etc
+            $extension = $image->getClientOriginalExtension();
+
+            /*
+                the filename to store is a combination of the the main file name with a timestamp, then the file extension. The reason is to have a unique filename for every image uplaoded.
+                */
+            $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
+
+            // the path to store
+            $path = $image->getRealPath() . '.jpg';
+
+            // reducing the file size of the image and also optimizing it for fast loading
+            $imageResize = ImageOptimizer::make($image);
+            $imageResize->resize(1000, 1000, function ($const) {
+                $const->aspectRatio();
+            })->encode('jpg', 80);
+            $imageResize->save($path);
+
+            // saving it to the s3 bucket and also making it public so my website can access it
+            Storage::disk('s3')->put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
+
+            // get the public url from s3
+            $url  = Storage::disk('s3')->url('public/images/' . $fileNameToStore);
+
+            // then save the image record to the Db
+            $this->saveImage($id, $fileNameToStore, $url);
+        } /* else {
+
+            $this->saveImage($thePostId, 'noimage.jpg', ' ');
+        } */
+
+        return  redirect('/dashboard')->with('success', 'Your Post Has Been updated');
     }
 
     /**

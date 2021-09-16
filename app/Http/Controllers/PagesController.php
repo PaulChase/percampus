@@ -26,7 +26,7 @@ class PagesController extends Controller
 
         // to generate social share links
         $share = new Share;
-        $socialLinks = $share->currentPage(null, ['class' => 'text-white text-2xl bg-gray-600 rounded-full py-2 px-3'], '<ul class = " flex flex-row justify-between">', '</ul>')->facebook()->whatsapp()->telegram()->linkedin()->twitter();
+        $socialLinks = $share->currentPage(null, ['class' => 'text-green-500 text-2xl bg-green-50 border-2 border-green-500 rounded-full py-1 px-3'], '<ul class = " flex flex-row justify-between">', '</ul>')->facebook()->whatsapp()->telegram()->twitter();
 
         return view('pages.index')->with('campuses', $campuses)->with('social', $socialLinks);
     }

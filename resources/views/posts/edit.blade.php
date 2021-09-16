@@ -14,28 +14,28 @@
                 <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                 <div>
                     <label for="">title</label><br>
-                    <input name="title" class="p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" type="text" value="{{$post->title}}"><br>
+                    <input name="title" class="p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" type="text" value="{{$post->title}}" required><br>
                     @error('title')
                         <small class="alert alert-danger mt-1 mb-1">please enter a valid title</small>
                     @enderror
                 </div>
                 <div>
                     <label for="">Details</label><br>
-                    <textarea name="description" id="" cols="30" rows="4" class="p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" >{{$post->description}}</textarea><br>
+                    <textarea name="description" id="" cols="30" rows="4" class="p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" required>{{$post->description}}</textarea><br>
                     @error('description')
                         <small class="alert alert-danger mt-1 mb-1">{{ $message }}</small>
                     @enderror
                 </div>
                 <div>
                     <label for="price">Price <b class=" text-red-500">*</b></label>
-                    <input type="text" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" name="price" placeholder="e.g 2500" value="{{$post->price}}">
+                    <input type="text" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" name="price" placeholder="e.g 2500" value="{{$post->price}}" required>
                     @error('price')
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">{{ 'the price of the item is Required' }}</small>
                     @enderror
                 </div>
                 <div>
                     <label for="">Venue / Meeting point</label>
-                    <input type="text" class="p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" name="venue" value="{{$post->venue}}">
+                    <input type="text" class="p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" name="venue" value="{{$post->venue}}" required>
                 </div>
                 <div>
                     <label for="contact">Phone Number (s)</label>
