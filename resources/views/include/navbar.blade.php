@@ -1,6 +1,9 @@
 @php
     use App\Models\Category;
+    use App\Models\Campus;
     $categories = Category::get();
+    $campuses = Campus::orderBy('name')->get();
+
 @endphp
 
 <header class="border-b md:flex md:items-center md:justify-between shadow-md md:py-2  bg-white">
@@ -113,12 +116,21 @@
             <div class="order-3 lg:order-2 w-full lg:w-auto  mt-3 md:mt-2 lg:mt-0 @if ( Route::current()->getName() == 'campus.home' || Request::is('allcampuses'))
             {{'hidden'}}
         @endif">
-              <form class="bg-gray-100 flex rounded-md shadow" action="{{ url ('search')}}" method="GET " >
+              <form class="  rounded-md " action="{{ url ('search')}}" method="GET " >
                 {{ csrf_field() }}
                 <label class="hidden" for="search-form">Search</label>
-                <input class="px-3 py-2 rounded-md w-full focus:outline-none bg-gray-50" placeholder="I'm looking for ..." type="text" name="query" required>
-                
-                <button type="submit" name="submit" class="focus:bg-green-500 text-green-500 focus:text-white rounded-r-md focus:outline-none"><i class="fa fa-search  mx-1.5 my-1 cursor-pointer "></i></button>
+                <input class="px-3 py-2 rounded-md w-full focus:outline-none bg-gray-50 shadow" placeholder="search the name of the item e.g mattress" type="text" name="query" required>
+
+                <div class="mt-2 grid grid-cols-4 gap-x-3 bg-gray-50">
+                  <select name="campus" id="" class=" p-1 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200 col-span-3" required>
+                    <option value="0" disabled selected>Pick the Campus</option>
+                    @foreach ($campuses as $campus)
+                      <option value="{{$campus->id}}" class="">{{$campus->name}}</option>
+                    @endforeach
+                  </select>
+                  
+                  <button type="submit" name="submit" class="focus:bg-green-500 bg-green-500 focus:text-white rounded-md focus:outline-none text-white p-1"><i class="fa fa-search  mx-1.5 my-1 cursor-pointer "></i> Search</button>
+                </div >
               </form>
             </div>
         </div>

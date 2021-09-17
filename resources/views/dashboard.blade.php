@@ -16,7 +16,7 @@
             {{-- for only admins --}}
             @if (Auth::user()->role_id == 1)
                 <div class=" my-2 bg-gray-50 p-3 grid grid-cols-2 gap-x-3">
-                    <a href="/bossarena" class="border-2 border-green-200 rounded-md p-3 text-center font-semibold " target="_blank">Boss Arena</a>
+                    <a href="{{ route('metrics')}}" class="border-2 border-green-200 rounded-md p-3 text-center font-semibold " target="_blank">Boss Arena</a>
                     <a href="/admin" class="border-2 border-green-200 rounded-md p-3 text-center font-semibold " target="_blank">Admin Panel</a>
                 </div>
             @endif

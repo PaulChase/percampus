@@ -17,6 +17,8 @@ use Intervention\Image\ImageManagerStatic as ImageOptimizer;
 use Illuminate\Http\File;
 use Jorenvh\Share\Share;
 
+use function JmesPath\search;
+
 // use Spatie\Image\Image as SpatieImage;
 
 
@@ -30,7 +32,7 @@ class PostsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'byCategory']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'byCategory', 'search']]);
     }
 
 
@@ -360,15 +362,24 @@ class PostsController extends Controller
     public function search(Request $request)
     {
         $query = trim($request->get('query'));
+        $campusID = $request->get('campus');
+
+        if (Auth::user()) {
+            $campus = auth()->user()->campus;
+        } else {
+            $campus = Campus::find($campusID);
+            // dd($campus);
+        }
 
 
-        $campus = auth()->user()->campus;
-        $results = $campus->posts()->where('status', 'active')->where('title', 'like', "%{$query}%")->orderBy('created_at', 'desc')->paginate(5);
+        $results = $campus->posts()->where('status', 'active')->where('title', 'like', "%{$query}%")->orderBy('created_at', 'desc')->paginate(16);
 
         // save the search query to the database
         $saveQuery = new Search;
         $saveQuery->query = $query;
-        $saveQuery->user_id = auth()->user()->id;
+
+        // the user_id of zero means guest
+        $saveQuery->user_id = Auth::user() ? auth()->user()->id : 0;
         $saveQuery->if_results = $results->count() > 0 ? 'yes' : 'no';
 
         $saveQuery->save();

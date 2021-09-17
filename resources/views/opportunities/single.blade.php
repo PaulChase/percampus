@@ -48,13 +48,15 @@
                 
                 <div class=" mt-3 p-3 bg-gray-50 lg:mt-0 lg:rounded-sm">
                     <h3 class=" font-semibold border-b border-gray-200 pb-2">Posted by:</h3>
-                    <p class=" text-xl my-3 flex items-center"> <span class="fa fa-user-circle fa-2x text-gray-400 mr-2"></span>  {{ $post->user->name}}</p>
-                    
-                        
+                    <p class=" text-xl my-3 flex items-center"> <span class="fa fa-user-circle fa-2x text-gray-400 mr-2"></span>  {{ $post->user->name}}</p>        
+                </div>
+                <div class=" mt-3 p-5 bg-gray-50 lg:rounded-sm text-center">
+                    <p>If you have used or new items for sale on campus? You can post them for FREE on our marketplace</p>
+                    <a href="/register" class=" block my-3 border border-gray-300 uppercase p-3 rounded-sm font-semibold focus:bg-gray-500 focus:text-white" target="_blank"> <i class=" fa fa-shopping-cart mr-2"></i> Start selling</a>
                 </div>
 
                 <div class=" mt-3 p-3 bg-gray-50 lg:rounded-sm text-center">
-                    <h3 class=" font-bold text-lg my-2">If you are Eligible? proceed to</h3>
+                    <h3 class=" font-bold text-lg my-3 italic">If you are Eligible? proceed to</h3>
                     <a href="{{ $post->apply_link}}" class=" block p-2 border-2 border-green-500 rounded-sm w-2/3 uppercase font-bold mx-auto text-green-500" target="_blank">Apply now</a>
                 </div>
     
@@ -83,7 +85,7 @@
                 
                 {{-- Social share --}}
                 <div class=" bg-gray-50 px-4 py-6 rounded-sm  my-3 border  text-center lg:rounded-sm">
-                    <p class=" md:text-lg mb-5">Share to a friend who you think might also be interested in this opportunity</p>
+                    <p class=" md:text-lg mb-5">Someone around you really need this, kindly share till it get to that Someone</p>
                     {!! $social!!}
                 </div>
                 {{-- end of Social share --}}

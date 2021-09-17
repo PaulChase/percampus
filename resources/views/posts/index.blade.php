@@ -6,7 +6,12 @@
    <div class=" bg-gray-50 px-3 py-3">
 
         <div class="text-lg font-medium  px-2 md:text-center md:text-xl">
+            @if ($query)
+            <h2> showing results for  <i>{{$query}}</i></h2>
+            @else
             <h2>Recent Posts <i>{{$cName ?? ''}}</i></h2>
+            @endif
+            
         </div>
         
         {{-- div for posts --}}
@@ -49,13 +54,19 @@
         </div>
             {{$posts->links()}}
         @else
-            <p>No Posts</p>
+            @if ($query)
+                <p class=" text-center ">Sorry, there are no <i>{{ $query}}</i> for now, you can check back later.</p>
+                
+            @else
+                <p>No Posts</p>
+                
+            @endif
         @endif
 
         
    </div>
    @guest
-       <a href="/posts/create" class=" block w-full bg-green-500 fixed bottom-0 z-50 p-3 text-center text-white font-semibold  rounded-t-md"> <i class="fab fa-bag"></i> Start selling for FREE</a>
+       <a href="/posts/create" class=" block w-full bg-green-500 fixed bottom-0 z-50 p-3 text-center text-white font-semibold  rounded-t-md "> <i class="fab fa-bag"></i> Start selling for FREE</a>
    @endguest
    
 @endsection

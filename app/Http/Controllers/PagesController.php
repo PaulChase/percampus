@@ -7,7 +7,9 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Page;
+use App\Models\Post;
 use App\Models\SubCategory;
+use App\Models\User;
 use Jorenvh\Share\Share;
 
 
@@ -97,6 +99,22 @@ class PagesController extends Controller
         $campuses = Campus::orderBy('name')->get();
 
         return view('pages.allcampuses')->with('campuses', $campuses);
+    }
+
+    public function showMetricsPage()
+    {
+        $usersCount = User::select(['id'])->count();
+
+        $postsCount = Post::select(['id'])->count();
+
+        $marketplaceCount = Category::find(2)->posts()->count();
+
+        $opportunitiesCount = Category::find(3)->posts()->count();
+
+        // dd($opportunitiesCount);
+
+
+        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount'));
     }
 
     // public function pickCategory()
