@@ -30,10 +30,13 @@
                         <h3 class=" text-lg md:text-lg text-gray-600 mb-2 font-semibold ">
                             <a href="/{{$each_post->user->campus->nick_name}}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}" class="focus:text-green-600">{{$each_post->title}}</a>
                         </h3>
-                        
+                        @php
+                            
+                            $deadline = new DateTime($each_post->apply_deadline);
+                            // dd($deadlane);
+                        @endphp
                         <p class="">
-                            <strong>DeadLine:</strong> {{ $each_post->apply_deadline}}
-                        
+                            <strong>DeadLine:</strong>  {{ $deadline->format("jS F, Y")}}
                         </p>
                     </div>
                 </div>

@@ -97,10 +97,10 @@ class OpportunitiesController extends Controller
             $fileNameWithExt = $image->getClientOriginalName();
 
             // get only the file name
-            // $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
 
             // the name should be the title of the post bcoz of some SEO tactics
-            $fileName = $request->input('title');
+            // $fileName = $request->input('title');
 
             // get the extension e.g .png, .jpg etc
             $extension = $image->getClientOriginalExtension();
@@ -212,10 +212,10 @@ class OpportunitiesController extends Controller
             $fileNameWithExt = $image->getClientOriginalName();
 
             // get only the file name
-            // $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
 
             // the name should be the title of the post bcoz of some SEO tactics
-            $fileName = $request->input('title');
+            // $fileName = $request->input('title');
 
             // get the extension e.g .png, .jpg etc
             $extension = $image->getClientOriginalExtension();

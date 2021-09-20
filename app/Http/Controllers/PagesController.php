@@ -111,10 +111,14 @@ class PagesController extends Controller
 
         $opportunitiesCount = Category::find(3)->posts()->count();
 
-        // dd($opportunitiesCount);
+        $mostViewedPosts = Post::select(['title','view_count'])->orderBy('view_count', 'desc')->get()->take(10);
+
+        $totalPostViews = Post::select(['view_count'])->sum('view_count');
+
+        // dd($mostViewedPosts);
 
 
-        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount'));
+        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews', 'mostViewedPosts'));
     }
 
     // public function pickCategory()
