@@ -9,6 +9,12 @@
         Before you proceed, please select your university from the list below<br>
         <small class=" italic">Arranged alphabetically</small>
     </div>
+    <div class=" p-6 shadow-xl rounded-md my-4">
+        <i class="fa fa-info-circle fa-2x mr-2"></i>
+        As of now, I don't have the complete list of all the Universities in Nigeria. <br> 
+        So if you can't find your university below, You can DM me on whatsapp with the name of your university so I can add it.
+        <a href="https://wa.me/2347040214836" class=" border p-2 border-gray-400 text-center font-medium rounded-sm block my-2"> <i class=" fab fa-whatsapp mr-2 "></i>Contact Me</a>
+    </div>
     <div class=" grid lg:grid-cols-3 gap-3">
         
         @foreach ($campuses as $campus)

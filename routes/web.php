@@ -32,7 +32,7 @@ Route::get('/metrics', [PagesController::class, 'showMetricsPage'])->name('metri
 // for marketplace posts
 Route::resource('posts', 'PostsController');
 Route::post('/submitPost', 'PostsController@store')->name('posts.save');
-Route::post('/posts/{id}', 'PostsController@update')->name('posts.update');
+Route::post('/posts/{id}', 'PostsController@update')->name('posts.toupdate');
 Route::delete('/posts/{id}', 'PostsController@destroy')->name('posts.delete');
 
 // for Adverts

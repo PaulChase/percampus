@@ -12,10 +12,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
+    <meta name="keywords" content="campus marketplace, buy and sell on campus, percampus, scholarships for university students, sell products on campus,sell products on a university campus,{{$post->user->campus->name ?? ''}}, {{$post->title ?? ''}}, {{$post->subcategory->slug ?? ''}},  {{$post->subcategory->category->name ?? ''}} ">
+    
+    <meta name="description" content="@yield('description')">
+
+
+    <meta name="author" content="{{$post->user->name ?? 'percampus'}}">
+
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') | {{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title') | {{ config('app.name', 'Percampus') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

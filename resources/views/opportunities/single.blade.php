@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title') {{$post->title}} @endsection
+@section('description') Apply for {{$post->title}} before the deadline, to know more visit our website @endsection
 
 @section('content')
 
@@ -24,7 +25,12 @@
                     <hr/>
                     <div class=" flex justify-between items-center mb-3 pt-2"> 
                         {{-- {{ dd($post->price)}} --}}
-                        <p class=" text-lg text-green-500"> <strong>DeadLine:</strong>  {{ $post->apply_deadline}} </p>
+                        @php
+                            
+                            $deadline = new DateTime($post->apply_deadline);
+                            // dd($deadlane);
+                        @endphp
+                        <p class=" text-lg text-green-500"> <strong>DeadLine:</strong>  {{ $deadline->format("jS F, Y")}} </p>
                         <p>  {{$post->created_at->diffForHumans()}}</p>
                     </div>
                </div>
@@ -50,10 +56,8 @@
                     <h3 class=" font-semibold border-b border-gray-200 pb-2">Posted by:</h3>
                     <p class=" text-xl my-3 flex items-center"> <span class="fa fa-user-circle fa-2x text-gray-400 mr-2"></span>  {{ $post->user->name}}</p>        
                 </div>
-                <div class=" mt-3 p-5 bg-gray-50 lg:rounded-sm text-center">
-                    <p>If you have used or new items for sale on campus? You can post them for FREE on our marketplace</p>
-                    <a href="/register" class=" block my-3 border border-gray-300 uppercase p-3 rounded-sm font-semibold focus:bg-gray-500 focus:text-white" target="_blank"> <i class=" fa fa-shopping-cart mr-2"></i> Start selling</a>
-                </div>
+                    @include('include.convince')
+                
 
                 <div class=" mt-3 p-3 bg-gray-50 lg:rounded-sm text-center">
                     <h3 class=" font-bold text-lg my-3 italic">If you are Eligible? proceed to</h3>

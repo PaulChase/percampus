@@ -97,7 +97,7 @@
                             </div>
                         </div>
                         <div>
-                            <input type="checkbox" name="terms" id="">
+                            <input type="checkbox" name="terms" id="terms" required>
                             <label for="terms">Accept Terms & Conditions <a href="/terms" class=" text-green-500">read here</a></label>
                         </div>
 

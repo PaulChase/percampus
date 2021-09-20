@@ -42,4 +42,9 @@ class Post extends Model
             ]
         ];
     }
+
+    public function incrementViewCount() {
+        $this->view_count++;
+        return $this->save();
+}
 }

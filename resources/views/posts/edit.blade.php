@@ -10,7 +10,7 @@
         
             <h1 class="text-center text-xl font-semibold my-4">Edit post</h1>
 
-            <form method="POST" action="{{ route('posts.update', ['id' => $post->id])}}" enctype="multipart/form-data" class=" space-y-4">
+            <form method="POST" action="{{ route('posts.toupdate', ['id' => $post->id])}}" enctype="multipart/form-data" class=" space-y-4">
                 <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                 <div>
                     <label for="">title</label><br>

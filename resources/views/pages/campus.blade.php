@@ -1,6 +1,8 @@
 @extends('layouts.app') 
 
 @section('title') {{$campus->name}} campus @endsection
+@section('description') Welcome to {{$campus->name}} campus where you can buy and sell products and services to students on your campus, find events, jobs, scholarship opportunities and so much more @endsection
+
 
 @section('content')
 <section
@@ -17,7 +19,7 @@
         @foreach ($categories as $category)
             <div class=" border-2  border-gray-200 border-solid py-4 px-5 rounded-md hover:shadow-lg lg:text-lg lg:p-5">
                 <a href="{{route('subcategory', ['campus'=> $campus->nick_name,'c'=> $category->name])}}" class=" ">
-                    <h3 class="font-semibold text-green-400 mb-3 block text-lg lg:text-xl uppercase">{{ $category->name}} <i class=" fa fa-chevron-right "></i></h3>
+                    <h3 class="font-semibold text-green-400 mb-3 block text-lg lg:text-xl uppercase">{{$campus->nick_name}} {{ $category->name}} <i class=" fa fa-chevron-right "></i></h3>
                     <p>{{ $category->excerpt}}</p>
                 </a>
             </div>

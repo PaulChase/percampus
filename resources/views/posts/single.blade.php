@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title') {{$post->title}} @endsection
+@section('description'){{$post->title}} for sale, it is also {{$post->description}} @endsection
 
 @section('content')
 
@@ -57,7 +58,9 @@
                         <td class=" float-right p-3"> {{$post->venue}}</td>
                     </tr>
                 </table>
+                @include('include.convince')
             </div>
+            
 
             <div class=" lg:col-span-2">
                 

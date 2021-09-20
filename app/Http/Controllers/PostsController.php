@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as ImageOptimizer;
 use Illuminate\Http\File;
 use Jorenvh\Share\Share;
+use Illuminate\Support\Facades\Cookie;
 
 use function JmesPath\search;
 
@@ -183,7 +184,12 @@ class PostsController extends Controller
 
         $post = Post::where('slug', $slug)->firstOrFail();
 
-
+         if(!Cookie::has($post->slug)){
+            
+		    Cookie::queue($post->slug, 'seen', 60);
+            $post->incrementViewCount();
+            
+	    }
         // get the logged in user campus ID
         if (Auth::user()) {
             $campusID = auth()->user()->campus_id;
