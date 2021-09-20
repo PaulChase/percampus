@@ -11,8 +11,8 @@ use App\Models\Post;
 use App\Models\SubCategory;
 use App\Models\User;
 use Jorenvh\Share\Share;
-
-
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Carbon;
 
 class PagesController extends Controller
 {
@@ -24,13 +24,17 @@ class PagesController extends Controller
         // }
 
         // get the list of all the supported campus
-        $campuses = Campus::orderBy('name', 'asc')->get();
+        // $campuses = Campus::orderBy('name', 'asc')->get();
+        // $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
+        //          return Campus::orderBy('name', 'asc')->get();
+        //     });
+
 
         // to generate social share links
         $share = new Share;
         $socialLinks = $share->currentPage(null, ['class' => 'text-green-500 text-2xl bg-green-50 border-2 border-green-500 rounded-full py-1 px-3'], '<ul class = " flex flex-row justify-between">', '</ul>')->facebook()->whatsapp()->telegram()->twitter();
 
-        return view('pages.index')->with('campuses', $campuses)->with('social', $socialLinks);
+        return view('pages.index')->with('social', $socialLinks);
     }
 
     // return the about page
@@ -70,8 +74,14 @@ class PagesController extends Controller
 
 
         $campus = Campus::where('nick_name', $campusNickName)->firstOrFail();
+        // $campus = Cache::remember('campus', Carbon::now()->addDay(), function ($campusNickName) {
+        //          return Campus::where('nick_name', $campusNickName)->firstOrFail();
+        //     });
 
-        $categories = Category::get();
+        // $categories = Category::get();
+        $categories = Cache::remember('categories', Carbon::now()->addDay(), function () {
+                 return Category::get();
+            });
         return view('pages.campus')->with('campus', $campus)->with('categories', $categories);
     }
 
@@ -96,7 +106,10 @@ class PagesController extends Controller
 
     public function getAllCampuses()
     {
-        $campuses = Campus::orderBy('name')->get();
+        $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
+                 return Campus::orderBy('name', 'asc')->get();
+            });
+        // $campuses = Campus::orderBy('name')->get();
 
         return view('pages.allcampuses')->with('campuses', $campuses);
     }

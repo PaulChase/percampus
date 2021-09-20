@@ -5,8 +5,13 @@
 <div class=" bg-gray-100 py-4">
 
             @php
+                use Illuminate\Support\Carbon;
+
                 use App\Models\Campus;
-                $campuses = Campus::orderBy('name')->get();
+                $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
+                 return Campus::orderBy('name', 'asc')->get();
+            });
+                // $campuses = Campus::orderBy('name')->get();
             @endphp
             
     

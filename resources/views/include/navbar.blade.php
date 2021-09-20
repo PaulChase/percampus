@@ -1,8 +1,13 @@
 @php
     use App\Models\Category;
     use App\Models\Campus;
+    use Illuminate\Support\Carbon;
+
     $categories = Category::get();
-    $campuses = Campus::orderBy('name')->get();
+    // $campuses = Campus::orderBy('name')->get();
+    $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
+                 return Campus::orderBy('name', 'asc')->get();
+            });
 
 @endphp
 
