@@ -22,6 +22,11 @@ class PagesController extends Controller
         // if (Auth::User()) {
         //     return redirect()->route('campus.home', ['campus' => auth()->user()->campus->nick_name]);
         // }
+        // $name = 'chase';
+
+        // if (Auth::User()) {
+        //     return redirect()->to('https://google.'. $name . 'paul' );
+        // }
 
         // get the list of all the supported campus
         // $campuses = Campus::orderBy('name', 'asc')->get();
@@ -127,11 +132,12 @@ class PagesController extends Controller
         $mostViewedPosts = Post::select(['title','view_count'])->orderBy('view_count', 'desc')->get()->take(10);
 
         $totalPostViews = Post::select(['view_count'])->sum('view_count');
+        $totalPostContacts = Post::select(['no_of_contacts'])->sum('no_of_contacts');
 
         // dd($mostViewedPosts);
 
 
-        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews', 'mostViewedPosts'));
+        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews', 'mostViewedPosts', 'totalPostContacts'));
     }
 
     // public function pickCategory()

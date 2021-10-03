@@ -17,7 +17,7 @@ use Intervention\Image\ImageManagerStatic as ImageOptimizer;
 use Illuminate\Http\File;
 use Jorenvh\Share\Share;
 use Illuminate\Support\Facades\Cookie;
-
+use Illuminate\Support\Carbon;
 use function JmesPath\search;
 
 // use Spatie\Image\Image as SpatieImage;
@@ -33,7 +33,7 @@ class PostsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'byCategory', 'search']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'byCategory', 'search', 'contactSeller']]);
     }
 
 
@@ -417,4 +417,25 @@ class PostsController extends Controller
 
         return view('posts.index')->with('posts', $posts)->with('cName', $categoryName);
     }
+
+
+    public function contactSeller( Request $request)
+    {
+        // dd('here');
+
+        $postID = $request->input('postID');
+        $post = Post::find($postID);
+
+        $contactCookie = $postID.$post->slug;
+        if(!Cookie::has($contactCookie)){
+            
+		    Cookie::queue($contactCookie, 'contacted', 1440);
+            $post->incrementContactCount();
+            
+	    }
+        
+        return response()->json(['success' => 'yep']);
+    }
 }
+
+

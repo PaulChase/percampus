@@ -10,7 +10,7 @@
         <div class=" max-w-7xl mx-auto py-3 lg:grid lg:grid-cols-6 lg:gap-5">
             {{-- {{ dd($post->images()->get())}} --}}
             <div class="lg:col-span-4">
-                <div class="cover-photos swiper w-full  lg:rounded-sm">
+                <div class="cover-photos swiper w-full  lg:rounded-sm" id='contact'>
                     <div class="swiper-wrapper">
                         @foreach ($post->images()->get() as $image)
                         <div class="swiper-slide ">
@@ -64,12 +64,13 @@
 
             <div class=" lg:col-span-2">
                 
-                <div class=" mt-3 p-3 bg-gray-50 lg:mt-0 lg:rounded-sm">
+                <div class=" mt-3 p-3 bg-gray-50 lg:mt-0 lg:rounded-sm" >
                     <h3 class=" font-semibold border-b border-gray-200 pb-2">Posted by:</h3>
                     <p class=" text-xl my-3 flex items-center"> <span class="fa fa-user-circle fa-2x text-gray-400 mr-2"></span>  {{ $post->user->name}}</p>
                     <div class=" grid grid-cols-2 gap-3">
-                            <a href="tel:0{{$post->contact_info}}" class=" block p-3 border-2 border-gray-200 text-center focus:border-green-500 rounded-sm"><i class="fa fa-phone mr-3  text-green-500"></i> Call</a>
-                            <a href="https://wa.me/234{{$post->contact_info}}?text=Hello%20{{$post->user->name}},%20I%20saw%20your%20adverstisement%20on%20www.percampus.com%20I%20want%20to%20ask%20if%20the%20item%20you%20posted%20is%20still%20available%20for%20sale" class=" block p-3 border-2 border-gray-200 text-center focus:border-green-500 rounded-sm"><i class="fab fa-whatsapp mr-3  text-green-500"></i> Whatsapp</a>
+                            <a href="tel:0{{$post->contact_info}}" class=" block p-3 border-2 border-gray-200 text-center focus:border-green-500 rounded-sm contact" ><i class="fa fa-phone mr-3  text-green-500 "></i> Call</a>
+                            <a href="https://wa.me/234{{$post->contact_info}}?text=Hello%20{{$post->user->name}},%20I%20saw%20your%20adverstisement%20on%20www.percampus.com%20I%20want%20to%20ask%20if%20the%20item%20you%20posted%20is%20still%20available%20for%20sale" class=" block p-3 border-2 border-gray-200 text-center focus:border-green-500 rounded-sm contact"><i class="fab fa-whatsapp mr-3  text-green-500"></i> Whatsapp</a>
+                            <button id="calling" class="block p-3 border-2 border-gray-200 text-center focus:border-green-500 rounded-sm">checkmate</button>
                         </div>
                         
                 </div>
@@ -125,3 +126,42 @@
         
     </div>
 @endsection 
+
+@section('js')
+     <script>
+         $(document).ready(function(){
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            })
+
+            $(".contact").click(function(){
+                
+                // let _token = $('meta[name="csrf-token"]').attr('content');
+                let postID = {{ $post->id}};
+              
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('contact.seller')}}",
+                    data: { postID : postID},
+                    success : function(data) {
+                        console.log(data.success);
+                    },
+                });
+            
+
+                // $.post(
+                //     "{{ route('contact.seller')}}", 
+                //     {postID:postID},
+                //     success : function(data) {
+                //         alert(data.success);
+                //      })
+            });
+
+
+        });
+    </script>
+@endsection

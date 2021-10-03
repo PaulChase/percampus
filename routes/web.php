@@ -28,6 +28,7 @@ Route::view('/terms', 'pages.terms');
 Route::get('/allcampuses', 'PagesController@getAllCampuses');
 Route::view('/post-type', 'pages.pickcategory')->name('pickCategory');
 Route::get('/metrics', [PagesController::class, 'showMetricsPage'])->name('metrics');
+Route::post('/contactSeller', [PostsController::class, 'contactSeller'])->name('contact.seller');
 
 // for marketplace posts
 Route::resource('posts', 'PostsController');

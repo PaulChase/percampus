@@ -35,7 +35,7 @@
     {{-- end of hero section --}}
 
 
-    <main class=" bg-green-50 text-gray-700 m-0">
+    <main class=" bg-gray-50 text-gray-700 m-0">
         <div class=" text-center lg:px-3 lg:py-9">
             <div class=" px-3 py-8 text-xl text-center font-semibold lg:flex lg:items-center lg:max-w-xl lg:text-3xl  italic mx-auto ">
                 <p>

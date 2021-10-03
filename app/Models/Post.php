@@ -46,5 +46,10 @@ class Post extends Model
     public function incrementViewCount() {
         $this->view_count++;
         return $this->save();
+    }
+
+    public function incrementContactCount() {
+        $this->no_of_contacts++;
+        return $this->save();
 }
 }

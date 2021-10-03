@@ -29,6 +29,11 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    {{-- jquery script --}}
+    <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+
+    
+
 
  
 
@@ -57,6 +62,8 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PDD32MW"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
+
+
     @include('include.navbar')
     
         <main>
@@ -64,7 +71,9 @@
             @yield('content')
         </main>
     @include('include.footer')
+
+    @yield('js')
     
-        
+       
 </body>
 </html>
