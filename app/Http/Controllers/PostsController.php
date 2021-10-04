@@ -184,9 +184,13 @@ class PostsController extends Controller
 
         $post = Post::where('slug', $slug)->firstOrFail();
 
-         if(!Cookie::has($post->slug)){
+        if (Auth::user()  && (Auth::user()->id !== $post->user->id) && !Cookie::has($post->slug)) {
+             Cookie::queue($post->slug, 'seen', 120);
+            $post->incrementViewCount();
+
+        }else if(!Cookie::has($post->slug) && !(Auth::user())){
             
-		    Cookie::queue($post->slug, 'seen', 60);
+		    Cookie::queue($post->slug, 'seen', 120);
             $post->incrementViewCount();
             
 	    }
@@ -427,12 +431,18 @@ class PostsController extends Controller
         $post = Post::find($postID);
 
         $contactCookie = $postID.$post->slug;
-        if(!Cookie::has($contactCookie)){
+
+        if (Auth::user()  && (Auth::user()->id !== $post->user->id) && !Cookie::has($contactCookie)) {
+             
+            Cookie::queue($contactCookie, 'contacted', 1440);
+            $post->incrementContactCount();
+        }else if(!Cookie::has($contactCookie)){
             
 		    Cookie::queue($contactCookie, 'contacted', 1440);
             $post->incrementContactCount();
             
 	    }
+        
         
         return response()->json(['success' => 'yep']);
     }

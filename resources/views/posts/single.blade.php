@@ -70,7 +70,7 @@
                     <div class=" grid grid-cols-2 gap-3">
                             <a href="tel:0{{$post->contact_info}}" class=" block p-3 border-2 border-gray-200 text-center focus:border-green-500 rounded-sm contact" ><i class="fa fa-phone mr-3  text-green-500 "></i> Call</a>
                             <a href="https://wa.me/234{{$post->contact_info}}?text=Hello%20{{$post->user->name}},%20I%20saw%20your%20adverstisement%20on%20www.percampus.com%20I%20want%20to%20ask%20if%20the%20item%20you%20posted%20is%20still%20available%20for%20sale" class=" block p-3 border-2 border-gray-200 text-center focus:border-green-500 rounded-sm contact"><i class="fab fa-whatsapp mr-3  text-green-500"></i> Whatsapp</a>
-                            <button id="calling" class="block p-3 border-2 border-gray-200 text-center focus:border-green-500 rounded-sm">checkmate</button>
+                            
                         </div>
                         
                 </div>

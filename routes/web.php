@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', 'PagesController@index');
+Route::get('/', 'PagesController@index')->name('welcome');
 Route::view('/about', 'pages.about');
 Route::view('/howto', 'pages.howto');
 Route::view('/safety', 'pages.safety');
@@ -29,6 +29,7 @@ Route::get('/allcampuses', 'PagesController@getAllCampuses');
 Route::view('/post-type', 'pages.pickcategory')->name('pickCategory');
 Route::get('/metrics', [PagesController::class, 'showMetricsPage'])->name('metrics');
 Route::post('/contactSeller', [PostsController::class, 'contactSeller'])->name('contact.seller');
+Route::get('/join', [PagesController::class, 'join'])->name('join');
 
 // for marketplace posts
 Route::resource('posts', 'PostsController');

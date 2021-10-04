@@ -6,19 +6,26 @@
 
             @php
                 use Illuminate\Support\Carbon;
-
+                use Illuminate\Support\Facades\Cookie;
+                use App\Models\User;
                 use App\Models\Campus;
+                
                 $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
                  return Campus::orderBy('name', 'asc')->get();
-            });
+                });
                 // $campuses = Campus::orderBy('name')->get();
+                
             @endphp
             
     
         
             <div class="px-4 py-4 md:max-w-lg mx-auto md:shadow-lg rounded-md bg-white ">
 
-                <div class=" text-center text-xl font-semibold my-4">{{ __('Sign Up for a Personal Account') }}</div>
+                <div class=" text-center text-xl font-semibold my-4">{{ __('Sign Up for a Personal Account') }} 
+                    @if (Cookie::has('referer'))
+                    {{$referer->name}} referred you
+                    @endif 
+                </div>
 
                 <div class=" ">
                     <form method="POST" action="{{ route('register') }}" class=" space-y-4" >

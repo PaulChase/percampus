@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAdvertsTable extends Migration
+class CreateReferralsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateAdvertsTable extends Migration
      */
     public function up()
     {
-        Schema::create('adverts', function (Blueprint $table) {
+        Schema::create('referrals', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('link');
-            $table->string('image_url');
-            $table->string('status');
-            $table->integer('campus_id');
-            $table->integer('category_id')->nullable();
+            $table->integer('referee');
+            $table->integer('referer');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateAdvertsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('adverts');
+        Schema::dropIfExists('referrals');
     }
 }

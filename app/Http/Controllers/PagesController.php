@@ -13,6 +13,7 @@ use App\Models\User;
 use Jorenvh\Share\Share;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cookie;
 
 class PagesController extends Controller
 {
@@ -121,6 +122,7 @@ class PagesController extends Controller
 
     public function showMetricsPage()
     {
+        
         $usersCount = User::select(['id'])->count();
 
         $postsCount = Post::select(['id'])->count();
@@ -135,9 +137,20 @@ class PagesController extends Controller
         $totalPostContacts = Post::select(['no_of_contacts'])->sum('no_of_contacts');
 
         // dd($mostViewedPosts);
+       
 
 
         return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews', 'mostViewedPosts', 'totalPostContacts'));
+    }
+
+    public function join(Request $request)
+    {
+
+        $refererID  = $request->get('inviter');
+        
+        Cookie::queue('refererID', $refererID, 10080);
+
+        return redirect()->route('welcome');
     }
 
     // public function pickCategory()
