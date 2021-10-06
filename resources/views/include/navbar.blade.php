@@ -126,17 +126,17 @@
                 <label class="hidden" for="search-form">Search</label>
                 <input class="px-3 py-2 rounded-md w-full focus:outline-none bg-gray-50 shadow" placeholder="search the name of the item e.g mattress" type="text" name="query" required>
 
-                @guest
+                
                 <div class="mt-2 grid grid-cols-4 gap-x-3 bg-gray-50">
-                  <select name="campus" id="" class=" p-1 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200 col-span-3" required>
-                    <option value="0" disabled selected>Pick the Campus to search in...</option>
+                  <select name="campus" id="" class=" p-1 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200 col-span-3" >
+                    <option value="{{ null }}" selected>Pick the Campus to search in...</option>
                     @foreach ($campuses as $campus)
                       <option value="{{$campus->id}}" class="">{{$campus->name}}</option>
                     @endforeach
                   </select>
                   
                   <button type="submit" name="submit" class="focus:bg-green-500 bg-gray-100 border border-green-400 focus:text-white rounded-md focus:outline-none text-green-500 p-1"><i class="fa fa-search  mx-1.5 my-1 cursor-pointer "></i> Search</button>
-                @endguest
+                
                 
                 </div >
               </form>

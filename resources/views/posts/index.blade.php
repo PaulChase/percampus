@@ -36,14 +36,8 @@
                             <a href="/{{$each_post->user->campus->nick_name}}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}" class="focus:text-green-600">{{$each_post->title}}</a>
                         </h3>
                         
-                        <p>
-                            @if ($each_post->price > 0)
-                                <small class=" text-green-500  text-xs md:text-base font-semibold"> N {{$each_post->price}}  </small>
-                            @else
-                            <small class=" text-green-500 text-xs md:text-base"> {{'Contact Me'}}  </small>    
-                        
-                        @endif
-                        {{-- <small>{{$each_post->created_at->diffForHumans()}}</small> --}}
+                        <p> 
+                            <small class=" text-green-500  text-xs md:text-base font-semibold"> N {{$each_post->price}}  </small>
                         </p>
                     </div>
                 </div>

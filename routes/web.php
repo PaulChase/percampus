@@ -4,6 +4,7 @@ use App\Http\Controllers\AdvertsController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\OpportunitiesController;
+use App\Http\Controllers\SubcategoriesController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,6 +31,13 @@ Route::view('/post-type', 'pages.pickcategory')->name('pickCategory');
 Route::get('/metrics', [PagesController::class, 'showMetricsPage'])->name('metrics');
 Route::post('/contactSeller', [PostsController::class, 'contactSeller'])->name('contact.seller');
 Route::get('/join', [PagesController::class, 'join'])->name('join');
+
+// // get the subcategories without going through the campus page so therefore the campus is not known
+Route::get('s/', [SubcategoriesController::class, 'getSubcategories'])->name('getSubCategories');
+
+// get the posts without going through the campus page so therefore the campus is not known
+Route::get('/s/posts', [SubcategoriesController::class, 'getPostsCategory'])->name('getposts.bycategory');
+
 
 // for marketplace posts
 Route::resource('posts', 'PostsController');
@@ -67,8 +75,8 @@ Route::get('/{campusNickName}/{categoryName}/{slug}', [PostsController::class, '
 
 Route::get('/{campus}/library', [PagesController::class, 'library'])->name('library');
 
-// to all the subcategoreies in that parent category
+// to all the subcategories in that parent category
 Route::get('/{campus}/subcategories', [PagesController::class, 'subCategory'])->name('subcategory');
 
 // to all the posts in that category
-Route::get('/{campus}/posts', [PostsController::class, 'byCategory'])->name('posts.latest');
+Route::get('/{campus}/posts', [PostsController::class, 'byCategory'])->name('campus.posts.bycategory');

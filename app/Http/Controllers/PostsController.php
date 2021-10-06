@@ -44,8 +44,9 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $campus = auth()->user()->campus;
-        $post = $campus->posts()->where('status', 'active')->orderBy('created_at', 'desc')->paginate(12);
+        $marketplace = Category::find(2);
+        
+        $post = $marketplace->posts()->where('status', 'active')->orderBy('created_at', 'desc')->paginate(16);
 
         return view('posts.index')->with('posts', $post);
     }
@@ -208,11 +209,30 @@ class PostsController extends Controller
 
         $ads = Advert::whereIn('campus_id',  [$allCampus, $campusID])->whereIn('subcategory_id', [$categoryID, $allCategory])->where('status', 'active')->get();
 
+        $marketplace = Category::find(2);
+            
+        $recentPosts = $marketplace->posts()
+                    ->where('status', 'active')
+                    ->orderBy('created_at', 'desc')
+                    ->get()
+                    ->take(6);
+
         if ($post->subcategory->category->name == 'opportunities') {
-            return view('opportunities.single')->with('post', $post)->with('social', $socialLinks)->with('ads', $ads);
+            return view('opportunities.single')
+            ->with('post', $post)
+            ->with('social', $socialLinks)
+            ->with('recentPosts', $recentPosts)
+            ->with('ads', $ads);
         }
 
-        return view('posts.single')->with('post', $post)->with('social', $socialLinks)->with('ads', $ads);
+        $similarPosts = Post::where('subcategory_id', $post->subcategory->id)->orderBy('view_count', 'desc')->get()->take(6);
+        // dd($similarPosts);
+
+        return view('posts.single')
+            ->with('post', $post)
+            ->with('social', $socialLinks)
+            ->with('ads', $ads)
+            ->with('similarPosts', $similarPosts);
     }
 
     /**
@@ -374,15 +394,29 @@ class PostsController extends Controller
         $query = trim($request->get('query'));
         $campusID = $request->get('campus');
 
-        if (Auth::user()) {
-            $campus = auth()->user()->campus;
+        // if (Auth::user()) {
+        //     $campus = auth()->user()->campus;
+        // } else {
+        //     $campus = Campus::find($campusID);
+        // }
+
+        if ($campusID == null) {
+            $results = Post::where('status', 'active')
+                            ->where('title', 'like', "%{$query}%")
+                            ->orderBy('created_at', 'desc')
+                            ->paginate(16);
         } else {
             $campus = Campus::find($campusID);
-            // dd($campus);
+            $results = $campus->posts()
+                            ->where('status', 'active')
+                            ->where('title', 'like', "%{$query}%")
+                            ->orderBy('created_at', 'desc')
+                            ->paginate(16);
         }
+        
 
 
-        $results = $campus->posts()->where('status', 'active')->where('title', 'like', "%{$query}%")->orderBy('created_at', 'desc')->paginate(16);
+        
 
         // save the search query to the database
         $saveQuery = new Search;
@@ -406,13 +440,13 @@ class PostsController extends Controller
             return redirect()->action([OpportunitiesController::class, 'latest'], ['categoryName' => $categoryName]);
         }
         // get the logged user campus
-        if (Auth::user()) {
-            $campus = auth()->user()->campus;
-        } else {
-            // or get it from the arguments from the URL
-            $campus = Campus::where('nick_name', $campusNickName)->firstOrFail();
-        }
-
+        // if (Auth::user()) {
+        //     $campus = auth()->user()->campus;
+        // } else {
+        //     // or get it from the arguments from the URL
+        //     $campus = Campus::where('nick_name', $campusNickName)->firstOrFail();
+        // }
+        $campus = Campus::where('nick_name', $campusNickName)->firstOrFail();
         $categoryID = SubCategory::where('slug', $categoryName)->value('id');
 
         // get posts from the campus above the match the category

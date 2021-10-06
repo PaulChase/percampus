@@ -35,12 +35,23 @@ class PagesController extends Controller
         //          return Campus::orderBy('name', 'asc')->get();
         //     });
 
+        $marketplace = Category::find(2);
+            
+        $posts = $marketplace->posts()
+                    ->where('status', 'active')
+                    ->get()
+                    ->shuffle()
+                    ->take(10);
+        
+        
 
         // to generate social share links
         $share = new Share;
         $socialLinks = $share->currentPage(null, ['class' => 'text-green-500 text-2xl bg-green-50 border-2 border-green-500 rounded-full py-1 px-3'], '<ul class = " flex flex-row justify-between">', '</ul>')->facebook()->whatsapp()->telegram()->twitter();
 
-        return view('pages.index')->with('social', $socialLinks);
+        return view('pages.index')
+            ->with('social', $socialLinks)
+            ->with('posts', $posts);
     }
 
     // return the about page
@@ -85,10 +96,20 @@ class PagesController extends Controller
         //     });
 
         // $categories = Category::get();
-        $categories = Cache::remember('categories', Carbon::now()->addDay(), function () {
-                 return Category::get();
-            });
-        return view('pages.campus')->with('campus', $campus)->with('categories', $categories);
+        // $categories = Cache::remember('categories', Carbon::now()->addDay(), function () {
+        //          return Category::get();
+        //     });
+
+        
+
+        $recentPosts = $campus->posts()->whereIn('subcategory_id', [1,2,3,4,5,6,7,8,9,13,14])->orderBy('created_at', 'desc')->get()->take(10);
+
+        $recentOpportunities =Post::whereIn('subcategory_id', [10,11,13])->orderBy('created_at', 'desc')->get()->take(6);
+        // dd($recentPosts);
+        return view('pages.campus')
+                ->with('campus', $campus)
+                ->with('recentPosts',  $recentPosts)
+                ->with('recentOpportunities',  $recentOpportunities);
     }
 
     public function library($campus)
@@ -106,8 +127,11 @@ class PagesController extends Controller
 
         $subCategories = $category->subcategories()->orderBy('name')->get();
 
-
-        return view('pages.subcategory')->with('subCategories', $subCategories)->with('campus', $campus)->with('mainCategory', $categoryName);
+        // dd($campus);
+        return view('pages.subcategory')
+                ->with('subCategories', $subCategories)
+                ->with('campus', $campus)
+                ->with('mainCategory', $category);
     }
 
     public function getAllCampuses()

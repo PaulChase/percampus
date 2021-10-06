@@ -6,7 +6,7 @@
 @section('focus')
 
     {{-- hero section  --}}
-    <header style="background: url(/storage/images/herob.jpg) no-repeat center center/cover;
+    <header style="background: url('/storage/images/herob.jpg') no-repeat center center/cover;
         height: 90vh;" class=" relative text-white  ">
         
         
@@ -19,7 +19,7 @@
                 
                 
             </nav>
-            <div class=" flex flex-row justify-center items-center h-full p-3 ">
+            <div class=" flex justify-center items-center h-full p-3 ">
                 <div class="px-2 ">
                     <p class=" text-3xl lg:text-5xl lg:max-w-3xl  font-semibold my-3">Discover  low cost products up For Sale  by other Students on your Campus.
                     </p>
@@ -36,7 +36,70 @@
 
 
     <main class=" bg-gray-50 text-gray-700 m-0">
-        <div class=" text-center lg:px-3 lg:py-9">
+                
+            
+        <div class="p-3">
+            <h3 class="p-3  font-semibold text-xl my-3"> What other Students are Selling </h3>
+                <div class="grid gap-4 grid-cols-2">
+                    @foreach ($posts as $each_post)
+                    <div class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm md:grid-cols-1  md:gap-y-2 " >
+
+                    <div class="   ">
+                            <a href="/{{$each_post->user->campus->nick_name}}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}">
+                                @if (is_object($each_post->images()->first()))
+                                    <img src="{{$each_post->images()->first()->Image_path}}" class=" w-full  object-fill  rounded-t-sm h-32 md:h-48   md:rounded-b-none md:rounded-t-sm" lazy="loading" alt="{{$each_post->title}}">
+                                @endif
+                            </a>
+                            
+                    </div>        
+                    <div class="col-span-4  flex flex-col justify-center md:justify-start px-3 py-2">
+                        <h3 class=" text-sm md:text-lg text-gray-600 mb-2 font-semibold overflow-hidden whitespace-nowrap overflow-ellipsis">
+                            <a href="/{{$each_post->user->campus->nick_name}}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}" class="focus:text-green-600">{{$each_post->title}}</a>
+                        </h3>
+                        
+                        <p>
+                          <span class="block italic">In <span class=" uppercase">{{$each_post->user->campus->nick_name}}</span>  campus</span>  
+                          <small class=" text-green-500  text-xs md:text-base font-semibold"> N {{$each_post->price}}  </small>
+                        </p>
+                    </div>
+                    </div>
+        
+            
+                    @endforeach
+                </div>
+                <div class="my-4">
+                    <a href="/posts" class="block mx-auto w-3/4 p-3 bg-green-500 rounded-full text-white text-center font-semibold focus:bg-green-700"> View More <i class="fa fa-chevron-right ml-2"></i></a>
+                </div>   
+            </div>
+        </div>
+
+        <div class="p-3 bg-green-400 text-white py-6">
+            <h3 class=" uppercase font-bold text-2xl text-center my-5 p-2">Top categories</h3>
+            <div class="grid gap-x-4 gap-y-8  grid-cols-2 text-center">
+                <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'phones' ])}}" class="focus:bg-green-700 rounded-md">
+                        <img src="/storage/icons/smartphone.png" alt="" class=" h-28  w-28 mx-auto my-2">
+                        <h4 class=" font-semibold">Mobile Phones</h4>
+                </a >
+                <a class="focus:bg-green-700 rounded-md" href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'men' ])}}" >
+                    <img src="/storage/icons/running-shoes.png" alt="" class=" h-28  w-28 mx-auto my-2">
+                    <h4 class=" font-semibold"> Shoes & Footwears</h4>
+                </a >
+                <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'women' ])}}" class="focus:bg-green-700 rounded-md">
+                    <img src="/storage/icons/dress.png" alt="" class=" h-28  w-28 mx-auto my-2">
+                    <h4 class=" font-semibold">Women Clothings</h4>
+                </a >
+                <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'food' ])}}" class="focus:bg-green-700 rounded-md">
+                    <img src="/storage/icons/burger.png" alt="" class=" h-28  w-28 mx-auto my-2">
+                    <h4 class=" font-semibold">Food & Provisions</h4>
+                </a >
+            </div>
+            <div class="my-8">
+                    <a href="{{ route('getSubCategories', ['mainCategoryID' => 2])}}" class="block mx-auto w-3/4 p-3 bg-white rounded-full text-green-500 text-center font-semibold focus:bg-green-500 focus:text-white"> Explore All Categories <i class="fa fa-chevron-right ml-2"></i></a>
+                </div>   
+        </div>
+
+
+        {{-- <div class=" text-center lg:px-3 lg:py-9">
             <div class=" px-3 py-8 text-xl text-center font-semibold lg:flex lg:items-center lg:max-w-xl lg:text-3xl  italic mx-auto ">
                 <p>
                     <i class=" fa fa-quote-left text-green-500 fa-2x "></i><br>
@@ -66,38 +129,33 @@
 
             </div>
 
-            {{-- list of our services --}}
-            {{-- <div class=" mt-4 p-3">
-                <h3 class=" my-4 py-3 text-center text-2xl font-bold" >What you will Enjoy as a Student</h3>
-                <ul class=" text-lg space-y-4">
-                    <li class=" flex"><i class="fa fa-check-circle fa-2x mr-2 text-green-400"></i><span>A platform to buy new or used items at a very price cheap from other students</span></li>
-                    <li class=" flex"><i class="fa fa-check-circle fa-2x mr-2 text-green-400"></i><span>A simple way to sell that item you no longer need and taking up space in your room</span></li>
-                    <li class=" flex"><i class="fa fa-check-circle fa-2x mr-2 text-green-400"></i><span>For the student Entrepreneur, you can market your products to to your fellow students for FREE</span></li>
-                    <li class=" flex"><i class="fa fa-check-circle fa-2x mr-2 text-green-400"></i><span>As a housing Agent, you can list your lodges that is open to let.</span></li>
-                    <li class=" flex"><i class="fa fa-check-circle fa-2x mr-2 text-green-400"></i><span>For the Jackers, there is an E-library section for you to find all your necessary course materials.</span></li>
-                </ul>
-            </div> --}}
-
-            {{-- end of list of our services --}}
-        </div>
+            
         
+      
         
         <div class=" mt-4 mb-10 px-4 py-2 text-2xl text-gray-600 font-bold text-center">
             <p>No need to share your product in few whatsapp groups and your status hoping someone will buy it, be rest assured that students coming here are ready to buy.</p>
-        </div>
+        </div> --}}
 
+
+        {{-- call to action --}}
         @guest
-            {{-- call to action --}}
-        <div class="mx-3 shadow-2xl rounded-md bg-gray-800 px-4 py-12 h-auto text-xl text-white font-semibold text-center my-5 lg:h-72 lg:flex  lg:items-center lg:px-10">
+        <div class=" bg-gray-700 px-4 py-12 h-auto text-xl text-white font-semibold text-center lg:h-72 lg:flex  lg:items-center lg:px-10">
             <p class=" md:w-3/12"><i class="fa fa-rocket fa-3x text-green-500 mb-6"></i></p>
             <div>
-                <p class=" lg:text-3xl italic"> If you start posting now, your items will be seen first when buyers start flooding in.  <br> So what are you waiting for?</p> 
-                <p class=""> <a href="/register" class=" rounded-full border-2 py-3 px-5 text-base bg-green-500 border-green-500 focus:bg-green-500 focus:border-green-500 md:text-lg block my-7">Sign Me up ASAP</a></p>
+                <p class=" lg:text-3xl "> If you start selling now, your items will be seen first when buyers start flooding in.  <br> So what are you waiting for?</p> 
+                <p class=""> <a href="/register" class=" rounded-full border-2 py-3 px-5 text-base bg-green-500 border-green-500 focus:bg-green-700 focus:border-green-700 md:text-lg block my-7">Sign Me up ASAP</a></p>
             </div>
         </div>
         @endguest
         
-
+        <div class=" text-center p-4">
+            <img src="/storage/icons/school.png" alt="" class="h-40 w-40 mx-auto my-4">
+            <p class=" text-2xl font-semibold ">Want to view items for sale on your campus?</p>
+            <div class="my-8">
+                    <a href="/allcampuses" class="block mx-auto w-3/4 p-3 bg-white rounded-full text-green-500 border-2 border-green-300  text-center font-semibold focus:bg-green-500 focus:text-white"> Visit your Campus marketplace  <i class="fa fa-chevron-right ml-2"></i></a>
+                </div>
+        </div>
         
         
 
@@ -105,7 +163,7 @@
             
 
             <div class=" p-4  my-4 text-center">
-                <p class=" md:text-lg font-semibold mb-7">You know a friend that this website may change his/her life for good? Don't hesitate to click the share buttons below </p>
+                <p class="text-lg font-semibold mb-7">You know a friend that this website may change his/her life for good? Don't hesitate to click the share buttons below </p>
                 {!! $social!!}
             </div>
         </div>

@@ -53,9 +53,17 @@
                         <td class="p-3 font-semibold"> Contact Me at</td>
                         <td class=" float-right p-3">0{{$post->contact_info}}</td>
                     </tr>
-                    <tr >
+                    <tr class=" border-b border-gray-200" >
                         <td class="p-3 font-semibold"> Meeting point</td>
                         <td class=" float-right p-3"> {{$post->venue}}</td>
+                    </tr>
+                    <tr class=" border-b border-gray-200" >
+                        <td class="p-3 font-semibold"> Category</td>
+                        <td class=" float-right p-3"> <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => $post->subcategory->slug ])}}" class=" float-right p-3 text-green-500 italic">{{$post->subcategory->name}}</a> </td>
+                    </tr>
+                    <tr >
+                        <td class="p-3 font-semibold"> Campus</td>
+                        <td class=" float-right p-3 text-green-500 italic"> <a href="/{{$post->user->campus->nick_name}}">{{$post->user->campus->name}}</td></a> 
                     </tr>
                 </table>
                 @include('include.convince')
@@ -68,11 +76,55 @@
                     <h3 class=" font-semibold border-b border-gray-200 pb-2">Posted by:</h3>
                     <p class=" text-xl my-3 flex items-center"> <span class="fa fa-user-circle fa-2x text-gray-400 mr-2"></span>  {{ $post->user->name}}</p>
                     <div class=" grid grid-cols-2 gap-3">
-                            <a href="tel:0{{$post->contact_info}}" class=" block p-3 border-2 border-gray-200 text-center focus:border-green-500 rounded-sm contact" ><i class="fa fa-phone mr-3  text-green-500 "></i> Call</a>
-                            <a href="https://wa.me/234{{$post->contact_info}}?text=Hello%20{{$post->user->name}},%20I%20saw%20your%20adverstisement%20on%20www.percampus.com%20I%20want%20to%20ask%20if%20the%20item%20you%20posted%20is%20still%20available%20for%20sale" class=" block p-3 border-2 border-gray-200 text-center focus:border-green-500 rounded-sm contact"><i class="fab fa-whatsapp mr-3  text-green-500"></i> Whatsapp</a>
+                            <a href="tel:0{{$post->contact_info}}" class=" block p-3 shadow-xl text-center font-semibold focus:border-green-500 rounded-sm contact" ><i class="fa fa-phone mr-3  text-green-500 "></i> Call</a>
+                            <a href="https://wa.me/234{{$post->contact_info}}?text=Hello%20{{$post->user->name}},%20I%20saw%20your%20adverstisement%20on%20www.percampus.com%20I%20want%20to%20ask%20if%20the%20item%20you%20posted%20is%20still%20available%20for%20sale" class="font-semibold block p-3 shadow-xl text-center focus:border-green-500 rounded-sm contact"><i class="fab fa-whatsapp mr-3  text-green-500"></i> Whatsapp</a>
                             
                         </div>
                         
+                </div>
+
+                <div class=" mt-3 p-3 bg-gray-50 lg:mt-0 lg:rounded-sm " >
+                    <h3 class=" my-3 font-semibold text-lg">Similar Items for sale</h3>
+                    <div class="grid gap-4 grid-cols-2">
+                    @foreach ($similarPosts as $similarPost)
+                    @php
+                        if ($similarPost->id == $post->id) {
+                            continue;
+                        }
+                    @endphp
+                        
+                        <div class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm md:grid-cols-1  md:gap-y-2 " >
+
+                    <div class=" col-span-2  ">
+                            <a href="/{{$similarPost->user->campus->nick_name}}/{{$similarPost->subcategory->slug}}/{{$similarPost->slug}}">
+                                @if (is_object($similarPost->images()->first()))
+                                    <img src="{{$similarPost->images()->first()->Image_path}}" class=" w-full  object-fill  rounded-t-sm h-32 md:h-48   md:rounded-b-none md:rounded-t-sm" lazy="loading" alt="{{$similarPost->title}}">
+                                @endif
+                            </a>
+                            
+                    </div>        
+                    <div class="col-span-4  flex flex-col justify-center md:justify-start px-3 py-2">
+                        <h3 class=" text-sm md:text-lg text-gray-600 mb-2 font-semibold overflow-hidden whitespace-nowrap overflow-ellipsis">
+                            <a href="/{{$similarPost->user->campus->nick_name}}/{{$similarPost->subcategory->slug}}/{{$similarPost->slug}}" class="focus:text-green-600">{{$similarPost->title}}</a>
+                        </h3>
+                        
+                        <p>
+                            @if ($similarPost->price > 0)
+                                <small class=" text-green-500  text-xs md:text-base font-semibold"> N {{$similarPost->price}}  </small>
+                            @else
+                            <small class=" text-green-500 text-xs md:text-base"> {{'Contact Me'}}  </small>    
+                        
+                        @endif
+                        {{-- <small>{{$similarPost->created_at->diffForHumans()}}</small> --}}
+                        </p>
+                    </div>
+                </div>
+        
+            
+            @endforeach
+                        
+                    </div>
+                    
                 </div>
     
     
