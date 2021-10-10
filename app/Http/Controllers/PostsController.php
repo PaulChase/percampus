@@ -46,7 +46,7 @@ class PostsController extends Controller
     {
         $marketplace = Category::find(2);
         
-        $post = $marketplace->posts()->where('status', 'active')->orderBy('created_at', 'desc')->paginate(16);
+        $post = $marketplace->posts()->where('status', 'active')->orderBy('created_at', 'desc')->paginate(20);
 
         return view('posts.index')->with('posts', $post);
     }
@@ -213,7 +213,7 @@ class PostsController extends Controller
         // so I can send marketplace posts to the opportunities category
         $marketplace = Category::find(2);
             
-        // get the recent posts from marketplace
+        // get the recent posts from marketplace for the opportunities pages
         $recentPosts = $marketplace->posts()
                     ->where('status', 'active')
                     ->orderBy('created_at', 'desc')

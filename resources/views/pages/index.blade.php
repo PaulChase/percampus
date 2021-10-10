@@ -82,19 +82,19 @@
             <h3 class=" uppercase font-bold text-2xl text-center my-5 p-2">Top categories</h3>
             <div class="grid gap-x-4 gap-y-8  grid-cols-2 text-center">
                 <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'phones' ])}}" class="focus:bg-green-700 rounded-md">
-                        <img src="/storage/icons/smartphone.png" alt="" class=" h-28  w-28 mx-auto my-2">
+                        <img src="/storage/icons/smartphone.png" alt="" class=" h-24  w-24 mx-auto my-2">
                         <h4 class=" font-semibold">Mobile Phones</h4>
                 </a >
                 <a class="focus:bg-green-700 rounded-md" href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'men' ])}}" >
-                    <img src="/storage/icons/running-shoes.png" alt="" class=" h-28  w-28 mx-auto my-2">
+                    <img src="/storage/icons/running-shoes.png" alt="" class=" h-24  w-24 mx-auto my-2">
                     <h4 class=" font-semibold"> Shoes & Footwears</h4>
                 </a >
                 <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'women' ])}}" class="focus:bg-green-700 rounded-md">
-                    <img src="/storage/icons/dress.png" alt="" class=" h-28  w-28 mx-auto my-2">
+                    <img src="/storage/icons/dress.png" alt="" class=" h-24  w-24 mx-auto my-2">
                     <h4 class=" font-semibold">Women Clothings</h4>
                 </a >
                 <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'food' ])}}" class="focus:bg-green-700 rounded-md">
-                    <img src="/storage/icons/burger.png" alt="" class=" h-28  w-28 mx-auto my-2">
+                    <img src="/storage/icons/burger.png" alt="" class=" h-24  w-24 mx-auto my-2">
                     <h4 class=" font-semibold">Food & Provisions</h4>
                 </a >
             </div>

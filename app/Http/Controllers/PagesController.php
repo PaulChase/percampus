@@ -103,9 +103,9 @@ class PagesController extends Controller
         //     });
 
         
-
-        $recentPosts = $campus->posts()->whereIn('subcategory_id', [1,2,3,4,5,6,7,8,9,13,14])->orderBy('created_at', 'desc')->get()->take(10);
-
+            // find a better to do this stuff oo
+        $recentPosts = $campus->posts()->whereIn('subcategory_id', [1,2,3,4,5,6,7,8,9,13,14])->orderBy('created_at', 'desc')->get()->take(12);
+            //  same as above
         $recentOpportunities =Post::whereIn('subcategory_id', [10,11,13])->orderBy('created_at', 'desc')->get()->take(6);
         // dd($recentPosts);
         return view('pages.campus')

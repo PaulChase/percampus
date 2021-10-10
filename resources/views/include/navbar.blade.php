@@ -25,7 +25,7 @@
             <div class="order-1">
               @auth
               <a class=" tracking-wide no-underline hover:no-underline font-bold text-green-600 text-2xl " href="{{route('campus.home', ['campus'=> Auth::user()->campus->nick_name])}}"> 
-                <b> {{config('app.name')}}_<small class=" font-thin">{{Auth::user()->campus->nick_name }}</small>  </b>
+                <b> {{config('app.name')}}  </b>
             </a> 
 
                   @else
@@ -44,6 +44,13 @@
                           Homepage
                         </a>
                       </li>
+                      @auth
+                           <li class=" hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent"> 
+                        <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="{{route('campus.home', ['campus'=> Auth::user()->campus->nick_name])}}">
+                          <span class=" uppercase">{{Auth::user()->campus->nick_name }} campus</span>
+                        </a>
+                      </li>
+                      @endauth
                       <li class="md:ml-2 hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                         <a class=" block no-underline py-2 text-grey-darkest hover:text-black md:border-none md:font-medium md:p-0 hover:no-underline font-semibold " href="/allcampuses">
                           All Campuses
