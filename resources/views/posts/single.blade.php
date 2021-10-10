@@ -1,12 +1,18 @@
 @extends('layouts.app')
 
-@section('title') {{$post->title}} @endsection
+@section('title') {{$post->title}}  for sale in {{ $post->user->campus->name}} @endsection
 @section('description'){{$post->title}} for sale, it is also {{$post->description}} @endsection
+@section('image_url') 
+@if (is_object($post->images()->first()))
+                {{$post->images()->first()->Image_path}}
+ @endif 
+@endsection
+
 
 @section('content')
 
     <div class=" bg-gray-200">
-
+       
         <div class=" max-w-7xl mx-auto py-3 lg:grid lg:grid-cols-6 lg:gap-5">
             {{-- {{ dd($post->images()->get())}} --}}
             <div class="lg:col-span-4">
@@ -83,7 +89,7 @@
                         
                 </div>
 
-                <div class=" mt-3 p-3 bg-gray-50 lg:mt-0 lg:rounded-sm " >
+                <div class=" mt-3 p-3 bg-gray-50   lg:rounded-sm " >
                     <h3 class=" my-3 font-semibold text-lg">Similar Items for sale</h3>
                     <div class="grid gap-4 grid-cols-2">
                     @foreach ($similarPosts as $similarPost)

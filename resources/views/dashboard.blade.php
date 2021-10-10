@@ -4,12 +4,12 @@
 
 @section('content')
 <div class=" bg-gray-200">
-   
+       
         <div class=" max-w-xl mx-auto py-2 ">
             <div class=" text-center p-3 bg-gray-50">
                 <p class=" my-4"><i class="fa fa-user-circle fa-7x text-gray-400"></i></p>
                 <p><strong class=" text-xl">{{ Auth::user()->name}}</strong> <br>
-                <span>{{ Auth::user()->campus->name}}</span> <br>
+                <span>{{ Auth::user()->campus->name ?? ' '}}</span> <br>
             <span class=" italic">Email: {{  Auth::user()->email}}</span></p>
             </div>
 
@@ -19,14 +19,13 @@
             </div>
 
             <div class=" fixed  w-full h-full z-10 overflow-auto  top-0 left-0 text-center hidden " style="background-color: rgba(0,0,0,0.5); " id= 'refer'>
-                <div class=" p-3 w-4/5 bg-white rounded-md relative mx-auto my-40">
+                <div class=" p-3 w-4/5 bg-white rounded-md md:w-2/5 relative mx-auto my-40">
                     <h4 class=" font-semibold my-4 ">Share your referral Link to:</h4>
                     <button class=" float-right font-semibold absolute top-3 right-6 bg-gray-300 rounded-full px-2 py-1 focus:bg-gray-500" id="closeRefer">X</button>
 
                     <p>
                         <a href="https://wa.me/?text={{ rawurlencode('Great Nigerian student, you have been invited to join Percampus - the fastest growing online marketplace for students to buy and sell new and used items to one another. click the link below to see the items available on your campus. https://percampus.com/join?refer=')}}{{Auth::user()->id}}" class=" block w-4/5 mx-auto p-3 rounded-2xl border-2 text-center font-medium border-gray-100 mb-3 focus:border-green-500"> <i class=" fab fa-whatsapp mr-2 "></i>WhatsApp</a>
-                        <a href="https://wa.me/?text={{ rawurlencode('Percampus - the fastest growing online marketplace for students to buy and sell new and used items to one another.https://percampus.com/join?refer=') }}{{Auth::user()->id}}" class=" block w-4/5 mx-auto p-3 rounded-2xl border-2 text-center font-medium border-gray-100 mb-3 focus:border-green-500"> <i class=" fab fa-facebook mr-2 "></i>Facebook</a>
-                        <a href="/join?inviter={{Auth::user()->id}}" class=" block w-4/5 mx-auto p-3 rounded-2xl border-2 text-center font-medium border-gray-100 mb-3 focus:border-green-500"> <i class=" fab fa-facebook mr-2 "></i>Join</a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://percampus.com/join?refer={{Auth::user()->id}}" class=" block w-4/5 mx-auto p-3 rounded-2xl border-2 text-center font-medium border-gray-100 mb-3 focus:border-green-500"> <i class=" fab fa-facebook mr-2 "></i>Facebook</a>
                         
                     </p>
                 </div>
@@ -56,7 +55,10 @@
                     <div class=" border-2 border-gray-200 rounded-md my-3 px-4 py-3 ">
                         <div class="">
                             <h2 class="text-xl text-gray-700 font-semibold mb-2">{{$each_post->title}}</h2>
-                            <small> Added: {{$each_post->created_at->diffForHumans()}}</small>
+                            <p class=" flex justify-between my-3" >
+                                <small>views: <span class=" text-green-400">{{$each_post->view_count}}</span></small>
+                                <small> Added: {{$each_post->created_at->diffForHumans()}}</small>
+                            </p >
                         </div>
         
                         <div class=" flex justify-between mt-2">

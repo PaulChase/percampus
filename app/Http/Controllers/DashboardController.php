@@ -39,4 +39,21 @@ class DashboardController extends Controller
 
         return view('dashboard')->with('posts', $arranged->values()->all())->with('ads', $ads);
     }
+
+
+    public function pushUserInfo( Request $request)
+    {
+
+        // dd('sure');
+        $userID = auth()->user()->id;
+        $user = User::find($userID);
+
+        // dd($user, $request->input('campus'), $request->input('phone') );
+
+       $user->campus_id = $request->input('campus');
+       $user->phone = $request->input('phone');
+       $user->save();
+
+       return redirect()->route('home');
+    }
 }

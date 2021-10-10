@@ -93,7 +93,7 @@ class PostsController extends Controller
         // add post to Database
         $post->title = $request->input('title');
         $post->description = $request->input('description');
-        $post->price = $request->input('price');
+        $post->price =number_format($request->input('price')) ;
         $post->venue = $request->input('venue');
         $post->contact_info = $phoneNo;
         $post->item_condition =  $request->input('condition');
@@ -177,7 +177,7 @@ class PostsController extends Controller
      */
     public function show($campusNickName, $categoryName, $slug)
     {
-
+        // dd(today()->subDays(30));
         // to generate social share links
         $share = new Share;
         $socialLinks = $share->currentPage(null, ['class' => 'text-white text-2xl bg-gray-600 rounded-full py-2 px-3'], '<ul class = " flex flex-row justify-between">', '</ul>')->facebook()->whatsapp()->telegram()->twitter();
@@ -209,14 +209,18 @@ class PostsController extends Controller
 
         $ads = Advert::whereIn('campus_id',  [$allCampus, $campusID])->whereIn('subcategory_id', [$categoryID, $allCategory])->where('status', 'active')->get();
 
+
+        // so I can send marketplace posts to the opportunities category
         $marketplace = Category::find(2);
             
+        // get the recent posts from marketplace
         $recentPosts = $marketplace->posts()
                     ->where('status', 'active')
                     ->orderBy('created_at', 'desc')
                     ->get()
                     ->take(6);
 
+        // if the request is an opportunitie post, go to opportunity post view
         if ($post->subcategory->category->name == 'opportunities') {
             return view('opportunities.single')
             ->with('post', $post)
@@ -225,7 +229,10 @@ class PostsController extends Controller
             ->with('ads', $ads);
         }
 
-        $similarPosts = Post::where('subcategory_id', $post->subcategory->id)->orderBy('view_count', 'desc')->get()->take(6);
+        $similarPosts = Post::where('status', 'active')
+                                                ->where('subcategory_id', $post->subcategory->id)
+                                                ->orderBy('view_count', 'desc')
+                                                ->get()->take(6);
         // dd($similarPosts);
 
         return view('posts.single')
@@ -348,7 +355,7 @@ class PostsController extends Controller
         $post->title = $request->input('title');
         $post->description = $request->input('description');
         $post->venue = $request->input('venue');
-        $post->price = $request->input('price');
+        $post->price =  number_format($request->input('price')) ;
         $post->contact_info = $phoneNo;
 
 

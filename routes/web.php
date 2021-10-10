@@ -1,12 +1,15 @@
 <?php
 
 use App\Http\Controllers\AdvertsController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\OpportunitiesController;
 use App\Http\Controllers\SubcategoriesController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 
 
@@ -31,6 +34,12 @@ Route::view('/post-type', 'pages.pickcategory')->name('pickCategory');
 Route::get('/metrics', [PagesController::class, 'showMetricsPage'])->name('metrics');
 Route::post('/contactSeller', [PostsController::class, 'contactSeller'])->name('contact.seller');
 Route::get('/join', [PagesController::class, 'join'])->name('join');
+// Route::get('/getuserinfo', function ( Request $request)
+// {
+//     return view('auth.getuserinfo')->with('name', $request->get('name'));
+// })->name('getuserinfo');
+Route::view('/getuserinfo', 'auth.getuserinfo')->name('getuserinfo');
+Route::post('/pushuserinfo', [DashboardController::class, 'pushUserInfo'])->name('push.userinfo');
 
 // // get the subcategories without going through the campus page so therefore the campus is not known
 Route::get('s/', [SubcategoriesController::class, 'getSubcategories'])->name('getSubCategories');
@@ -57,6 +66,9 @@ Route::resource('opportunities', 'OpportunitiesController');
 Route::get('opportunities/latest/{categoryName}', [OpportunitiesController::class, 'latest']);
 
 Auth::routes();
+
+Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('/auth/google/user', [LoginController::class, 'getGoogleUser']);
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('home');
 

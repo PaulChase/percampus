@@ -76,7 +76,7 @@ class OpportunitiesController extends Controller
         // add post to Database
         $post->title = $request->input('title');
         $post->description = $request->input('description');
-        $post->price = $request->input('reward');
+        $post->price =   $request->input('reward');
         $post->apply_link = $request->input('apply_link');
         $post->apply_deadline = $request->input('deadline');
         $post->subcategory_id = $request->input('subcategory');

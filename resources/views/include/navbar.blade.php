@@ -109,9 +109,10 @@
               <ul class=" list-none flex">
                 
                 <li class="md:ml-2">
-                  <a class=" inline-block bg-green-500 px-3 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-600" href="/post-type"> <i class="la la-pencil"></i>
+                  {{-- <a class=" inline-block bg-green-500 px-3 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-600" href="/post-type"> <i class="la la-pencil"></i>
                     Add post
-                  </a>
+                  </a> --}}
+                  <button id="addPost" class="inline-block bg-green-500 px-3 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-600">Add Post</button>
                 </li>
                 
               </ul>
@@ -145,3 +146,32 @@
     </nav>
   
   </header>
+
+  <div id="picktype" class=" fixed  w-full h-full z-30 overflow-auto  top-0 left-0 text-center  hidden" style="background-color: rgba(0,0,0,0.7); ">
+    <div class=" bg-white bottom-0 absolute w-full rounded-t-lg p-4">
+      <button class=" float-right m-3 bg-gray-200 px-3 py-1 rounded-full focus:bg-gray-500" id="closepicktype">X</button><br>
+      <h3 class=" font-bold text-lg text-center my-5">What type of post do you want to add?</h3>
+      <div class=" grid grid-cols-2 gap-5">
+        <a href="/posts/create" class=" bg-green-100 rounded-lg p-3 focus:bg-green-300">
+          <i class="fa fa-bullhorn fa-3x my-3 text-green-500"></i> <br>
+          <span class=" font-semibold">An item for sale</span>
+        </a >
+        <a href="{{ route('opportunities.create')}}" class=" bg-green-100 rounded-lg p-3 focus:bg-green-300">
+          <i class="fa fa-graduation-cap text-green-500 fa-3x my-3"></i> <br>
+          <span class=" font-semibold">An opportunity for students</span>
+        </a >
+      </div>
+    </div>
+  </div>
+<script>
+$(document).ready(function () {
+  $("#addPost").click(function () {
+    $("#picktype").show(500)
+  })
+
+  $("#closepicktype").click(function () {
+    $("#picktype").hide(500)
+  })
+});
+
+</script>

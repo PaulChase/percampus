@@ -6,27 +6,32 @@
 @section('focus')
 
     {{-- hero section  --}}
-    <header style="background: url('/storage/images/herob.jpg') no-repeat center center/cover;
-        height: 90vh;" class=" relative text-white  ">
+    {{-- <header style="background: url('/storage/images/herob.jpg') no-repeat center center/cover;
+        height: 90vh;" class=" relative text-white  "> --}}
+        <header  class="  text-gray-700   " style="
+        height: 95vh;">
         
         
-        <div class=" bg-black top-0 right-0 w-full h-full absolute opacity-90 ">
+        <div class=" bg-green-100 top-0 right-0 w-full h-full  px-2">
             <nav class=" flex flex-row justify-between max-w-7xl mx-auto align-middle p-4">
                 <h1 class=" no-underline hover:no-underline font-extrabold  text-2xl lg:text-3xl tracking-widest"> {{config('app.name')}}</h1>
                 @guest
-                <a href="/register" class=" inline-block border-2 px-4 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-700">Register</a >
+                <a href="/register" class=" inline-block border-2 border-green-400 px-4 py-2 rounded-md  text-sm font-semibold md:text-base focus:bg-green-700">Register</a >
+                    @else
+                    <a href="/dashboard" class=" inline-block border-2 border-green-400 px-4 py-2 rounded-md  text-sm font-semibold md:text-base focus:bg-green-700">My Profile</a >
                 @endguest
                 
                 
             </nav>
-            <div class=" flex justify-center items-center h-full p-3 ">
-                <div class="px-2 ">
-                    <p class=" text-3xl lg:text-5xl lg:max-w-3xl  font-semibold my-3">Discover  low cost products up For Sale  by other Students on your Campus.
+            <div class="   ">
+                <div class="px-2 md:w-3/5 md:mx-auto ">
+                    <img class=" h-44 w-44 md:h-52  md:w-52 mx-auto my-4" src="/storage/icons/social-media-marketing.png" alt="" >
+                    <p class=" text-3xl lg:text-4xl lg:max-w-3xl  font-semibold my-3">Discover  affordable products up For Sale  by other Students on your Campus.
                     </p>
                     <p>Welcome to our campus marketplace, you will be able to sell new and used items very fast to students on your campus  </p>
                     <p class="grid gap-3 grid-cols-2">
                         <a href="/register" class=" inline-block bg-green-500 opacity-100 py-4  rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-800 mt-5 border-2 border-green-500 shadow-xl  text-center">Start selling for FREE</a>
-                        <a href="/allcampuses" class=" inline-block opacity-100 py-4  rounded-md text-white text-sm font-semibold md:text-base border-2 border-white focus:border-green-700 mt-5 shadow-xl  text-center">View Items for Sale</a>
+                        <a href="/posts" class=" inline-block opacity-100 py-4  rounded-md text-gray-700 text-sm font-semibold md:text-base border-2 border-green-400  focus:border-green-700 mt-5 shadow-xl  text-center">View Items for Sale</a>
                     </p>
                 </div>
             </div>

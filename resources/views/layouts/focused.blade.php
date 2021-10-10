@@ -21,6 +21,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    
 
 
     <!-- Styles -->
@@ -34,7 +35,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
     {{-- <link href="{{ asset('css/fs/css/all.min.css') }}" rel="stylesheet"> --}}
-
+    
+     {{-- jquery script --}}
+    <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
     <style>
         #menu-toggle:checked + #menu {
             display: block;
@@ -42,6 +45,8 @@
 
         
     </style>
+
+    
 </head>
 <body class="bg-grey-50 h-full w-full text-gray-600 font-sourcesans">
     <!-- Google Tag Manager (noscript) -->
@@ -55,6 +60,6 @@
         </main>
    
     
-
+@yield('js')
 </body>
 </html>

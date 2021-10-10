@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Page;
 use App\Models\Post;
+use App\Models\Referral;
+use App\Models\Search;
 use App\Models\SubCategory;
 use App\Models\User;
 use Jorenvh\Share\Share;
@@ -151,6 +153,10 @@ class PagesController extends Controller
 
         $postsCount = Post::select(['id'])->count();
 
+        $referralsCount = Referral::select(['id'])->count();
+
+        $searchCount = Search::select(['id'])->count();
+
         $marketplaceCount = Category::find(2)->posts()->count();
 
         $opportunitiesCount = Category::find(3)->posts()->count();
@@ -164,7 +170,7 @@ class PagesController extends Controller
        
 
 
-        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews', 'mostViewedPosts', 'totalPostContacts'));
+        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews', 'mostViewedPosts', 'totalPostContacts', 'referralsCount', 'searchCount'));
     }
 
     public function join(Request $request)

@@ -19,6 +19,13 @@
 
 
     <meta name="author" content="{{$post->user->name ?? 'percampus'}}">
+    {{-- for social media sharing --}}
+    <meta  property="og:site_name" content="Percampus">
+    <meta  property="og:url" content="{{url()->full()}}">
+    <meta  property="og:type" content="website">
+    <meta  property="og:title" content="@yield('title')">
+    <meta  property="og:description" content="@yield('description')">
+    <meta  property="og:image" content="@yield('image_url')">
 
 
     <!-- CSRF Token -->
@@ -39,6 +46,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="/storage/icons/percampus.ico" type="image/x-icon">
     {{-- for SEO --}}
     <link rel="canonical" href="{{url()->current()}}" />
   
