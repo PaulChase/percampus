@@ -10,8 +10,7 @@ use App\Http\Controllers\SubcategoriesController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
-
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +39,9 @@ Route::get('/join', [PagesController::class, 'join'])->name('join');
 // })->name('getuserinfo');
 Route::view('/getuserinfo', 'auth.getuserinfo')->name('getuserinfo');
 Route::post('/pushuserinfo', [DashboardController::class, 'pushUserInfo'])->name('push.userinfo');
+Route::get('createlink', function() {
+    Artisan::call('storage:link');
+});
 
 // // get the subcategories without going through the campus page so therefore the campus is not known
 Route::get('s/', [SubcategoriesController::class, 'getSubcategories'])->name('getSubCategories');

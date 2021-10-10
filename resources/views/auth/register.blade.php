@@ -130,11 +130,12 @@
                             <button type="submit" class="uppercase font-semibold bg-green-500 hover:bg-green-600 focus:bg-green-600 w-full rounded-md my-3 p-3 text-white  text-center focus:outline-none">
                                     {{ __('Register') }}
                             </button>
-                            <p class=" my-2"><i>Already have an Account? </i> <a href="/login" class=" text-green-500 ml-2"><b> Login</b></a></p>
+                            
                         </div>
                         
                     </form>
                 </div>
+                <p class=" my-2"><i>Already have an Account? </i> <a href="/login" class=" text-green-500 ml-2"><b> Login</b></a></p>
             </div>
         
     
