@@ -115,13 +115,8 @@
                         </h3>
                         
                         <p>
-                            @if ($similarPost->price > 0)
                                 <small class=" text-green-500  text-xs md:text-base font-semibold"> N {{$similarPost->price}}  </small>
-                            @else
-                            <small class=" text-green-500 text-xs md:text-base"> {{'Contact Me'}}  </small>    
-                        
-                        @endif
-                        {{-- <small>{{$similarPost->created_at->diffForHumans()}}</small> --}}
+
                         </p>
                     </div>
                 </div>
@@ -204,10 +199,10 @@
                 $.ajax({
                     type: "POST",
                     url: "{{ route('contact.seller')}}",
-                    data: { postID : postID},
-                    success : function(data) {
-                        console.log(data.success);
-                    },
+                    data: { postID : postID}
+                    // success : function(data) {
+                    //     console.log(data.success);
+                    // },
                 });
             
 

@@ -57,6 +57,8 @@
                             <h2 class="text-xl text-gray-700 font-semibold mb-2">{{$each_post->title}}</h2>
                             <p class=" flex justify-between my-3" >
                                 <small>views: <span class=" text-green-400">{{$each_post->view_count}}</span></small>
+                                <small> status: <span class=" font-semibold @if ( $each_post->status == 'rejected')  {{'text-red-500'}}
+                                 @elseif ( $each_post->status == 'pending') {{'text-yellow-500'}} @else   {{'text-green-500'}}  @endif  ">{{$each_post->status}}</span> </small>
                                 <small> Added: {{$each_post->created_at->diffForHumans()}}</small>
                             </p >
                         </div>

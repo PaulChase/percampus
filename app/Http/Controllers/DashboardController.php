@@ -32,12 +32,12 @@ class DashboardController extends Controller
 
         $ads = Advert::where('status', 'active')->get();
 
+        $posts = $user->posts()->orderBy('created_at', 'desc' )->get();
+        // $collection = collect($user->posts->where('status', 'active'));
 
-        $collection = collect($user->posts->where('status', 'active'));
+        // $arranged = $collection->sortByDesc('id');
 
-        $arranged = $collection->sortByDesc('id');
-
-        return view('dashboard')->with('posts', $arranged->values()->all())->with('ads', $ads);
+        return view('dashboard')->with('posts', $posts )->with('ads', $ads);
     }
 
 

@@ -32,7 +32,9 @@ Route::get('/allcampuses', 'PagesController@getAllCampuses');
 Route::view('/post-type', 'pages.pickcategory')->name('pickCategory');
 Route::get('/metrics', [PagesController::class, 'showMetricsPage'])->name('metrics');
 Route::post('/contactSeller', [PostsController::class, 'contactSeller'])->name('contact.seller');
+Route::post('/screenpost', [PostsController::class, 'screenPost'])->name('screenpost');
 Route::get('/join', [PagesController::class, 'join'])->name('join');
+Route::get('/checkpoint', [PagesController::class, 'checkpoint'])->name('checkpoint');
 // Route::get('/getuserinfo', function ( Request $request)
 // {
 //     return view('auth.getuserinfo')->with('name', $request->get('name'));

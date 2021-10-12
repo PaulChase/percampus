@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\Image;
 use App\Models\Search;
 use App\Models\SubCategory;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -33,7 +34,7 @@ class PostsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'byCategory', 'search', 'contactSeller']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'byCategory', 'search', 'contactSeller', 'screenPost']]);
     }
 
 
@@ -45,10 +46,15 @@ class PostsController extends Controller
     public function index()
     {
         $marketplace = Category::find(2);
-        
-        $post = $marketplace->posts()->where('status', 'active')->orderBy('created_at', 'desc')->paginate(20);
 
-        return view('posts.index')->with('posts', $post);
+        // testing queries to rank users based on levels
+        // $post = DB::table('posts')->join('users', 'users.id' ,'=', 'posts.user_id'  )->join('roles', 'roles.id', '=','users.role_id')->select('posts.*', 'users.*')->orderBy('roles.id', 'desc')->get();
+
+        // $post2 = Post::join('users', 'users.id' ,'=', 'posts.user_id'  )->join('roles', 'roles.id', '=','users.role_id')->select('posts.*', 'users.*')->orderBy('roles.id', 'desc')->get();
+        // dd($post2);
+        $posts = $marketplace->posts()->where('status', 'active')->orderBy('created_at', 'desc')->paginate(20);
+
+        return view('posts.index')->with('posts', $posts);
     }
 
     /**
@@ -100,6 +106,7 @@ class PostsController extends Controller
         $post->in_stock = $request->input('instock');
         $post->subcategory_id = $request->input('subcategory');
         $post->user_id = auth()->user()->id;
+        $post->status = 'pending';
         $post->save();
 
         // get the ID of the image that was just added to the Db so I can save it to the images table 
@@ -155,7 +162,7 @@ class PostsController extends Controller
             $this->saveImage($thePostId, 'noimage.jpg', ' ');
         } */
 
-        return  redirect('/dashboard')->with('success', 'Your Post Has Been Added');
+        return  redirect('/dashboard')->with('success', 'Your Post Has Been Added but is currently being reviewed and will become active very soon');
     }
 
     // method for saving image to database
@@ -217,8 +224,9 @@ class PostsController extends Controller
         $recentPosts = $marketplace->posts()
                     ->where('status', 'active')
                     ->orderBy('created_at', 'desc')
-                    ->get()
-                    ->take(6);
+                    ->take(6)
+                     ->get();
+                   
 
         // if the request is an opportunitie post, go to opportunity post view
         if ($post->subcategory->category->name == 'opportunities') {
@@ -232,7 +240,8 @@ class PostsController extends Controller
         $similarPosts = Post::where('status', 'active')
                                                 ->where('subcategory_id', $post->subcategory->id)
                                                 ->orderBy('view_count', 'desc')
-                                                ->get()->take(6);
+                                                ->take(6)
+                                                ->get();
         // dd($similarPosts);
 
         return view('posts.single')
@@ -279,12 +288,11 @@ class PostsController extends Controller
             'description' => 'required',
             'images' => 'nullable|max:2', // validate the number of incoming images
             'images.*' => 'mimes:jpeg,jpg,png|max:2048', //validate for file extensions and image size
-            'price' => 'required ',
             'contact' => 'required',
         ]);
 
 
-
+           
         //  checking if image is set
         if (
             $request->hasFile('images') && (count($request->file('images')) <= 2)
@@ -298,7 +306,10 @@ class PostsController extends Controller
                 $fileNameWithExt = $image->getClientOriginalName();
 
                 // get only the file name
-                $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+                // $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+                 // the name should be the title of the post bcoz of some SEO tactics
+                $fileName = $request->input('title');
 
                 // get the extension e.g .png, .jpg etc
                 $extension = $image->getClientOriginalExtension();
@@ -324,18 +335,21 @@ class PostsController extends Controller
                 $url  = Storage::disk('s3')->url('public/images/' . $fileNameToStore);
 
                 // get the record
-                $imagedb = Image::where('post_id', $id)->orderBy('updated_at', 'asc')->firstOrFail();
+                $imagedb = Image::where('post_id', $id)->orderBy('updated_at', 'asc')->first();
+                // dd($imagedb);
+                    
 
 
                 // checking if the record is in the database
-                if ($imagedb->count() > 0) {
+                if ($imagedb != null &&  $imagedb->count() > 0) {
 
                     Storage::disk('s3')->delete('public/images/' . $imagedb->Image_name);
                     $imagedb->Image_name = $fileNameToStore;
                     $imagedb->Image_path = $url;
                     $imagedb->save();
                 } else {
-                    $this->saveImage($id, $fileNameToStore, $path);
+                    $this->saveImage($id, $fileNameToStore, $url);
+
                 }
 
                 // $path = $request->file('avatar')->store('public/images');
@@ -343,6 +357,8 @@ class PostsController extends Controller
 
             }
         }
+
+        // trim the phpne muber
         if (empty($request->input('contact'))) {
             $phoneNo = ltrim(auth()->user()->phone, 0);
         } else {
@@ -356,12 +372,13 @@ class PostsController extends Controller
         $post->description = $request->input('description');
         $post->venue = $request->input('venue');
         $post->price =  number_format($request->input('price')) ;
+        $post->status = 'pending';
         $post->contact_info = $phoneNo;
 
 
         $post->save();
 
-        return  redirect('/dashboard')->with('success', 'Your Post Has Been updated');
+        return  redirect('/dashboard')->with('success', 'Your Post Has Been Updated but is currently being reviewed and will become active very soon');
     }
 
     /**
@@ -382,9 +399,10 @@ class PostsController extends Controller
         $images = Image::where('post_id', $id)->get();
         // to delete the post with image from storage
         foreach ($images as $image) {
-            if ($image->Image_name != 'noimage.jpg') {
-                Storage::disk('s3')->delete('public/images/' . $image->Image_name);
-            }
+            // if ($image->Image_name != 'noimage.jpg') {
+            //     Storage::disk('s3')->delete('public/images/' . $image->Image_name);
+            // }
+            Storage::disk('s3')->delete('public/images/' . $image->Image_name);
             $image->delete();
         }
 
@@ -486,6 +504,35 @@ class PostsController extends Controller
         
         
         return response()->json(['success' => 'yep']);
+    }
+
+
+    public function screenPost(Request $request)
+    {
+        if (auth()->user()->role_id != 1) {
+            return redirect()->route('home');
+        }
+        $postID = $request->input('postID');
+        $status = $request->input('status');
+
+        $post = Post::find($postID);
+        $post->status = $status;
+        $post->save();
+
+        if ($status == 'rejected') {
+            $images = Image::where('post_id', $postID)->get();
+            // to delete the post with image from storage
+            foreach ($images as $image) {
+            // if ($image->Image_name != 'noimage.jpg') {
+            //     Storage::disk('s3')->delete('public/images/' . $image->Image_name);
+            // }
+            Storage::disk('s3')->delete('public/images/' . $image->Image_name);
+            $image->delete();
+            }
+        }
+
+    
+        return response()->json(['success' => 'status changed']);
     }
 }
 

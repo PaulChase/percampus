@@ -1,6 +1,6 @@
 @extends('layouts.app') 
 
-@section('title') {{$campus->name}} campus @endsection
+@section('title') {{$campus->name}} online marketplace @endsection
 @section('description') Welcome to {{$campus->name}} campus where you can buy and sell products and services to students on your campus, find events, jobs, scholarship opportunities and so much more @endsection
 
 

@@ -46,7 +46,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="shortcut icon" href="/storage/icons/percampus.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/percampus.ico" type="image/x-icon">
     {{-- for SEO --}}
     <link rel="canonical" href="{{url()->current()}}" />
   

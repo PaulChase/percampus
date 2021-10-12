@@ -19,6 +19,12 @@ use Illuminate\Support\Facades\Cookie;
 
 class PagesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only('checkpoint');
+    }
+
+
     public function index()
     {
         // if the user is logged in, redirect to the user's campus homepage
@@ -41,9 +47,8 @@ class PagesController extends Controller
             
         $posts = $marketplace->posts()
                     ->where('status', 'active')
-                    ->get()
-                    ->shuffle()
-                    ->take(10);
+                   ->take(10)
+                    ->get()->shuffle();
         
         
 
@@ -104,9 +109,9 @@ class PagesController extends Controller
 
         
             // find a better to do this stuff oo
-        $recentPosts = $campus->posts()->whereIn('subcategory_id', [1,2,3,4,5,6,7,8,9,13,14])->where('status', 'active')->orderBy('created_at', 'desc')->get()->take(12);
+        $recentPosts = $campus->posts()->whereIn('subcategory_id', [1,2,3,4,5,6,7,8,9,13,14])->where('status', 'active')->orderBy('created_at', 'desc')->take(12)->get();
             //  same as above
-        $recentOpportunities =Post::whereIn('subcategory_id', [10,11,13])->where('status', 'active')->orderBy('created_at', 'desc')->get()->take(6);
+        $recentOpportunities =Post::whereIn('subcategory_id', [10,11,13])->where('status', 'active')->orderBy('created_at', 'desc')->take(6)->get();
         // dd($recentPosts);
         return view('pages.campus')
                 ->with('campus', $campus)
@@ -161,7 +166,8 @@ class PagesController extends Controller
 
         $opportunitiesCount = Category::find(3)->posts()->count();
 
-        $mostViewedPosts = Post::select(['title','view_count'])->orderBy('view_count', 'desc')->get()->take(10);
+        $mostViewedPosts = Post::select(['title','view_count'])->orderBy('view_count', 'desc')->take(10)->get();
+                     
 
         $totalPostViews = Post::select(['view_count'])->sum('view_count');
         $totalPostContacts = Post::select(['no_of_contacts'])->sum('no_of_contacts');
@@ -181,6 +187,15 @@ class PagesController extends Controller
         Cookie::queue('refererID', $refererID, 10080);
 
         return redirect()->route('welcome');
+    }
+
+    public function checkpoint()
+    {
+        if (auth()->user()->role_id != 1) {
+            return redirect()->route('home');
+        }
+        $pendingPosts = Post::where('status', 'pending')->orderBy('created_at')->paginate(10);
+        return view('pages.checkpoint', compact('pendingPosts'));
     }
 
     // public function pickCategory()

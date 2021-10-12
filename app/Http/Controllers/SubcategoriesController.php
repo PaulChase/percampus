@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Campus;
 use App\Models\Post;
 use App\Models\SubCategory;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Carbon;
 
 
 
@@ -17,8 +19,13 @@ class SubcategoriesController extends Controller
         $mainCategoryID = $request->get('mainCategoryID');
         $mainCategory = Category::find($mainCategoryID);
         
-        $subCategories = $mainCategory->subcategories()->orderBy('name')->get();
+        // $subCategories = $mainCategory->subcategories()->orderBy('name')->get();
+        $subCategories = SubCategory::where('category_id', $mainCategoryID)->orderBy('name')->get();
 
+        // $subCategories = Cache::remember('subcategories', Carbon::now()->addDay(), function ( $mainCategoryID) {
+        //          return SubCategory::where('category_id', $mainCategoryID)->orderBy('name')->get();
+        //     });
+        // dd($subCategories);
         return view('pages.getSubCategories')
             ->with('subCategories', $subCategories)
             ->with('mainCategory', $mainCategory);

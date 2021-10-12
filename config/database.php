@@ -71,7 +71,7 @@ return [
         // ],
 
 
-        // for my local machine
+        // for my aws elastic beanstalk
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),

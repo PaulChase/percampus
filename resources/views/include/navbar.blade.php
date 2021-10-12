@@ -47,7 +47,7 @@
                       @auth
                            <li class=" hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent"> 
                         <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="{{route('campus.home', ['campus'=> Auth::user()->campus->nick_name])}}">
-                          <span class=" uppercase">{{Auth::user()->campus->nick_name }} campus</span>
+                          <span class=" uppercase">{{Auth::user()->campus->nick_name }} </span> campus
                         </a>
                       </li>
                       @endauth

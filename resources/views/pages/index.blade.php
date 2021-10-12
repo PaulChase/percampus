@@ -5,11 +5,9 @@
 
 @section('focus')
 
-    {{-- hero section  --}}
-    {{-- <header style="background: url('/storage/images/herob.jpg') no-repeat center center/cover;
-        height: 90vh;" class=" relative text-white  "> --}}
+    
         <header  class="  text-gray-700   " style="
-        height: 95vh;">
+        height: 90vh;">
         
         
         <div class=" bg-green-100 top-0 right-0 w-full h-full  px-2">
@@ -25,10 +23,10 @@
             </nav>
             <div class="   ">
                 <div class="px-2 md:w-3/5 md:mx-auto ">
-                    <img class=" h-44 w-44 md:h-52  md:w-52 mx-auto my-4" src="/storage/icons/social-media-marketing.png" alt="" >
+                    <img class=" h-44 w-44 md:h-52  md:w-52 mx-auto my-4" src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/social-media-marketing.png" alt="" >
                     <p class=" text-3xl lg:text-4xl lg:max-w-3xl  font-semibold my-3">Discover  affordable products up For Sale  by other Students on your Campus.
                     </p>
-                    <p>Welcome to our campus marketplace, you will be able to sell new and used items very fast to students on your campus  </p>
+                    <p>Welcome to our campus marketplace, where you will be able to sell new and used items very fast to students on your campus  </p>
                     <p class="grid gap-3 grid-cols-2">
                         <a href="/register" class=" inline-block bg-green-500 opacity-100 py-4  rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-800 mt-5 border-2 border-green-500 shadow-xl  text-center">Start selling for FREE</a>
                         <a href="/posts" class=" inline-block opacity-100 py-4  rounded-md text-gray-700 text-sm font-semibold md:text-base border-2 border-green-400  focus:border-green-700 mt-5 shadow-xl  text-center">View Items for Sale</a>
@@ -82,20 +80,20 @@
             <h3 class=" uppercase font-bold text-2xl text-center my-5 p-2">Top categories</h3>
             <div class="grid gap-x-4 gap-y-8  grid-cols-2 text-center">
                 <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'phones' ])}}" class="focus:bg-green-700 rounded-md">
-                        <img src="/storage/icons/smartphone.png" alt="" class=" h-24  w-24 mx-auto my-2">
+                        <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/smartphone.png" alt="" class=" h-24  w-24 mx-auto my-2">
                         <h4 class=" font-semibold">Mobile Phones</h4>
                 </a >
                 <a class="focus:bg-green-700 rounded-md" href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'men' ])}}" >
-                    <img src="/storage/icons/running-shoes.png" alt="" class=" h-24  w-24 mx-auto my-2">
+                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/running-shoes.png" alt="" class=" h-24  w-24 mx-auto my-2">
                     <h4 class=" font-semibold"> Shoes & Footwears</h4>
                 </a >
                 <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'women' ])}}" class="focus:bg-green-700 rounded-md">
-                    <img src="/storage/icons/dress.png" alt="" class=" h-24  w-24 mx-auto my-2">
+                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/dress.png" alt="" class=" h-24  w-24 mx-auto my-2">
                     <h4 class=" font-semibold">Women Clothings</h4>
                 </a >
-                <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'food' ])}}" class="focus:bg-green-700 rounded-md">
-                    <img src="/storage/icons/burger.png" alt="" class=" h-24  w-24 mx-auto my-2">
-                    <h4 class=" font-semibold">Food & Provisions</h4>
+                <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'household' ])}}" class="focus:bg-green-700 rounded-md">
+                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/pot.png" alt="" class=" h-24  w-24 mx-auto my-2">
+                    <h4 class=" font-semibold">Household </h4>
                 </a >
             </div>
             <div class="my-8">
@@ -158,7 +156,7 @@
             <img src="/storage/icons/school.png" alt="" class="h-40 w-40 mx-auto my-4">
             <p class=" text-2xl font-semibold ">Want to view items for sale on your campus?</p>
             <div class="my-8">
-                    <a href="/allcampuses" class="block mx-auto w-3/4 p-3 bg-white rounded-full text-green-500 border-2 border-green-300  text-center font-semibold focus:bg-green-500 focus:text-white"> Visit your Campus marketplace  <i class="fa fa-chevron-right ml-2"></i></a>
+                    <a href="/allcampuses" class="block mx-auto w-5/6 p-3 bg-white rounded-full text-green-500 border-2 border-green-300  text-center font-semibold focus:bg-green-500 focus:text-white"> Visit your Campus marketplace  <i class="fa fa-chevron-right ml-2"></i></a>
                 </div>
         </div>
         
