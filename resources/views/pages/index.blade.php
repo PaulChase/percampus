@@ -153,10 +153,10 @@
         @endguest
         
         <div class=" text-center p-4">
-            <img src="/storage/icons/school.png" alt="" class="h-40 w-40 mx-auto my-4">
+            <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/school.png" alt="" class="h-40 w-40 mx-auto my-4">
             <p class=" text-2xl font-semibold ">Want to view items for sale on your campus?</p>
             <div class="my-8">
-                    <a href="/allcampuses" class="block mx-auto w-5/6 p-3 bg-white rounded-full text-green-500 border-2 border-green-300  text-center font-semibold focus:bg-green-500 focus:text-white"> Visit your Campus marketplace  <i class="fa fa-chevron-right ml-2"></i></a>
+                    <a href="/allcampuses" class="block mx-auto w-11/12 p-3 bg-white rounded-full text-green-500 border-2 border-green-300  text-center font-semibold focus:bg-green-500 focus:text-white"> Visit your Campus marketplace  <i class="fa fa-chevron-right ml-2"></i></a>
                 </div>
         </div>
         

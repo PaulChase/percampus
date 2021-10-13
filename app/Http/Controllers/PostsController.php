@@ -522,13 +522,16 @@ class PostsController extends Controller
         if ($status == 'rejected') {
             $images = Image::where('post_id', $postID)->get();
             // to delete the post with image from storage
-            foreach ($images as $image) {
+            if ($images != null &&  $images->count() > 0) {
+                foreach ($images as $image) {
             // if ($image->Image_name != 'noimage.jpg') {
             //     Storage::disk('s3')->delete('public/images/' . $image->Image_name);
             // }
             Storage::disk('s3')->delete('public/images/' . $image->Image_name);
             $image->delete();
             }
+            }
+            
         }
 
     
