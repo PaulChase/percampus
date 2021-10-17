@@ -24,7 +24,7 @@
                 <li class="border-b-2 p-2 font-medium "><a href="https://forms.gle/wkVRH7yDWBEKg6QV6" class="flex justify-between focus:bg-gray-800" target="_blank"><span>Leave a feedback</span> <i class=" la la-angle-right "></i></a></li>
                 <li class="border-b-2 p-2 font-medium "><a href="/safety" class="flex justify-between focus:bg-gray-800"><span> Safety tips</span> <i class=" la la-angle-right "></i></a></li>
                 <li class="border-b-2 p-2 font-medium "><a href="/terms" class="flex justify-between focus:bg-gray-800"><span>Terms & Conditions</span> <i class=" la la-angle-right "></i></a></li>
-                <li class="border-b-2 p-2 font-medium "><a href="/" class="flex justify-between focus:bg-gray-800"><span>Contact Us</span> <i class=" la la-angle-right "></i></a></li>
+                <li class="border-b-2 p-2 font-medium "><a href="https://wa.me/2347040214836"class="flex justify-between focus:bg-gray-800"><span>Contact Us</span> <i class=" la la-angle-right "></i></a></li>
             </ul>
         </div>
         <div class="my-4">

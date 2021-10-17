@@ -43,7 +43,7 @@
             
         <div class="p-3">
             <h3 class="p-3  font-semibold text-xl lg:text-2xl my-3"> What other Students are Selling </h3>
-                <div class="grid gap-4 grid-cols-2 lg:grid-cols-4 lg: px-5">
+                <div class="grid gap-4 grid-cols-2 lg:grid-cols-4 lg:px-5">
                     @foreach ($posts as $each_post)
                     <div class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-md md:grid-cols-1  md:gap-y-2 " >
 

@@ -11,17 +11,18 @@
     <div class="px-4 py-4 md:max-w-xl  mx-auto md:shadow-lg rounded-md bg-white  mt-10">
         
                 <div class="text-center text-xl font-semibold my-4  ">{{ __('Login into your Account') }}</div>
-                <div>
+                {{-- <div>
                     <a href="{{route('login.google')}}" class=" w-full p-3 text-center border-2 border-gray-100 rounded-lg text-white font-semibold block bg-blue-500 my-4"><i class="fab fa-google mr-3 "></i> With Your Google Account</a>
                 </div>
 
                 <p  class=" font-bold text-xl mx-auto w-4 my-3">OR</p>
+                 --}}
                 <div class="">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="">
-                            <label for="email" class="">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="">{{ __(' Your E-Mail Address') }}</label>
 
                             <div class="">
                                 <input id="email" type="email" class="p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>

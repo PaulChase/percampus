@@ -1,2 +1,5 @@
 User-agent: *
-Disallow:
+Disallow: /dashboard
+Disallow: /admin/
+Disallow: /checkpoint
+Disallow: /metrics

@@ -29,7 +29,6 @@ Route::view('/howto', 'pages.howto');
 Route::view('/safety', 'pages.safety');
 Route::view('/terms', 'pages.terms');
 Route::get('/allcampuses', 'PagesController@getAllCampuses');
-Route::view('/post-type', 'pages.pickcategory')->name('pickCategory');
 Route::get('/metrics', [PagesController::class, 'showMetricsPage'])->name('metrics');
 Route::post('/contactSeller', [PostsController::class, 'contactSeller'])->name('contact.seller');
 Route::post('/screenpost', [PostsController::class, 'screenPost'])->name('screenpost');
@@ -42,9 +41,9 @@ Route::post('/updateprofilepic', [DashboardController::class, 'updateProfilePic'
 // })->name('getuserinfo');
 Route::view('/getuserinfo', 'auth.getuserinfo')->name('getuserinfo');
 Route::post('/pushuserinfo', [DashboardController::class, 'pushUserInfo'])->name('push.userinfo');
-Route::get('createlink', function() {
-    Artisan::call('storage:link');
-});
+// Route::get('createlink', function() {
+//     Artisan::call('storage:link');
+// });
 
 // // get the subcategories without going through the campus page so therefore the campus is not known
 Route::get('s/', [SubcategoriesController::class, 'getSubcategories'])->name('getSubCategories');

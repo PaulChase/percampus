@@ -145,7 +145,7 @@ class PostsController extends Controller
                 $imageResize = ImageOptimizer::make($image);
                 $imageResize->resize(1000, 1000, function ($const) {
                     $const->aspectRatio();
-                })->encode('jpg', 80);
+                })->encode('jpg', 60);
                 $imageResize->save($path);
 
                 // saving it to the s3 bucket and also making it public so my website can access it
@@ -328,7 +328,7 @@ class PostsController extends Controller
                 $imageResize = ImageOptimizer::make($image);
                 $imageResize->resize(1000, 1000, function ($const) {
                     $const->aspectRatio();
-                })->encode('jpg', 80);
+                })->encode('jpg', 60);
                 $imageResize->save($path);
 
                 Storage::disk('s3')->put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
