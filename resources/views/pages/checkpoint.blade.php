@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title') {{ Auth::user()->name }} dashboard @endsection
+@section('title') Check Point @endsection
 
 @section('content')
 <div class=" bg-gray-200">

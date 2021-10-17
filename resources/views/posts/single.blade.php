@@ -80,10 +80,17 @@
                 
                 <div class=" mt-3 p-3 bg-gray-50 lg:mt-0 lg:rounded-sm" >
                     <h3 class=" font-semibold border-b border-gray-200 pb-2">Posted by:</h3>
-                    <p class=" text-xl my-3 flex items-center"> <span class="fa fa-user-circle fa-2x text-gray-400 mr-2"></span>  {{ $post->user->name}}</p>
+                    <p class=" text-xl my-3 flex items-center">
+                        @if ( $post->user->avatar == null || $post->user->avatar == 'users/default.png' )
+                        <span class="fa fa-user-circle fa-2x text-gray-400 mr-2"></span>  
+                    @else
+                        <img src="{{$post->user->avatar}}" class=" w-20 h-20 rounded-full border-2 border-green-300 object-cover mr-3 " alt="">
+                    @endif
+                    
+                        {{ $post->user->name}}</p>
                     <div class=" grid grid-cols-2 gap-3">
-                            <a href="tel:0{{$post->contact_info}}" class=" block p-3 shadow-xl text-center font-semibold focus:border-green-500 rounded-sm contact" ><i class="fa fa-phone mr-3  text-green-500 "></i> Call</a>
-                            <a href="https://wa.me/234{{$post->contact_info}}?text=Hello%20{{$post->user->name}},%20I%20saw%20your%20adverstisement%20on%20www.percampus.com%20I%20want%20to%20ask%20if%20the%20item%20you%20posted%20is%20still%20available%20for%20sale" class="font-semibold block p-3 shadow-xl text-center focus:border-green-500 rounded-sm contact"><i class="fab fa-whatsapp mr-3  text-green-500"></i> Whatsapp</a>
+                            <a href="tel:0{{$post->contact_info}}" class=" block p-3 text-center font-semibold focus:border-green-500 rounded-md contact bg-gray-200" ><i class="fa fa-phone mr-3  text-green-500 "></i> Call</a>
+                            <a href="https://wa.me/234{{$post->contact_info}}?text=Hello%20{{$post->user->name}},%20I%20saw%20your%20adverstisement%20on%20www.percampus.com%20I%20want%20to%20ask%20if%20the%20item%20you%20posted%20is%20still%20available%20for%20sale" class="font-semibold block p-3 text-center focus:border-green-500 rounded-md contact bg-green-200"><i class="fab fa-whatsapp mr-3  text-green-500"></i> Whatsapp</a>
                             
                         </div>
                         

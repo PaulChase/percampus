@@ -35,6 +35,7 @@ Route::post('/contactSeller', [PostsController::class, 'contactSeller'])->name('
 Route::post('/screenpost', [PostsController::class, 'screenPost'])->name('screenpost');
 Route::get('/join', [PagesController::class, 'join'])->name('join');
 Route::get('/checkpoint', [PagesController::class, 'checkpoint'])->name('checkpoint');
+Route::post('/updateprofilepic', [DashboardController::class, 'updateProfilePic'])->name('update.profilepic');
 // Route::get('/getuserinfo', function ( Request $request)
 // {
 //     return view('auth.getuserinfo')->with('name', $request->get('name'));

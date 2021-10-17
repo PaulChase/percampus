@@ -42,15 +42,15 @@
                 
             
         <div class="p-3">
-            <h3 class="p-3  font-semibold text-xl my-3"> What other Students are Selling </h3>
-                <div class="grid gap-4 grid-cols-2">
+            <h3 class="p-3  font-semibold text-xl lg:text-2xl my-3"> What other Students are Selling </h3>
+                <div class="grid gap-4 grid-cols-2 lg:grid-cols-4 lg: px-5">
                     @foreach ($posts as $each_post)
-                    <div class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm md:grid-cols-1  md:gap-y-2 " >
+                    <div class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-md md:grid-cols-1  md:gap-y-2 " >
 
                     <div class="   ">
                             <a href="/{{$each_post->user->campus->nick_name}}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}">
                                 @if (is_object($each_post->images()->first()))
-                                    <img src="{{$each_post->images()->first()->Image_path}}" class=" w-full  object-fill  rounded-t-sm h-32 md:h-48   md:rounded-b-none md:rounded-t-sm" lazy="loading" alt="{{$each_post->title}}">
+                                    <img src="{{$each_post->images()->first()->Image_path}}" class=" w-full  object-fill  rounded-t-sm h-32 md:h-48   md:rounded-b-none md:rounded-t-md" lazy="loading" alt="{{$each_post->title}}">
                                 @endif
                             </a>
                             
@@ -71,33 +71,33 @@
                     @endforeach
                 </div>
                 <div class="my-4">
-                    <a href="/posts" class="block mx-auto w-3/4 p-3 bg-green-500 rounded-full text-white text-center font-semibold focus:bg-green-700"> View More <i class="fa fa-chevron-right ml-2"></i></a>
+                    <a href="/posts" class="block mx-auto w-3/4 lg:w-1/3 lg:p-5 lg:text-xl p-3 bg-green-500 rounded-full text-white text-center font-semibold focus:bg-green-700"> View More <i class="fa fa-chevron-right ml-2"></i></a>
                 </div>   
             </div>
         </div>
 
         <div class="p-3 bg-green-400 text-white py-6">
-            <h3 class=" uppercase font-bold text-2xl text-center my-5 p-2">Top categories</h3>
+            <h3 class=" uppercase font-bold text-2xl lg:text-4xl text-center my-5 p-2">Top categories</h3>
             <div class="grid gap-x-4 gap-y-8  grid-cols-2 text-center">
                 <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'phones' ])}}" class="focus:bg-green-700 rounded-md">
-                        <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/smartphone.png" alt="" class=" h-24  w-24 mx-auto my-2">
+                        <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/smartphone.png" alt="" class=" h-24  w-24 mx-auto my-2 lg:w-40 lg:h-40">
                         <h4 class=" font-semibold">Mobile Phones</h4>
                 </a >
                 <a class="focus:bg-green-700 rounded-md" href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'men' ])}}" >
-                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/running-shoes.png" alt="" class=" h-24  w-24 mx-auto my-2">
+                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/running-shoes.png" alt="" class=" h-24  w-24 mx-auto my-2 lg:w-40 lg:h-40">
                     <h4 class=" font-semibold"> Shoes & Footwears</h4>
                 </a >
                 <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'women' ])}}" class="focus:bg-green-700 rounded-md">
-                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/dress.png" alt="" class=" h-24  w-24 mx-auto my-2">
+                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/dress.png" alt="" class=" h-24  w-24 mx-auto my-2 lg:w-40 lg:h-40">
                     <h4 class=" font-semibold">Women Clothings</h4>
                 </a >
                 <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'household' ])}}" class="focus:bg-green-700 rounded-md">
-                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/pot.png" alt="" class=" h-24  w-24 mx-auto my-2">
+                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/pot.png" alt="" class=" h-24  w-24 mx-auto my-2 lg:w-40 lg:h-40">
                     <h4 class=" font-semibold">Household </h4>
                 </a >
             </div>
             <div class="my-8">
-                    <a href="{{ route('getSubCategories', ['mainCategoryID' => 2])}}" class="block mx-auto w-3/4 p-3 bg-white rounded-full text-green-500 text-center font-semibold focus:bg-green-500 focus:text-white"> Explore All Categories <i class="fa fa-chevron-right ml-2"></i></a>
+                    <a href="{{ route('getSubCategories', ['mainCategoryID' => 2])}}" class="block mx-auto w-3/4 p-3 bg-white rounded-full text-green-500 text-center font-semibold focus:bg-green-500 focus:text-white lg:w-1/3 lg:p-5 lg:text-xl "> Explore All Categories <i class="fa fa-chevron-right ml-2"></i></a>
                 </div>   
         </div>
 
@@ -143,21 +143,24 @@
 
         {{-- call to action --}}
         @guest
-        <div class=" bg-gray-700 px-4 py-12 h-auto text-xl text-white font-semibold text-center lg:h-72 lg:flex  lg:items-center lg:px-10">
+        <div class=" bg-gray-700 px-4 py-24 h-auto text-xl text-white font-semibold text-center lg:h-72 lg:flex  lg:items-center lg:px-10">
             <p class=" md:w-3/12"><i class="fa fa-rocket fa-3x text-green-500 mb-6"></i></p>
             <div>
                 <p class=" lg:text-3xl "> If you start selling now, your items will be seen first when buyers start flooding in.  <br> So what are you waiting for?</p> 
-                <p class=""> <a href="/register" class=" rounded-full border-2 py-3 px-5 text-base bg-green-500 border-green-500 focus:bg-green-700 focus:border-green-700 md:text-lg block my-7">Sign Me up ASAP</a></p>
+                <p class=""> <a href="/register" class=" rounded-full border-2 py-3 px-5 text-base bg-green-500 border-green-500 focus:bg-green-700 focus:border-green-700 md:text-lg block my-7 lg:w-1/3 lg:p-5 lg:text-xl mx-auto">Sign Me up ASAP</a></p>
             </div>
         </div>
         @endguest
         
-        <div class=" text-center p-4">
-            <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/school.png" alt="" class="h-40 w-40 mx-auto my-4">
-            <p class=" text-2xl font-semibold ">Want to view items for sale on your campus?</p>
+        <div class=" text-center p-4 lg:grid lg:grid-cols-2 lg:my-12 py-16">
+            <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/school.png" alt="" class="h-40 w-40 lg:w-60 lg:h-60 mx-auto my-4">
+            <div>
+                <p class=" text-2xl font-semibold ">Want to view items for sale on your campus?</p>
             <div class="my-8">
-                    <a href="/allcampuses" class="block mx-auto w-11/12 p-3 bg-white rounded-full text-green-500 border-2 border-green-300  text-center font-semibold focus:bg-green-500 focus:text-white"> Visit your Campus marketplace  <i class="fa fa-chevron-right ml-2"></i></a>
+                    <a href="/allcampuses" class="block mx-auto w-11/12 lg:w-3/5 p-3 bg-white rounded-full text-green-500 border-2 border-green-300  text-center font-semibold focus:bg-green-500 focus:text-white"> Visit your Campus marketplace  <i class="fa fa-chevron-right ml-2"></i></a>
                 </div>
+            </div>
+            
         </div>
         
         

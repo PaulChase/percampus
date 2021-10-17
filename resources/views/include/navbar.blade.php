@@ -77,6 +77,11 @@
 
                           <!-- Authentication Links -->
                           @guest
+                                <li class=" hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent"> 
+                                <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="{{ route('getSubCategories', ['mainCategoryID' => 2])}}">
+                                  Marketplace
+                                </a>
+                              </li>
 
                                
                                   @if (Route::has('login'))
@@ -135,15 +140,15 @@
                 <input class="px-3 py-2 rounded-md w-full focus:outline-none bg-gray-50 shadow" placeholder="search the name of the item e.g mattress" type="text" name="query" required>
 
                 
-                <div class="mt-2 grid grid-cols-4 gap-x-3 bg-gray-50">
-                  <select name="campus" id="" class=" p-1 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200 col-span-3" >
+                <div class="mt-2 bg-gray-50 flex ">
+                  <select name="campus" id="" class=" p-1 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200 col-span-3 " >
                     <option value="{{ null }}" selected>Pick the Campus to search in...</option>
                     @foreach ($campuses as $campus)
                       <option value="{{$campus->id}}" class="">{{$campus->name}}</option>
                     @endforeach
                   </select>
                   
-                  <button type="submit" name="submit" class="focus:bg-green-500 bg-gray-100 border border-green-400 focus:text-white rounded-md focus:outline-none text-green-500 p-1"><i class="fa fa-search  mx-1.5 my-1 cursor-pointer "></i> Search</button>
+                  <button type="submit" name="submit" class="focus:bg-green-500 bg-gray-50 border-2 border-green-400 focus:text-white rounded-md focus:outline-none text-green-500 p-1 w-12 ml-3 "><i class="fa fa-search  mx-1.5 my-1 cursor-pointer "></i></button>
                 
                 
                 </div >
@@ -170,6 +175,8 @@
       </div>
     </div>
   </div>
+
+  
 <script>
 $(document).ready(function () {
   $("#addPost").click(function () {

@@ -54,7 +54,13 @@
                 
                 <div class=" mt-3 p-3 bg-gray-50 lg:mt-0 lg:rounded-sm">
                     <h3 class=" font-semibold border-b border-gray-200 pb-2">Posted by:</h3>
-                    <p class=" text-xl my-3 flex items-center"> <span class="fa fa-user-circle fa-2x text-gray-400 mr-2"></span>  {{ $post->user->name}}</p>        
+                    <p class=" text-xl my-3 flex items-center"> 
+                        @if ( $post->user->avatar == null || $post->user->avatar == 'users/default.png' )
+                        <span class="fa fa-user-circle fa-2x text-gray-400 mr-2"></span>  
+                    @else
+                        <img src="{{$post->user->avatar}}" class=" w-20 h-20 rounded-full border-2 border-green-300 object-cover mr-3 " alt="">
+                    @endif
+                        {{ $post->user->name}}</p>        
                 </div>
                     @include('include.convince')
                 
