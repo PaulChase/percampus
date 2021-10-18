@@ -21,13 +21,13 @@
         
             <div class="px-4 py-4 md:max-w-lg mx-auto md:shadow-lg rounded-md bg-white ">
 
-                <div class=" text-center text-xl font-semibold my-4">Hello, you are about to experince the Joy of online selling. 
+                <div class=" text-center text-xl font-semibold my-4">Hello, you are about to experince the Joy of online selling. You can login with:
                     @if (Cookie::has('referer'))
                     {{$referer->name}} referred you
                     @endif 
                 </div>
 
-                {{-- <div>
+                <div>
                     <a href="{{route('login.google')}}" class=" w-full p-3 text-center border-2 border-gray-100 rounded-lg text-white font-semibold block bg-blue-500 my-4"><i class="fab fa-google mr-3 "></i> With Your Google Account</a>
                 </div>
 
@@ -36,7 +36,7 @@
                 <button class="w-full p-3 text-center border-2 border-gray-100 rounded-lg  font-medium block bg-gray-200 my-4" id="openform"> <i class="fa fa-envelope mr-3"></i>
                     Continue With Your Email
                 </button>
-                --}}
+               
 
                 <div class="  " id="signup">
                     <form method="POST" action="{{ route('register') }}" class=" space-y-4" >

@@ -102,45 +102,6 @@
         </div>
 
 
-        {{-- <div class=" text-center lg:px-3 lg:py-9">
-            <div class=" px-3 py-8 text-xl text-center font-semibold lg:flex lg:items-center lg:max-w-xl lg:text-3xl  italic mx-auto ">
-                <p>
-                    <i class=" fa fa-quote-left text-green-500 fa-2x "></i><br>
-                    Join Us as we are taking the University Experience Online <br>
-                    <i class=" fa fa-quote-right text-green-500 fa-2x"></i>
-                </p>
-            </div>
-
-            <div class=" px-7 py-3 text-lg">
-                <h3 class=" text-3xl font-bold my-4">How It Works</h3>
-                <div class="mb-10 py-6">
-                    <i class="fa fa-edit fa-3x my-4"></i>
-                    <p>If you  have an item for sale whether used or new, the first step is to create your account for FREE <a href="/register" class=" text-green-500">here.</a> </p>
-                </div>
-                <div class="mb-10 py-6">
-                    <i class="fa fa-user fa-3x my-4"></i>
-                    <p>In your account dashboard, you can click on the add post button to go to  the add post page. </p>
-                </div>
-                <div class="mb-10 py-6">
-                    <i class="fa fa-save fa-3x my-4"></i>
-                    <p> Fill out the information about the item correctly and review it again for any possible errors and click the submit button when you are done.</p>
-                </div>
-                <div class="mb-10 py-6">
-                    <i class="fa fa-phone-square fa-3x my-4"></i>
-                    <p>In a few seconds your post will go live on the website. Students on your campus who are interested in the item will call you with the contact you provided. </p>
-                </div>
-
-            </div>
-
-            
-        
-      
-        
-        <div class=" mt-4 mb-10 px-4 py-2 text-2xl text-gray-600 font-bold text-center">
-            <p>No need to share your product in few whatsapp groups and your status hoping someone will buy it, be rest assured that students coming here are ready to buy.</p>
-        </div> --}}
-
-
         {{-- call to action --}}
         @guest
         <div class=" bg-gray-700 px-4 py-24 h-auto text-xl text-white font-semibold text-center lg:h-72 lg:flex  lg:items-center lg:px-10">
@@ -163,7 +124,26 @@
             
         </div>
         
-        
+{{-- faq --}}
+<div class=" bg-gray-700 px-4 py-24 h-auto  text-white   lg:h-72 lg:flex  lg:items-center lg:px-10">
+    <h3 class=" font-bold text-lg text-center mb-5">Frequently Asked Questions (FAQ)</h3>
+    <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">what's this site all about? <i class="fa fa-chevron-right float-right"></i></button>
+    <div class="panel p-3 bg-gray-50 rounded-md text-gray-700  border-l-4 border-green-400 hidden">
+        <p>In summary, this is an online marketplace similar to jiji but for us students on campus to buy and sell both new and used items to one another.</p>
+    </div>
+    <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">who is the website for?<i class="fa fa-chevron-right float-right"></i></button>
+    <div class="panel p-3 bg-gray-50 rounded-md text-gray-700  border-l-4 border-green-400 hidden">
+        <p>The website is for any student on campus who wants to buy anything from their fellow students, sell a new or used product to their departmental students or campus at large.</p>
+    </div>
+    <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">How can this website benefit me?<i class="fa fa-chevron-right float-right"></i></button>
+    <div class="panel p-3 bg-gray-50 rounded-md text-gray-700  border-l-4 border-green-400 hidden">
+        <p>With this website you are no longer limited to posting your products on whatsapp status or groups every now and then. You will now be able to reach all the thousands of students on your campus with a single post.</p>
+    </div>
+    <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">Can I make money from this website?<i class="fa fa-chevron-right float-right"></i></button>
+    <div class="panel p-3 bg-gray-50 rounded-md text-gray-700  border-l-4 border-green-400 hidden">
+        <p>Sure, If you own a business on campus of selling products students wants to buy such as footwears, clothes, phone accessories etc. You can definitely use this website as your personal online store to showcase all the items you have in stock with thier prices. <br> The more you sell, the more you earn. The best part is that you keep all the profits (the website is totally FREE, we don't take any cut). </p>
+    </div>
+</div>
 
         <div class=" grid lg:grid-cols-2 gap-4 p-4"> 
             
@@ -177,4 +157,16 @@
     </main>
 @include('include.footer')
     
+@endsection
+
+@section('js')
+<script>
+    $(document).ready(function(){
+        $('.accordion').click(function( ){
+            $(this).next().toggle(500) 
+            $(this).toggleClass('text-green-500')
+        })
+
+        });
+</script>
 @endsection

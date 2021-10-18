@@ -1,184 +1,316 @@
 @php
-    use App\Models\Category;
-    use App\Models\Campus;
-    use Illuminate\Support\Carbon;
 
-    $categories = Category::get();
-    // $campuses = Campus::orderBy('name')->get();
-    $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
-                 return Campus::orderBy('name', 'asc')->get();
-            });
+use App\Models\Campus;
+use Illuminate\Support\Carbon;
+
+// $campuses = Campus::orderBy('name')->get();
+$campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
+return Campus::orderBy('name', 'asc')->get();
+});
 
 @endphp
 
 <header class="border-b md:flex md:items-center md:justify-between shadow-md md:py-2  bg-white">
-  
-    
-    <nav id="header" class="w-full">
-        <div class="w-full max-w-7xl  mx-auto flex flex-wrap items-center justify-between px-3 py-3 md:py-2 lg:p-4">
 
-            <label for="menu-toggle" class="cursor-pointer md:hidden block">
-              <i class="fa fa-bars fa-2x text-gray-600"></i>
-                
-            </label>
 
-            <div class="order-1">
-              @auth
-              <a class=" tracking-wide no-underline hover:no-underline font-bold text-green-600 text-2xl " href="{{route('campus.home', ['campus'=> Auth::user()->campus->nick_name])}}"> 
-                <b> {{config('app.name')}}  </b>
-            </a> 
+  <nav id="header" class="w-full">
+    <div class="w-full max-w-7xl  mx-auto flex flex-wrap items-center justify-between px-3 py-3 md:py-2 lg:p-4">
 
-                  @else
-                  <a class=" tracking-wide no-underline hover:no-underline font-bold text-green-600 text-2xl " href="/"> 
-                    <b> {{config('app.name')}} </b>
-                </a>
-              @endauth
-              
-          </div>
-          <input class="hidden" type="checkbox" id="menu-toggle" />
-            <div class=" md:flex md:items-center md:w-auto  order-3 md:order-2 lg:order-2 hidden  w-full" id="menu">
-               
-                    <ul class="grid grid-cols-2 gap-3 md:flex items-center md:justify-between text-base text-gray-700 pt-4 md:pt-0  md:space-y-0 ">
-                      <li class=" hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent"> 
-                        <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="/">
-                          Homepage
-                        </a>
-                      </li>
-                      @auth
-                           <li class=" hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent"> 
-                        <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="{{route('campus.home', ['campus'=> Auth::user()->campus->nick_name])}}">
-                          <span class=" uppercase">{{Auth::user()->campus->nick_name }} </span> campus
-                        </a>
-                      </li>
-                      @endauth
-                      <li class="md:ml-2 hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
-                        <a class=" block no-underline py-2 text-grey-darkest hover:text-black md:border-none md:font-medium md:p-0 hover:no-underline font-semibold " href="/allcampuses">
-                          All Campuses
-                        </a>
-                      </li>
-                      <li class=" hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent"> 
-                        <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="/about">
-                          About
-                        </a>
-                      </li>
-                      
-                      <li class="md:ml-2 hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
-                        <a class=" block no-underline py-2 text-grey-darkest hover:text-black md:border-none md:font-medium md:p-0 hover:no-underline font-semibold " href="/howto">
-                          how to Use
-                        </a>
-                      </li>
-                      <li class="md:ml-2 hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
-                        <a class=" block no-underline py-2 text-grey-darkest hover:text-black md:border-none md:font-medium md:p-0 hover:no-underline font-semibold " href="https://forms.gle/wkVRH7yDWBEKg6QV6" target="_blank">
-                          Feedback
-                        </a>
-                      </li>
-                      
-                     
+<button class="cursor-pointer md:hidden " id="openmenu">
+        <i class="fa fa-bars fa-2x text-gray-600"></i>
+</button>
 
-                          <!-- Authentication Links -->
-                          @guest
-                                <li class=" hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent"> 
-                                <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="{{ route('getSubCategories', ['mainCategoryID' => 2])}}">
-                                  Marketplace
-                                </a>
-                              </li>
+      <div class="order-1">
+        @auth
+        <a class=" tracking-wide no-underline hover:no-underline font-bold text-green-600 text-2xl " href="{{route('campus.home', ['campus'=> Auth::user()->campus->nick_name])}}">
+<b> {{config('app.name')}} </b>
+        </a>
 
-                               
-                                  @if (Route::has('login'))
-                                      <li class="md:ml-2  py-2  ">
+        @else
+        <a class=" tracking-wide no-underline hover:no-underline font-bold text-green-600 text-2xl " href="/">
+          <b> {{config('app.name')}} </b>
+        </a>
+        @endauth
 
-                                          <a class="border-2 border-green-400 px-5 py-2 rounded-md font-bold inline-block 
-                                          md:w-28 text-center hover:bg-green-200 focus:bg-green-200 w-full" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                      </li>
-                                  @endif
-                    
-                                  @if (Route::has('register'))
-                                      <li class="md:ml-2  py-2  ">
-                                          <a class="border-2 border-green-400 bg-green-400 px-5 py-2 rounded-md font-bold inline-block  text-center md:w-28
-                                          hover:bg-green-500 focus:bg-green-500 w-full" href="{{ route('register') }}">{{ __('Sign Up') }}</a>
-                                      </li>
-                                  @endif
-                               
-                             
-                          @else
-                            @foreach ($categories as $category)
-                              <li class=" hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent"> 
-                                <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="{{route('subcategory', ['campus'=> Auth::user()->campus->nick_name,'c'=> $category->name])}}">
-                                  {{ $category->name}}
-                                </a>
-                              </li>
-                            @endforeach
-                                <li class="md:ml-2 hover:bg-green-100 rounded-md p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
-                                    <a class="block font-semibold  no-underline hover:no-underline py-2  hover:text-black md:font-medium md:border-none md:p-0 " href="/dashboard"
-                                    > <span class="  md:hidden"><i class="la la-user-circle la-2x"></i></span>
-                                     My Profile</a>
-                                </li>    
-                          @endguest
-                    </ul>
-            </div>
-            <div class="order-2 md:order-3 lg:order-4 flex items-center" id="nav-content">
+</div>
 
-              <ul class=" list-none flex">
-                
-                <li class="md:ml-2">
-                  {{-- <a class=" inline-block bg-green-500 px-3 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-600" href="/post-type"> <i class="la la-pencil"></i>
-                    Add post
-                  </a> --}}
-                  <button id="addPost" class="inline-block bg-green-500 px-3 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-600">Add Post</button>
-                </li>
-                
-              </ul>
+{{-- nav link for mobile and small screen devices --}}
+<div class=" fixed   w-full h-full z-30 overflow-auto  hidden  top-0 left-0  " style="background-color: rgba(0,0,0,0.7); " id="menu">
+  <div class=" md:flex md:items-center md:w-auto  order-3 md:order-2 lg:order-2   w-4/6 h-full  rounded-r-lg bg-white text-base overflow-auto ">
 
-            </div>
-            
-            <div class="order-3 lg:order-2 w-full lg:w-auto  mt-3 md:mt-2 lg:mt-0 @if ( Route::current()->getName() == 'campus.home' || Request::is('allcampuses'))
-            {{'hidden'}}
-        @endif">
-              <form class="  rounded-md " action="{{ url ('search')}}" method="GET " >
-                {{ csrf_field() }}
-                <label class="hidden" for="search-form">Search</label>
-                <input class="px-3 py-2 rounded-md w-full focus:outline-none bg-gray-50 shadow" placeholder="search the name of the item e.g mattress" type="text" name="query" required>
+    {{-- button to close menu --}}
+    <button class=" right-3 top-3 absolute bg-gray-50 rounded-full px-2 py-1 focus:bg-gray-500 lg:hidden" id="closemenu"> <i class="fa fa-times fa-2x text-gray-400"></i></button>
+    @auth
+    <div class=" p-3">
+      @if ( auth()->user()->avatar == null || auth()->user()->avatar == 'users/default.png' )
+      <p class=" my-4"><i class="fa fa-user-circle fa-5x text-green-400"></i></p>
 
-                
-                <div class="mt-2 bg-gray-50 flex ">
-                  <select name="campus" id="" class=" p-1 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200 col-span-3 " >
-                    <option value="{{ null }}" selected>Pick the Campus to search in...</option>
-                    @foreach ($campuses as $campus)
-                      <option value="{{$campus->id}}" class="">{{$campus->name}}</option>
-                    @endforeach
-                  </select>
-                  
-                  <button type="submit" name="submit" class="focus:bg-green-500 bg-gray-50 border-2 border-green-400 focus:text-white rounded-md focus:outline-none text-green-500 p-1 w-12 ml-3 "><i class="fa fa-search  mx-1.5 my-1 cursor-pointer "></i></button>
-                
-                
-                </div >
-              </form>
-            </div>
-        </div>
-    </nav>
-  
-  </header>
-
-  <div id="picktype" class=" fixed  w-full h-full z-30 overflow-auto  top-0 left-0 text-center  hidden" style="background-color: rgba(0,0,0,0.7); ">
-    <div class=" bg-white bottom-0 absolute w-full rounded-t-lg p-4">
-      <button class=" float-right m-3 bg-gray-200 px-3 py-1 rounded-full focus:bg-gray-500" id="closepicktype">X</button><br>
-      <h3 class=" font-bold text-lg text-center my-5">What type of post do you want to add?</h3>
-      <div class=" grid grid-cols-2 gap-5">
-        <a href="/posts/create" class=" bg-green-100 rounded-lg p-3 focus:bg-green-300">
-          <i class="fa fa-bullhorn fa-3x my-3 text-green-500"></i> <br>
-          <span class=" font-semibold">An item for sale</span>
-        </a >
-        <a href="{{ route('opportunities.create')}}" class=" bg-green-100 rounded-lg p-3 focus:bg-green-300">
-          <i class="fa fa-graduation-cap text-green-500 fa-3x my-3"></i> <br>
-          <span class=" font-semibold">An opportunity for students</span>
-        </a >
-      </div>
+      @else
+      <img src="{{auth()->user()->avatar}}" class=" w-32 h-32 rounded-full mx-auto border-4 border-green-300 object-cover my-4" alt="">
+      @endif
+      <h4 class="font-semibold"> {{ Auth::user()->name}}</h4>
     </div>
+
+    @else
+    <div class=" p-3">
+      <p class=" my-4 text-center"><i class="fa fa-user-circle fa-5x text-green-400"></i></p>
+      <h4 class="font-semibold"> Honourabe Guest</h4>
+    </div>
+
+    @endauth
+
+
+    <ul class="grid grid-cols-1 gap-3 md:flex items-center md:justify-between text-gray-700 pt-4 md:pt-0  md:space-y-0">
+      <li class="md:ml-2 hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+        <a class="block font-semibold  no-underline hover:no-underline py-2  hover:text-black md:font-medium md:border-none md:p-0 " href="/dashboard"> <span class="  md:hidden"><i class="fa fa-user-circle mr-2"></i></span>
+          My Profile</a>
+      </li>
+      <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+        <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="/"> <i class=" fa fa-home text-gray-500 mr-2"></i>
+                Homepage
+              </a>
+            </li>
+
+            @auth
+<li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+              <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="{{route('campus.home', ['campus'=> Auth::user()->campus->nick_name])}}">
+<i class=" fa fa-graduation-cap text-gray-500 mr-2"></i>
+                <span class=" uppercase">{{Auth::user()->campus->nick_name }} </span> campus
+              </a>
+            </li>
+            @endauth
+<li class="md:ml-2 hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+              <a class=" block no-underline py-2 text-grey-darkest hover:text-black md:border-none md:font-medium md:p-0 hover:no-underline font-semibold " href="/allcampuses">
+<i class=" fa fa-building text-gray-500 mr-2"></i>
+                All Campuses
+              </a>
+            </li>
+<li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+  <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="/about"><i class=" fa fa-bookmark text-gray-500 mr-2"></i>
+                About
+              </a>
+            </li>
+
+<li class="md:ml-2 hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+              <a class=" block no-underline py-2 text-grey-darkest hover:text-black md:border-none md:font-medium md:p-0 hover:no-underline font-semibold " href="/howto">
+<i class=" fa fa-info-circle text-gray-500 mr-2"></i>
+                how to Use
+              </a>
+            </li>
+<li class="md:ml-2 hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+              <a class=" block no-underline py-2 text-grey-darkest hover:text-black md:border-none md:font-medium md:p-0 hover:no-underline font-semibold " href="https://forms.gle/wkVRH7yDWBEKg6QV6" target="_blank">
+<i class=" fa fa-paper-plane text-gray-500 mr-2"></i>
+                Feedback
+              </a>
+            </li>
+
+
+
+            <!-- Authentication Links -->
+            @guest
+<li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+  <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="{{ route('getSubCategories', ['mainCategoryID' => 2])}}"><i class=" fa fa-shopping-cart text-gray-500 mr-2"></i>
+                Marketplace
+              </a>
+            </li>
+
+
+            @if (Route::has('login'))
+            <li class="md:ml-2  py-2  ">
+
+              <a class="border-2 border-green-400 px-5 py-2 rounded-md font-bold inline-block 
+                                          md:w-28 text-center hover:bg-green-200 focus:bg-green-200 w-full" href="{{ route('login') }}">{{ __('Login') }}</a>
+            </li>
+            @endif
+
+            @if (Route::has('register'))
+            <li class="md:ml-2  py-2  ">
+              <a class="border-2 border-green-400 bg-green-400 px-5 py-2 rounded-md font-bold inline-block  text-center md:w-28
+                                          hover:bg-green-500 focus:bg-green-500 w-full" href="{{ route('register') }}">{{ __('Sign Up') }}</a>
+            </li>
+            @endif
+
+
+            @else
+<li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+  <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="{{route('subcategory', ['campus'=> Auth::user()->campus->nick_name,'c'=> 'marketplace'])}}">
+    <i class=" fa fa-shopping-cart text-gray-500 mr-2"></i>
+    Marketplace
+              </a>
+            </li>
+<li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+  <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="{{route('subcategory', ['campus'=> Auth::user()->campus->nick_name,'c'=> 'opportunities'])}}">
+    <i class=" fa fa-cubes text-gray-500 mr-2"></i>
+    Opportunities
+  </a>
+</li>
+
+
+@endguest
+</ul>
+</div>
+
+</div>
+
+{{-- nav link for desktop and large screens --}}
+<div class=" md:flex md:items-center md:w-auto  order-3 md:order-2 lg:order-2  hidden lg:block  text-base overflow-auto ">
+
+  {{-- button to close menu --}}
+
+  {{-- @auth
+  <div class=" p-3">
+    @if ( auth()->user()->avatar == null || auth()->user()->avatar == 'users/default.png' )
+    <p class=" my-4"><i class="fa fa-user-circle fa-5x text-green-400"></i></p>
+
+    @else
+    <img src="{{auth()->user()->avatar}}" class=" w-32 h-32 rounded-full mx-auto border-4 border-green-300 object-cover my-4" alt="">
+    @endif
+    <h4 class="font-semibold"> {{ Auth::user()->name}}</h4>
   </div>
 
-  
+  @else
+  <div class=" p-3">
+    <p class=" my-4 text-center"><i class="fa fa-user-circle fa-5x text-green-400"></i></p>
+    <h4 class="font-semibold"> Honourabe Guest</h4>
+  </div>
+
+  @endauth --}}
+
+
+  <ul class="md:flex items-center md:justify-between text-gray-700 pt-4 md:pt-0  md:space-y-0">
+    <li class="md:ml-2 hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+      <a class="block font-semibold  no-underline hover:no-underline py-2  hover:text-black md:font-medium md:border-none md:p-0 " href="/dashboard"> <span class="  md:hidden"><i class="fa fa-user-circle mr-2"></i></span>
+              My Profile</a>
+          </li>
+<li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+  <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="/">
+    Homepage
+  </a>
+</li>
+
+@auth
+<li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+  <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="{{route('campus.home', ['campus'=> Auth::user()->campus->nick_name])}}">
+
+    <span class=" uppercase">{{Auth::user()->campus->nick_name }} </span> campus
+  </a>
+</li>
+@endauth
+<li class="md:ml-2 hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+  <a class=" block no-underline py-2 text-grey-darkest hover:text-black md:border-none md:font-medium md:p-0 hover:no-underline font-semibold " href="/allcampuses">
+    All Campuses
+  </a>
+</li>
+
+
+<li class="md:ml-2 hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+  <a class=" block no-underline py-2 text-grey-darkest hover:text-black md:border-none md:font-medium md:p-0 hover:no-underline font-semibold " href="https://forms.gle/wkVRH7yDWBEKg6QV6" target="_blank">
+
+    Feedback
+  </a>
+</li>
+
+
+
+<!-- Authentication Links -->
+@guest
+<li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+  <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="{{ route('getSubCategories', ['mainCategoryID' => 2])}}">
+    Marketplace
+  </a>
+</li>
+
+
+
+
+@if (Route::has('register'))
+<li class="md:ml-2  py-2  ">
+  <a class="border-2 border-green-400 bg-green-400 px-5 py-2 rounded-md font-bold inline-block  text-center md:w-28
+                                                                              hover:bg-green-500 focus:bg-green-500 w-full" href="{{ route('register') }}">{{ __('Sign Up') }}</a>
+</li>
+@endif
+
+
+@else
+
+<li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+  <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="{{route('subcategory', ['campus'=> Auth::user()->campus->nick_name,'c'=> 'marketplace'])}}">
+
+    Marketplace
+  </a>
+</li>
+<li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+  <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 " href="{{route('subcategory', ['campus'=> Auth::user()->campus->nick_name,'c'=> 'opportunities'])}}">
+
+    Opportunities
+  </a>
+</li>
+          @endguest
+        </ul>
+      </div>
+{{-- end of nav links for desktop --}}
+      <div class="order-2 md:order-3 lg:order-4 flex items-center" id="nav-content">
+
+        <ul class=" list-none flex">
+
+          <li class="md:ml-2">
+            {{-- <a class=" inline-block bg-green-500 px-3 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-600" href="/post-type"> <i class="la la-pencil"></i>
+              Add post
+            </a> --}}
+<button id="addPost" class="inline-block bg-green-500 px-3 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-600 shadow-inner">Add Post</button>
+          </li>
+
+        </ul>
+
+      </div>
+
+      <div class="order-3 lg:order-2 w-full lg:w-auto  mt-3 md:mt-2 lg:mt-0 @if ( Route::current()->getName() == 'campus.home' || Request::is('allcampuses'))
+            {{'hidden'}}
+        @endif">
+<form class="  rounded-md " action="{{ url ('search')}}" method="GET ">
+          {{ csrf_field() }}
+          <label class="hidden" for="search-form">Search</label>
+          <input class="px-3 py-2 rounded-md w-full focus:outline-none bg-gray-50 shadow" placeholder="search the name of the item e.g mattress" type="text" name="query" required>
+
+
+          <div class="mt-2 bg-gray-50 flex ">
+<select name="campus" id="" class=" p-1 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200 col-span-3 ">
+              <option value="{{ null }}" selected>Pick the Campus to search in...</option>
+              @foreach ($campuses as $campus)
+              <option value="{{$campus->id}}" class="">{{$campus->name}}</option>
+              @endforeach
+            </select>
+
+            <button type="submit" name="submit" class="focus:bg-green-500 bg-gray-50 border-2 border-green-400 focus:text-white rounded-md focus:outline-none text-green-500 p-1 w-12 ml-3 "><i class="fa fa-search  mx-1.5 my-1 cursor-pointer "></i></button>
+
+
+        </form>
+      </div>
+    </div>
+  </nav>
+
+</header>
+
+<div id="picktype" class=" fixed  w-full h-full z-30 overflow-auto  top-0 left-0 text-center  hidden" style="background-color: rgba(0,0,0,0.7); ">
+  <div class=" bg-white bottom-0 absolute w-full rounded-t-lg p-4">
+    <button class=" float-right m-3 bg-gray-200 px-3 py-1 rounded-full focus:bg-gray-500" id="closepicktype">X</button><br>
+    <h3 class=" font-bold text-lg text-center my-5">What type of post do you want to add?</h3>
+    <div class=" grid grid-cols-2 gap-5">
+      <a href="/posts/create" class=" bg-green-100 rounded-lg p-3 focus:bg-green-300">
+        <i class="fa fa-bullhorn fa-3x my-3 text-green-500"></i> <br>
+        <span class=" font-semibold">An item for sale</span>
+</a>
+      <a href="{{ route('opportunities.create')}}" class=" bg-green-100 rounded-lg p-3 focus:bg-green-300">
+        <i class="fa fa-graduation-cap text-green-500 fa-3x my-3"></i> <br>
+        <span class=" font-semibold">An opportunity for students</span>
+</a>
+    </div>
+  </div>
+</div>
+
+
 <script>
-$(document).ready(function () {
+  $(document).ready(function () {
   $("#addPost").click(function () {
     $("#picktype").show(500)
   })
@@ -186,6 +318,14 @@ $(document).ready(function () {
   $("#closepicktype").click(function () {
     $("#picktype").hide(500)
   })
+$("#openmenu").click(function () {
+
+$("#menu").show(500)
+})
+
+$("#closemenu").click(function () {
+$("#menu").hide(500)
+})
 });
 
 </script>
