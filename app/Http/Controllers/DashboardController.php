@@ -32,7 +32,7 @@ class DashboardController extends Controller
     public function index()
     {
 
-        $ads = Advert::where('status', 'active')->get();
+        $ads = Advert::get();
 
         $posts = Auth::user()->posts()->whereIn('status', ['active', 'pending', 'rejected'] )->orderBy('created_at', 'desc' )->get();
         // $collection = collect($user->posts->where('status', 'active'));

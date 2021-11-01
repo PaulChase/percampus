@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Advert;
 use App\Models\Campus;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
@@ -171,12 +172,13 @@ class PagesController extends Controller
 
         $totalPostViews = Post::select(['view_count'])->sum('view_count');
         $totalPostContacts = Post::select(['no_of_contacts'])->sum('no_of_contacts');
+        $totalAdClicks = Advert::select(['linkclick'])->sum('linkClick');
 
         // dd($mostViewedPosts);
-       
 
 
-        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews', 'mostViewedPosts', 'totalPostContacts', 'referralsCount', 'searchCount'));
+
+        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews', 'mostViewedPosts', 'totalPostContacts', 'referralsCount', 'searchCount', 'totalAdClicks'));
     }
 
     public function join(Request $request)

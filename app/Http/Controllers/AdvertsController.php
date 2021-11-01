@@ -9,7 +9,7 @@ use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as ImageOptimizer;
-
+use Illuminate\Support\Facades\Cookie;
 
 
 class AdvertsController extends Controller
@@ -107,6 +107,8 @@ class AdvertsController extends Controller
         $ad->subcategory_id = $request->input('subcategory');
         $ad->image_url = $url;
         $ad->status = 'active';
+        $ad->position = $request->input('position');
+
         $ad->user_id = auth()->user()->id;
 
         $ad->save();
@@ -169,6 +171,7 @@ class AdvertsController extends Controller
         $ad->link = $request->input('url');
         $ad->campus_id = $request->input('campus');
         $ad->subcategory_id = $request->input('subcategory');
+        $ad->position = $request->input('position');
         $ad->user_id = auth()->user()->id;
 
         //  checking if image is set and valid
@@ -221,8 +224,26 @@ class AdvertsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Advert $ad)
     {
-        //
+        // $ad->update(['status' => 'deleted']);
+        $status =  $request->input('status');
+        $ad->status = $status;
+        $ad->save();
+
+        return redirect()->route('home');
+    }
+
+    public function adClick(Request $request)
+    {
+        $adID = $request->input('adID');
+        $ad = Advert::find($adID);
+
+
+        if (!Cookie::has($ad->title)) {
+
+            Cookie::queue($ad->title, 'clicked', 120);
+            $ad->incrementAdClick();
+        }
     }
 }

@@ -27,8 +27,11 @@
                     @enderror
                 </div>
                 <div>
+                    @php
+                        $price = str_ireplace(',', '', $post->price)
+                    @endphp
                     <label for="price">Price <b class=" text-red-500">*</b></label>
-                    <input type="number" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" name="price" placeholder="e.g 2500" value="{{$post->price}}" >
+                    <input type="number" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" name="price" placeholder="e.g 2500" value="{{ intval($price) }}" >
                     @error('price')
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">{{ 'the price of the item is Required' }}</small>
                     @enderror

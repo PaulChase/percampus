@@ -46,6 +46,15 @@
                        @endforeach
                    </select>
                </div>
+
+                <div class="">
+                     <label for="campus">Pick the Position of the AD</label>           
+                    <select name="position" id="" class=" p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200">
+                        <option value="middle">Middle</option>
+                        <option value="bottom">Bottom</option>
+                        
+                    </select>
+                </div>
                 <div>
                     <label for="images"><i class="la la-photo"></i> Upload a nice image for the Ad</label>
                     <input type="file" name="image" multiple class="p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200">

@@ -26,6 +26,15 @@ class OpportunitiesController extends Controller
     {
         $this->middleware('auth', ['except' => ['latest']]);
     }
+
+    public function index()
+    {
+        $opportunities = Category::find(3);
+
+        $posts = $opportunities->posts()->where('status', 'active')->orderBy('created_at', 'desc')->paginate(20);
+
+        return view('opportunities.index')->with('posts', $posts);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -122,10 +131,10 @@ class OpportunitiesController extends Controller
             $imageResize->save($path);
 
             // saving it to the s3 bucket and also making it public so my website can access it
-            Storage::disk('s3')->put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
+            Storage::disk('local')->put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
 
             // get the public url from s3
-            $url  = Storage::disk('s3')->url('public/images/' . $fileNameToStore);
+            $url  = Storage::disk('local')->url('public/images/' . $fileNameToStore);
 
             // then save the image record to the Db
             $this->saveImage($thePostId, $fileNameToStore, $url);

@@ -60,9 +60,10 @@ Route::delete('/posts/{id}', 'PostsController@destroy')->name('posts.delete');
 
 // for Adverts
 Route::get('/ads/create', [AdvertsController::class, 'create']);
+Route::post('/ads/click', [AdvertsController::class, 'adClick'])->name('ad.click');
 Route::get('/ads/edit/{id}', [AdvertsController::class, 'edit']);
 Route::put('/ads/update/{id}', [AdvertsController::class, 'update'])->name('ads.update');
-Route::delete('/ads/{id}', [AdvertsController::class, 'destroy'])->name('ads.delete');
+Route::delete('/ads/{ad}', [AdvertsController::class, 'destroy'])->name('ads.delete');
 Route::post('/ads/save', [AdvertsController::class, 'store'])->name('ads.save');
 
 // for opportunities

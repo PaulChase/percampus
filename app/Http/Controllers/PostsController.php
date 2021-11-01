@@ -99,7 +99,7 @@ class PostsController extends Controller
         // add post to Database
         $post->title = $request->input('title');
         $post->description = $request->input('description');
-        $post->price =number_format($request->input('price')) ;
+        $post->price = number_format($request->input('price'));
         $post->venue = $request->input('venue');
         $post->contact_info = $phoneNo;
         $post->item_condition =  $request->input('condition');
@@ -125,10 +125,10 @@ class PostsController extends Controller
                 $fileNameWithExt = $image->getClientOriginalName();
 
                 // get only the file name
-                // $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+                $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
 
                 // the name should be the title of the post bcoz of some SEO tactics
-                $fileName = $request->input('title');
+                // $fileName = $request->input('title');
 
                 // get the extension e.g .png, .jpg etc
                 $extension = $image->getClientOriginalExtension();
@@ -193,15 +193,13 @@ class PostsController extends Controller
         $post = Post::where('slug', $slug)->firstOrFail();
 
         if (Auth::user()  && (Auth::user()->id !== $post->user->id) && !Cookie::has($post->slug)) {
-             Cookie::queue($post->slug, 'seen', 120);
+            Cookie::queue($post->slug, 'seen', 120);
             $post->incrementViewCount();
+        } else if (!Cookie::has($post->slug) && !(Auth::user())) {
 
-        }else if(!Cookie::has($post->slug) && !(Auth::user())){
-            
-		    Cookie::queue($post->slug, 'seen', 120);
+            Cookie::queue($post->slug, 'seen', 120);
             $post->incrementViewCount();
-            
-	    }
+        }
         // get the logged in user campus ID
         if (Auth::user()) {
             $campusID = auth()->user()->campus_id;
@@ -219,29 +217,29 @@ class PostsController extends Controller
 
         // so I can send marketplace posts to the opportunities category
         $marketplace = Category::find(2);
-            
+
         // get the recent posts from marketplace for the opportunities pages
         $recentPosts = $marketplace->posts()
-                    ->where('status', 'active')
-                    ->orderBy('created_at', 'desc')
-                    ->take(6)
-                     ->get();
-                   
+            ->where('status', 'active')
+            ->orderBy('created_at', 'desc')
+            ->take(4)
+            ->get();
+
 
         // if the request is an opportunitie post, go to opportunity post view
         if ($post->subcategory->category->name == 'opportunities') {
             return view('opportunities.single')
-            ->with('post', $post)
-            ->with('social', $socialLinks)
-            ->with('recentPosts', $recentPosts)
-            ->with('ads', $ads);
+                ->with('post', $post)
+                ->with('social', $socialLinks)
+                ->with('recentPosts', $recentPosts)
+                ->with('ads', $ads);
         }
 
         $similarPosts = Post::where('status', 'active')
-                                                ->where('subcategory_id', $post->subcategory->id)
-                                                ->orderBy('view_count', 'desc')
-                                                ->take(6)
-                                                ->get();
+            ->where('subcategory_id', $post->subcategory->id)
+            ->orderBy('view_count', 'desc')
+            ->take(6)
+            ->get();
         // dd($similarPosts);
 
         return view('posts.single')
@@ -292,7 +290,7 @@ class PostsController extends Controller
         ]);
 
 
-           
+
         //  checking if image is set
         if (
             $request->hasFile('images') && (count($request->file('images')) <= 2)
@@ -306,10 +304,10 @@ class PostsController extends Controller
                 $fileNameWithExt = $image->getClientOriginalName();
 
                 // get only the file name
-                // $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+                $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
 
-                 // the name should be the title of the post bcoz of some SEO tactics
-                $fileName = $request->input('title');
+                // the name should be the title of the post bcoz of some SEO tactics
+                // $fileName = $request->input('title');
 
                 // get the extension e.g .png, .jpg etc
                 $extension = $image->getClientOriginalExtension();
@@ -337,7 +335,7 @@ class PostsController extends Controller
                 // get the record
                 $imagedb = Image::where('post_id', $id)->orderBy('updated_at', 'asc')->first();
                 // dd($imagedb);
-                    
+
 
 
                 // checking if the record is in the database
@@ -349,7 +347,6 @@ class PostsController extends Controller
                     $imagedb->save();
                 } else {
                     $this->saveImage($id, $fileNameToStore, $url);
-
                 }
 
                 // $path = $request->file('avatar')->store('public/images');
@@ -371,7 +368,7 @@ class PostsController extends Controller
         $post->title = $request->input('title');
         $post->description = $request->input('description');
         $post->venue = $request->input('venue');
-        $post->price =  number_format($request->input('price')) ;
+        $post->price =  number_format($request->input('price'));
         $post->status = 'pending';
         $post->contact_info = $phoneNo;
 
@@ -427,21 +424,21 @@ class PostsController extends Controller
 
         if ($campusID == null) {
             $results = Post::where('status', 'active')
-                            ->where('title', 'like', "%{$query}%")
-                            ->orderBy('created_at', 'desc')
-                            ->paginate(16);
+                ->where('title', 'like', "%{$query}%")
+                ->orderBy('created_at', 'desc')
+                ->paginate(16);
         } else {
             $campus = Campus::find($campusID);
             $results = $campus->posts()
-                            ->where('status', 'active')
-                            ->where('title', 'like', "%{$query}%")
-                            ->orderBy('created_at', 'desc')
-                            ->paginate(16);
+                ->where('status', 'active')
+                ->where('title', 'like', "%{$query}%")
+                ->orderBy('created_at', 'desc')
+                ->paginate(16);
         }
-        
 
 
-        
+
+
 
         // save the search query to the database
         $saveQuery = new Search;
@@ -482,27 +479,26 @@ class PostsController extends Controller
     }
 
 
-    public function contactSeller( Request $request)
+    public function contactSeller(Request $request)
     {
         // dd('here');
 
         $postID = $request->input('postID');
         $post = Post::find($postID);
 
-        $contactCookie = $postID.$post->slug;
+        $contactCookie = $postID . $post->slug;
 
         if (Auth::user()  && (Auth::user()->id !== $post->user->id) && !Cookie::has($contactCookie)) {
-             
+
             Cookie::queue($contactCookie, 'contacted', 1440);
             $post->incrementContactCount();
-        }else if(!Cookie::has($contactCookie)){
-            
-		    Cookie::queue($contactCookie, 'contacted', 1440);
+        } else if (!Cookie::has($contactCookie)) {
+
+            Cookie::queue($contactCookie, 'contacted', 1440);
             $post->incrementContactCount();
-            
-	    }
-        
-        
+        }
+
+
         return response()->json(['success' => 'yep']);
     }
 
@@ -524,19 +520,16 @@ class PostsController extends Controller
             // to delete the post with image from storage
             if ($images != null &&  $images->count() > 0) {
                 foreach ($images as $image) {
-            // if ($image->Image_name != 'noimage.jpg') {
-            //     Storage::disk('s3')->delete('public/images/' . $image->Image_name);
-            // }
-            Storage::disk('s3')->delete('public/images/' . $image->Image_name);
-            $image->delete();
+                    // if ($image->Image_name != 'noimage.jpg') {
+                    //     Storage::disk('s3')->delete('public/images/' . $image->Image_name);
+                    // }
+                    Storage::disk('s3')->delete('public/images/' . $image->Image_name);
+                    $image->delete();
+                }
             }
-            }
-            
         }
 
-    
+
         return response()->json(['success' => 'status changed']);
     }
 }
-
-
