@@ -33,7 +33,7 @@
                     <p class=" text-3xl lg:text-4xl lg:max-w-3xl  font-semibold my-3">Discover affordable products and
                         Services offered by other Students on your Campus.
                     </p>
-                    <p>Welcome to our campus marketplace, where you will be able to sell new and used items very fast to
+                    <p>Welcome to our campus marketplace, where you will be able to sell new and used items, micro services and gigs very fast to
                         students on your campus </p>
                     <p class="grid gap-3 grid-cols-2">
                         <a href="/register"
@@ -210,35 +210,37 @@
         </div>
 
         {{-- faq --}}
-        <div class=" bg-gray-700 px-4 py-24 h-auto  text-white   lg:h-72 lg:flex  lg:items-center lg:px-10">
-            <h3 class=" font-bold text-lg text-center mb-5">Frequently Asked Questions (FAQ)</h3>
-            <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">what's this site all
-                about? <i class="fa fa-chevron-right float-right"></i></button>
-            <div class="panel p-3 bg-gray-50 rounded-md text-gray-700  border-l-4 border-green-400 hidden">
-                <p>In summary, this is an online marketplace similar to jiji but for us students on campus to buy and sell
-                    both new and used items to one another.</p>
-            </div>
-            <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">who is the website
-                for?<i class="fa fa-chevron-right float-right"></i></button>
-            <div class="panel p-3 bg-gray-50 rounded-md text-gray-700  border-l-4 border-green-400 hidden">
-                <p>The website is for any student on campus who wants to buy anything from their fellow students, sell a new
-                    or used product to their departmental students or campus at large.</p>
-            </div>
-            <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">How can this website
-                benefit me?<i class="fa fa-chevron-right float-right"></i></button>
-            <div class="panel p-3 bg-gray-50 rounded-md text-gray-700  border-l-4 border-green-400 hidden">
-                <p>With this website you are no longer limited to posting your products on whatsapp status or groups every
-                    now and then. You will now be able to reach all the thousands of students on your campus with a single
-                    post.</p>
-            </div>
-            <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">Can I make money from
-                this website?<i class="fa fa-chevron-right float-right"></i></button>
-            <div class="panel p-3 bg-gray-50 rounded-md text-gray-700  border-l-4 border-green-400 hidden">
-                <p>Sure, If you own a business on campus of selling products students wants to buy such as footwears,
-                    clothes, phone accessories etc. You can definitely use this website as your personal online store to
-                    showcase all the items you have in stock with thier prices. <br> The more you sell, the more you earn.
-                    The best part is that you keep all the profits (the website is totally FREE, we don't take any cut).
-                </p>
+        <div class=" bg-gray-700 px-4 py-24 h-auto  text-white    lg:px-10">
+            <div class=" max-w-2xl mx-auto">
+                <h3 class=" font-bold text-lg text-center mb-5">Frequently Asked Questions (FAQ)</h3>
+                <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">what's this site all
+                    about? <i class="fa fa-chevron-right float-right"></i></button>
+                <div class="panel p-3 bg-gray-50 rounded-md text-gray-700  border-l-4 border-green-400 hidden">
+                    <p>In summary, this is an online marketplace similar to jiji but for us students on campus to buy and sell
+                        both new and used items to one another.</p>
+                </div>
+                <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">who is the website
+                    for?<i class="fa fa-chevron-right float-right"></i></button>
+                <div class="panel p-3 bg-gray-50 rounded-md text-gray-700  border-l-4 border-green-400 hidden">
+                    <p>The website is for any student on campus who wants to buy anything from their fellow students, sell a new
+                        or used product to their departmental students or campus at large.</p>
+                </div>
+                <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">How can this website
+                    benefit me?<i class="fa fa-chevron-right float-right"></i></button>
+                <div class="panel p-3 bg-gray-50 rounded-md text-gray-700  border-l-4 border-green-400 hidden">
+                    <p>With this website you are no longer limited to posting your products on whatsapp status or groups every
+                        now and then. You will now be able to reach all the thousands of students on your campus with a single
+                        post.</p>
+                </div>
+                <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">Can I make money from
+                    this website?<i class="fa fa-chevron-right float-right"></i></button>
+                <div class="panel p-3 bg-gray-50 rounded-md text-gray-700  border-l-4 border-green-400 hidden">
+                    <p>Sure, If you own a business on campus of selling products students wants to buy such as footwears,
+                        clothes, phone accessories etc. You can definitely use this website as your personal online store to
+                        showcase all the items you have in stock with thier prices. <br> The more you sell, the more you earn.
+                        The best part is that you keep all the profits (the website is totally FREE, we don't take any cut).
+                    </p>
+                </div>
             </div>
         </div>
 

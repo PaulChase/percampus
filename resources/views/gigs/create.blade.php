@@ -37,8 +37,8 @@
                    </select>
                </div>
                 <div>
-                    <label for="price" class="font-semibold">The lowest price you charge per Gig<b class=" text-red-500">*</b></label>
-                    <input type="number" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" name="price" placeholder=" e.g 2500 or 300 (without spacing)" required>
+                    <label for="price" class="font-semibold">The lowest price you charge per Gig (Note: it should be between N200 to N10,000)<b class=" text-red-500">*</b></label>
+                    <input type="number" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" name="price" placeholder=" e.g 2500 or 300 (without spacing)" min="200" max="10000" required>
                     @error('price')
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">{{ 'the price of the item is Required' }}</small>
                     @enderror
