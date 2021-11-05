@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
+use App\Http\Controllers\GigsController;
 
 
 
@@ -38,6 +39,8 @@ class SubcategoriesController extends Controller
         $mainCategory = $request->get('m');
         if ($mainCategory == 'opportunities') {
             return redirect()->action([OpportunitiesController::class, 'latest'], ['categoryName' => $categoryName]);
+        } elseif ($mainCategory == 'gigs') {
+            return redirect()->action([GigsController::class, 'latest'], ['categoryName' => $categoryName]);
         }
         // get the logged user campus
         // if (Auth::user()) {

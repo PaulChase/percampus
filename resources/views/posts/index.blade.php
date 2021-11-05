@@ -32,7 +32,7 @@
                             
                     </div>        
                     <div class="col-span-4  flex flex-col justify-center md:justify-start px-3 py-2">
-                        <h3 class=" text-sm md:text-lg text-gray-600 mb-2 font-semibold overflow-hidden whitespace-nowrap overflow-ellipsis">
+                        <h3 class=" text-sm md:text-base text-gray-600 mb-2 font-semibold overflow-hidden whitespace-nowrap overflow-ellipsis">
                             <a href="/{{$each_post->user->campus->nick_name}}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}" class="focus:text-green-600">{{$each_post->title}}</a>
                         </h3>
                         

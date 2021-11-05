@@ -45,13 +45,26 @@ class PagesController extends Controller
         //     });
 
         $marketplace = Category::find(2);
-            
+        $gig = Category::find(4);
+
         $posts = $marketplace->posts()
-                    ->where('status', 'active')
-                   ->take(10)
-                    ->get()->shuffle();
-        
-        
+            ->where('status', 'active')->with('user', 'images')
+        ->take(10)
+        ->get()->shuffle();
+
+        $gigs = $gig->posts()
+        ->where(
+            'status',
+            'active'
+        )->with(
+            'user',
+            'images',
+            'subcategory'
+        )
+        ->take(8)
+            ->get()->shuffle();
+
+
 
         // to generate social share links
         $share = new Share;
@@ -59,7 +72,8 @@ class PagesController extends Controller
 
         return view('pages.index')
             ->with('social', $socialLinks)
-            ->with('posts', $posts);
+            ->with('posts', $posts)
+            ->with('gigs', $gigs);
     }
 
     // return the about page
@@ -108,16 +122,24 @@ class PagesController extends Controller
         //          return Category::get();
         //     });
 
-        
-            // find a better to do this stuff oo
-        $recentPosts = $campus->posts()->whereIn('subcategory_id', [1,2,3,4,5,6,7,8,9,13,14])->where('status', 'active')->orderBy('created_at', 'desc')->take(12)->get();
-            //  same as above
-        $recentOpportunities =Post::whereIn('subcategory_id', [10,11,13])->where('status', 'active')->orderBy('created_at', 'desc')->take(6)->get();
+
+        // find a better to do this stuff oo
+        $recentPosts = $campus->posts()->whereIn('subcategory_id', [1, 2, 3, 4, 5, 6, 7, 8, 9, 13, 14])->where('status', 'active')->orderBy('created_at', 'desc')->with(
+            'user',
+            'images',
+            'subcategory'
+        )->take(12)->get();
+        //  same as above
+        $recentOpportunities = Post::whereIn('subcategory_id', [10, 11, 13])->where('status', 'active')->orderBy('created_at', 'desc')->with(
+            'user',
+            'images',
+            'subcategory'
+        )->take(6)->get();
         // dd($recentPosts);
         return view('pages.campus')
-                ->with('campus', $campus)
-                ->with('recentPosts',  $recentPosts)
-                ->with('recentOpportunities',  $recentOpportunities);
+            ->with('campus', $campus)
+            ->with('recentPosts',  $recentPosts)
+            ->with('recentOpportunities',  $recentOpportunities);
     }
 
     public function library($campus)
@@ -137,16 +159,16 @@ class PagesController extends Controller
 
         // dd($campus);
         return view('pages.subcategory')
-                ->with('subCategories', $subCategories)
-                ->with('campus', $campus)
-                ->with('mainCategory', $category);
+            ->with('subCategories', $subCategories)
+            ->with('campus', $campus)
+            ->with('mainCategory', $category);
     }
 
     public function getAllCampuses()
     {
         $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
-                 return Campus::orderBy('name', 'asc')->get();
-            });
+            return Campus::orderBy('name', 'asc')->get();
+        });
         // $campuses = Campus::orderBy('name')->get();
 
         return view('pages.allcampuses')->with('campuses', $campuses);
@@ -154,7 +176,7 @@ class PagesController extends Controller
 
     public function showMetricsPage()
     {
-        
+
         $usersCount = User::select(['id'])->count();
 
         $postsCount = Post::select(['id'])->count();
@@ -167,8 +189,8 @@ class PagesController extends Controller
 
         $opportunitiesCount = Category::find(3)->posts()->count();
 
-        $mostViewedPosts = Post::select(['title','view_count'])->orderBy('view_count', 'desc')->take(10)->get();
-                     
+        $mostViewedPosts = Post::select(['title', 'view_count'])->orderBy('view_count', 'desc')->take(10)->get();
+
 
         $totalPostViews = Post::select(['view_count'])->sum('view_count');
         $totalPostContacts = Post::select(['no_of_contacts'])->sum('no_of_contacts');
@@ -184,8 +206,8 @@ class PagesController extends Controller
     public function join(Request $request)
     {
 
-        $refererID  = $request->get('inviter');
-        
+        $refererID  = $request->get('refer');
+
         Cookie::queue('refererID', $refererID, 10080);
 
         return redirect()->route('welcome');

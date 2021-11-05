@@ -105,14 +105,14 @@
             <div class="mt-3 p-3 bg-gray-50">
                 <h3 class=" font-bold text-lg my-4 ">Items for sale by students on Campus</h3>
 
-                <div class="grid gap-4 grid-cols-2  md:grid-cols-3 lg:grid-cols-4 py-3 max-w-7xl mx-auto w-full">
+                <div class="grid gap-4 grid-cols-2   py-3 max-w-7xl mx-auto w-full">
                     @foreach ($recentPosts as $each_post)
                     <div class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm md:grid-cols-1  md:gap-y-2 ">
 
                         <div class=" col-span-2  ">
                             <a href="/{{$each_post->user->campus->nick_name}}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}">
                                 @if (is_object($each_post->images()->first()))
-                                <img src="{{$each_post->images()->first()->Image_path}}" class=" w-full  object-fill  rounded-t-sm h-32 md:h-48   md:rounded-b-none md:rounded-t-sm" lazy="loading" alt="{{$each_post->title}}">
+                                <img src="{{$each_post->images()->first()->Image_path}}" class=" w-full  object-fill  rounded-t-sm h-32 md:h-40   md:rounded-b-none md:rounded-t-sm" lazy="loading" alt="{{$each_post->title}}">
                                 @endif
                             </a>
 

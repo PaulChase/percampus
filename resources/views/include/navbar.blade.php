@@ -3,6 +3,15 @@
 use App\Models\Campus;
 use Illuminate\Support\Carbon;
 
+if (Auth::check()) {
+    $noOfUserActivePosts = Auth::user()
+        ->posts()
+        ->where('status', 'active')
+        ->get()
+        ->count();
+    $postLeft = Auth::user()->post_limit - $noOfUserActivePosts;
+}
+
 // $campuses = Campus::orderBy('name')->get();
 $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
     return Campus::orderBy('name', 'asc')->get();
@@ -18,14 +27,14 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
             class="w-full   mx-auto flex flex-wrap items-center justify-between px-3 py-3 md:py-2 lg:p-4 lg:grid lg:grid-cols-8">
 
             <button class="cursor-pointer lg:col-span-1 lg:float-left " id="openmenu">
-                <i class="fa fa-bars fa-2x text-gray-600"></i>
+                <i class="fa fa-bars fa-2x text-gray-600"></i> <span class=" ml-1 hidden md:inline-block text-lg font-semibold">MENU</span>
             </button>
 
             <div class="order-1 lg:col-span-1">
                 @auth
                     <a class=" tracking-wide no-underline hover:no-underline font-bold text-green-600 text-2xl "
                         href="{{ route('campus.home', ['campus' => Auth::user()->campus->nick_name]) }}">
-                        <b> {{ config('app.name') }} </b>
+                        <b> {{ config('app.name') }}  </b>
                     </a>
 
                 @else
@@ -130,6 +139,20 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
                                     Marketplace
                                 </a>
                             </li>
+                            <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+                                <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
+                                    href="{{ route('getSubCategories', ['mainCategoryID' => 4]) }}"><i
+                                        class=" fa fa-toggle-on text-gray-500 mr-2"></i>
+                                    Gigs
+                                </a>
+                            </li>
+                            <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+                                <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
+                                    href="{{ route('getSubCategories', ['mainCategoryID' => 3]) }}"><i
+                                        class=" fa fa-graduation-cap text-gray-500 mr-2"></i>
+                                    Opportunities
+                                </a>
+                            </li>
 
 
                             @if (Route::has('login'))
@@ -158,8 +181,15 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
                             </li>
                             <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                                 <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
+                                    href="{{ route('subcategory', ['campus' => Auth::user()->campus->nick_name, 'c' => 'gigs']) }}">
+                                    <i class=" fa fa-toggle-on text-gray-500 mr-2"></i>
+                                    Gigs
+                                </a>
+                            </li>
+                            <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+                                <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
                                     href="{{ route('subcategory', ['campus' => Auth::user()->campus->nick_name, 'c' => 'opportunities']) }}">
-                                    <i class=" fa fa-cubes text-gray-500 mr-2"></i>
+                                    <i class=" fa fa-graduation-cap text-gray-500 mr-2"></i>
                                     Opportunities
                                 </a>
                             </li>
@@ -183,7 +213,8 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
             </div>
 
             <div class="order-3 lg:order-2 w-full  lg:col-span-5  mt-3 md:mt-2 lg:mt-0 @if (Request::is('allcampuses')) {{ 'hidden' }} @endif">
-                <form class="  rounded-md lg:grid lg:grid-cols-5 lg:gap-x-2 " action="{{ url('search') }}" method="GET ">
+                <form class="  rounded-md lg:grid lg:grid-cols-5 lg:gap-x-2 " action="{{ url('search') }}"
+                    method="GET ">
                     {{ csrf_field() }}
                     <label class="hidden" for="search-form">Search</label>
                     <input class="px-3 py-2 rounded-md w-full focus:outline-none bg-gray-50 shadow lg:col-span-3"
@@ -216,17 +247,29 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
     <div class=" bg-white bottom-0 absolute w-full rounded-t-lg p-4">
         <button class=" float-right m-3 bg-gray-200 px-3 py-1 rounded-full focus:bg-gray-500"
             id="closepicktype">X</button><br>
-        <h3 class=" font-bold text-lg text-center my-5">What type of post do you want to add?</h3>
-        <div class=" grid grid-cols-2 gap-5">
-            <a href="/posts/create" class=" bg-green-100 rounded-lg p-3 focus:bg-green-300">
-                <i class="fa fa-bullhorn fa-3x my-3 text-green-500"></i> <br>
-                <span class=" font-semibold">An item for sale</span>
-            </a>
-            <a href="{{ route('opportunities.create') }}" class=" bg-green-100 rounded-lg p-3 focus:bg-green-300">
-                <i class="fa fa-graduation-cap text-green-500 fa-3x my-3"></i> <br>
-                <span class=" font-semibold">An opportunity for students</span>
-            </a>
-        </div>
+        @if ( Auth::check() and $postLeft <= 0)
+            <div><p class=" font-semibold  mt-2">You've reached the Limit of your posts, refer 10 other students with your link below to unlock 5 more additional posts</p><br>
+                <input type="text" value="https://www.percampus.com/join?refer={{Auth::user()->id }}" id="referlink" disabled class=" bg-gray-200 rounded-md w-full overflow-auto  text-center p-2 "> <br>
+                
+                    <button id="copylink" onclick="copyLink()" class="bg-green-500 my-4 rounded-md shadow-lg px-3 py-2 font-semibold  text-white"><i class="fa fa-link mr-2"></i>Copy Link</button>
+                    
+                    
+                </div>
+        @else
+            <h3 class=" font-bold text-lg text-center my-5">What type of post do you want to add?</h3>
+            <div class=" grid grid-cols-2 gap-5">
+                <a href="/posts/create" class=" bg-green-100 rounded-lg p-3 focus:bg-green-300">
+                    <i class="fa fa-bullhorn fa-3x my-3 text-green-500"></i> <br>
+                    <span class=" font-semibold">An item for sale</span>
+                </a>
+
+                <a href="{{ route('gigs.create') }}" class=" bg-green-100 rounded-lg p-3 focus:bg-green-300">
+                    <i class="fa fa-toggle-on text-green-500 fa-3x my-3"></i> <br>
+                    <span class=" font-semibold">Offer a Micro Service (Gig)</span>
+                </a>
+            </div>
+        @endif
+
     </div>
 </div>
 
@@ -234,6 +277,7 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
 <script>
     $(document).ready(function() {
         $("#addPost").click(function() {
+
             $("#picktype").show(500)
         })
 

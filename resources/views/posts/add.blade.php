@@ -15,14 +15,14 @@
                 <div>
                     
                     <label for="" class="font-semibold">What is the name of the item you want to sell<b class=" text-red-500 ">*</b></label><br>
-                    <input name="title" type="text" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder=" e.g Tecno hot 8 for sale"><br>
+                    <input name="title" type="text" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder=" e.g Tecno hot 8 for sale" value="{{ old('title')}}"><br>
                     @error('title')
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">please enter a valid title</small>
                     @enderror
                 </div>
                 <div>
                     <label for="description" class="font-semibold" >Please describe it for us ( don't lie oo &#128512;) <b class=" text-red-500">*</b></label><br>
-                    <textarea name="description" id="" cols="30" rows="4" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder="give a clear description of the item such how long you haved used it, it features and physical description etc."></textarea><br>
+                    <textarea name="description" id="" cols="30" rows="4" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder="give a clear description of the item such how long you haved used it, it features and physical description etc.">{{ old('description')}}</textarea><br>
                     @error('description')
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">{{ $message }}</small>
                     @enderror
@@ -38,7 +38,7 @@
                </div>
                 <div>
                     <label for="price" class="font-semibold">A fair Price for the item <b class=" text-red-500">*</b></label>
-                    <input type="number" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" name="price" placeholder=" e.g 2500 or 300 (without spacing)" required>
+                    <input type="number" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" name="price" placeholder=" e.g 2500 or 300 (without spacing)" required value="{{ old('price')}}">
                     @error('price')
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">{{ 'the price of the item is Required' }}</small>
                     @enderror
@@ -61,11 +61,11 @@
                 </div>
                 <div>
                     <label for="venue" class="font-semibold">Where should a buyer meet you for the exchange</label>
-                    <input type="text" name="venue" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder=" a safe place to meet the buyer e.g hostel, offcampus" required>
+                    <input type="text" name="venue" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder=" a safe place to meet the buyer e.g hostel, offcampus" required value="{{ old('venue')}}">
                 </div>
                 <div>
                     <label for="contact" class="font-semibold">Phone or Whatsapp Number<br> <small>leave it empty if you want to use the number you used to register</small></label>
-                    <input type="number" name="contact" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder="enter a number for the buyer to contact you" >
+                    <input type="number" name="contact" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder="enter a number for the buyer to contact you" value="{{ old('contact')}}" >
                 </div>
                 <div>
                     <label for="images" class="font-semibold"><i class="fa fa-photo "></i>You can only Upload a maximum of 2 images for now (each image shouldn't be more than 2MB, server resources is cost now oo)</label>

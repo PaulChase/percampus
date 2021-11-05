@@ -29,6 +29,8 @@ class Post extends Model
         return $this->hasMany(Image::class);
     }
 
+    
+
     // for generating dynamic slug
     public function Sluggable()
     {

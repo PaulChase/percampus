@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdvertsController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GigsController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\OpportunitiesController;
@@ -69,6 +70,12 @@ Route::post('/ads/save', [AdvertsController::class, 'store'])->name('ads.save');
 // for opportunities
 Route::resource('opportunities', 'OpportunitiesController');
 Route::get('opportunities/latest/{categoryName}', [OpportunitiesController::class, 'latest']);
+
+// for gigs
+Route::resource('gigs', 'GigsController');
+Route::get('gigs/latest/{categoryName}', [GigsController::class, 'latest']);
+
+
 
 Auth::routes();
 

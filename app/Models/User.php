@@ -23,7 +23,8 @@ class User extends \TCG\Voyager\Models\User
         'password',
         'phone',
         'campus_id',
-        'googleID'
+        'googleID',
+        'post_limit'
     ];
 
     /**
@@ -55,5 +56,10 @@ class User extends \TCG\Voyager\Models\User
     public function campus()
     {
         return $this->belongsTo(Campus::class);
+    }
+
+    public function referrals()
+    {
+        return $this->hasMany(Referral::class, 'referer');
     }
 }

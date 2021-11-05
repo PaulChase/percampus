@@ -34,12 +34,24 @@ class DashboardController extends Controller
 
         $ads = Advert::get();
 
-        $posts = Auth::user()->posts()->whereIn('status', ['active', 'pending', 'rejected'] )->orderBy('created_at', 'desc' )->get();
+        $posts = Auth::user()->posts()->whereIn('status', ['active', 'pending', 'rejected'])->orderBy('created_at', 'desc')->with(
+            'user',
+            'subcategory'
+        )->get();
+
+        $noOfUserActivePosts = Auth::user()->posts()->where('status', 'active')->get()->count();
+
+        if (Auth::user()->referrals->count() >= 10) {
+
+            $user = User::find(Auth::id());
+            $user->update(['post_limit' => 10]);
+        }
+
         // $collection = collect($user->posts->where('status', 'active'));
 
         // $arranged = $collection->sortByDesc('id');
 
-        return view('dashboard')->with('posts', $posts )->with('ads', $ads);
+        return view('dashboard')->with('posts', $posts)->with('ads', $ads)->with('noOfUserActivePosts', $noOfUserActivePosts);
     }
 
 

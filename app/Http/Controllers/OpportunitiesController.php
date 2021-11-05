@@ -24,14 +24,18 @@ class OpportunitiesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['latest']]);
+        $this->middleware('auth', ['except' => ['latest', 'index']]);
     }
 
     public function index()
     {
         $opportunities = Category::find(3);
 
-        $posts = $opportunities->posts()->where('status', 'active')->orderBy('created_at', 'desc')->paginate(20);
+        $posts = $opportunities->posts()->where('status', 'active')->orderBy('created_at', 'desc')->with(
+            'user',
+            'images',
+            'subcategory'
+        )->paginate(20);
 
         return view('opportunities.index')->with('posts', $posts);
     }
@@ -43,7 +47,11 @@ class OpportunitiesController extends Controller
     public function latest($categoryName)
     {
         $category = SubCategory::where('slug', $categoryName)->firstOrFail();
-        $posts = $category->posts()->where('status', 'active')->orderBy('created_at', 'desc')->paginate(16);
+        $posts = $category->posts()->where('status', 'active')->orderBy('created_at', 'desc')->with(
+            'user',
+            'images',
+            'subcategory'
+        )s3->paginate(16);
 
         return view('opportunities.index')->with('posts', $posts);
     }
@@ -131,10 +139,10 @@ class OpportunitiesController extends Controller
             $imageResize->save($path);
 
             // saving it to the s3 bucket and also making it public so my website can access it
-            Storage::disk('local')->put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
+            Storage::disk('s3')->put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
 
             // get the public url from s3
-            $url  = Storage::disk('local')->url('public/images/' . $fileNameToStore);
+            $url  = Storage::disk('s3')->url('public/images/' . $fileNameToStore);
 
             // then save the image record to the Db
             $this->saveImage($thePostId, $fileNameToStore, $url);

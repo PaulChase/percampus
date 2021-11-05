@@ -8,7 +8,7 @@
         <div class=" max-w-xl mx-auto py-2 ">
             <div class=" bg-gray-50 p-3">
                 @if (auth()->user()->avatar == null || auth()->user()->avatar == 'users/default.png')
-                    <p class=" my-2 bg-gray-100 rounded-sm p-2">Buyers are likely to call you if they see the face of the
+                    <p class=" my-2 bg-gray-100 rounded-sm p-2">Clients are likely to call you if they see the face of the
                         seller, so update your DP</p>
                 @endif
                 <div class=" relative">
@@ -54,12 +54,24 @@
                     </form>
                 </div>
             </div>
+            <div class=" my-2 bg-gray-50 p-3 text-base grid grid-cols-2 gap-3 ">
+                <div class="border-2 border-gray-200 rounded-md  text-center p-3"> No of Posts Remaining <br> <span
+                        class=" text-green-500 font-semibold text-lg mt-2 bg-green-100 inline-block rounded-full px-3 py-1">{{ Auth::user()->post_limit - $noOfUserActivePosts }}</span>
+                </div>
+                <div class="border-2 border-gray-200 rounded-md text-center p-3 ">No of Referrals <br> <span
+                        class=" text-green-500 font-semibold text-lg mt-2 bg-green-100 inline-block rounded-full px-3 py-1">
+                        {{ Auth::user()->referrals->count() }}</span></div>
+            </div>
 
-            <div class=" my-2 bg-gray-50 p-3 text-base text-center">
-                <span>The more students that join us on the website, the fatser your items will be sold, the more money
-                    you'll make... It's A win win. </span>
-                <button class="block mx-auto  text-white font-semibold bg-green-500 my-4 rounded-md shadow-lg px-6 py-2"
-                    id="showRefer">Invite Your Friends now</button>
+            <div class=" my-2 bg-gray-50 py-3 px-5 text-base text-center">
+                <p class=" font-semibold  mt-2">Refer 10 other students with your link below to unlock 5 more additional posts</p><br>
+                <input type="text" value="https://www.percampus.com/join?refer={{Auth::user()->id }}" id="referlink" disabled class=" bg-gray-200 rounded-md w-full overflow-auto  text-center p-2 "> <br>
+                <div class=" mx-auto">
+                    <button id="copylink" onclick="copyLink()" class="bg-green-500 my-4 rounded-md shadow-lg px-3 py-2 font-semibold  text-white"><i class="fa fa-link mr-2"></i>Copy Link</button>
+                    
+                    <button class=" ml-3 font-semibold  px-6 py-2"
+                        id="showRefer"> Share to <i class="fa fa-share ml-2"></i></button>
+                </div>
             </div>
 
             <div class=" fixed  w-full h-full z-10 overflow-auto  top-0 left-0 text-center hidden "
@@ -98,7 +110,10 @@
 
             <div class=" my-2 font-semibold bg-gray-50 p-3 flex justify-between items-center">
                 <span>Your Recent Posts</span>
-                <a href="/posts/create" class=" bg-green-500 py-2 px-3 rounded-sm text-white">Add a Post</a>
+                @if (Auth::user()->role_id == 1)
+                    <a href="/posts/create" class=" bg-green-500 py-2 px-3 rounded-sm text-white">Add a Post</a>
+                @endif
+
             </div>
 
 
@@ -112,7 +127,8 @@
                             <div class="">
                                 <h2 class="text-xl text-gray-700 font-semibold mb-2">{{ $each_post->title }}</h2>
                                 <p class=" flex justify-between my-3">
-                                    <small>views: <span class=" text-green-400">{{ $each_post->view_count }}</span></small>
+                                    <small>views: <span
+                                            class=" text-green-400">{{ $each_post->view_count }}</span></small>
                                     <small> status: <span class=" font-semibold @if ($each_post->status == 'rejected') {{ 'text-red-500' }}
                                         @elseif ( $each_post->status == 'pending') {{ 'text-yellow-500' }}
                                         @else {{ 'text-green-500' }} @endif
@@ -156,6 +172,8 @@
                 <div class=" my-2 font-semibold bg-gray-50 p-3 flex justify-between items-center">
                     <span>My Active Ads</span>
                     <a href="/ads/create" class=" bg-green-500 py-2 px-3 rounded-sm text-white">Create Ad</a>
+                    <a href="/opportunities/create" class=" bg-green-500 py-2 px-3 rounded-sm text-white">Add Opportunity
+                    </a>
                 </div>
                 <div class=" p-3 bg-gray-50 my-2 lg:grid  lg:gap-3">
                     @if (count($ads) > 0)
@@ -181,14 +199,17 @@
                                             class=" bg-gray-200 px-3 py-2 rounded-sm inline-block "> Edit Ad</a>
                                     </div>
                                     <div>
-                                        <button id="pausead" class=" border-2 border-gray-300 px-3 py-2 rounded-sm inline-block " adID="{{ $ad->id}}">Pause Ad</button>
+                                        <button id="pausead"
+                                            class=" border-2 border-gray-300 px-3 py-2 rounded-sm inline-block "
+                                            adID="{{ $ad->id }}">Pause Ad</button>
                                     </div>
-                                    <form action="{{ route('ads.delete', ['ad' => $ad->id]) }}" method="POST" id="submitPause">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="status" value="paused">
-                                            
-                                        </form>
+                                    <form action="{{ route('ads.delete', ['ad' => $ad->id]) }}" method="POST"
+                                        id="submitPause">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="status" value="paused">
+
+                                    </form>
                                     <div>
                                         <form action="{{ route('ads.delete', ['ad' => $ad->id]) }}" method="POST">
                                             @csrf
@@ -209,7 +230,7 @@
             <div class=" bg-red-100 rounded-md p-2">
                 <a class="block font-semibold  no-underline md:font-medium hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
                     href="{{ route('logout') }}" onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();"> <i class="la la-mail-reply mr-2"></i>
+                            document.getElementById('logout-form').submit();"> <i class="la la-mail-reply mr-2"></i>
                     {{ __('Logout') }}
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class=" hidden ">
@@ -226,19 +247,35 @@
 
 @section('js')
     <script>
-        
+        function copyLink() {
+            let referlink = document.getElementById('referlink');
+            let copylink = document.getElementById('copylink');
+
+            referlink.select();
+            referlink.setSelectionRange(0, 99999);
+
+            navigator.clipboard.writeText(referlink.value).then(() => { 
+                copylink.innerHTML = 'Link Copied';
+            }, (err) => {
+                copylink.innerHTML = 'Error: Copy it manually';
+            });
+          
+          
+
+            // console.log(copylink.innerHTML);
+        }
+
 
         $(document).ready(function() {
             // $("#refer").hide();
-
             
 
-            
+
 
             $("#pausead").click(function(e) {
                 e.preventDefault();
                 $("#submitPause").submit()
-                
+
             })
 
             $("#closeRefer").click(function() {
@@ -257,7 +294,7 @@
                 $("#updatepic").hide(500)
             })
 
-            
+
         });
 
     </script>

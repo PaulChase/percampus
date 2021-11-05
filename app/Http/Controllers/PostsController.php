@@ -52,7 +52,11 @@ class PostsController extends Controller
 
         // $post2 = Post::join('users', 'users.id' ,'=', 'posts.user_id'  )->join('roles', 'roles.id', '=','users.role_id')->select('posts.*', 'users.*')->orderBy('roles.id', 'desc')->get();
         // dd($post2);
-        $posts = $marketplace->posts()->where('status', 'active')->orderBy('created_at', 'desc')->paginate(20);
+        $posts = $marketplace->posts()->where('status', 'active')->orderBy('created_at', 'desc')->with(
+            'user',
+            'images',
+            'subcategory'
+        )->paginate(20);
 
         return view('posts.index')->with('posts', $posts);
     }
@@ -190,9 +194,13 @@ class PostsController extends Controller
         $socialLinks = $share->currentPage(null, ['class' => 'text-white text-2xl bg-gray-600 rounded-full py-2 px-3'], '<ul class = " flex flex-row justify-between">', '</ul>')->facebook()->whatsapp()->telegram()->twitter();
 
 
-        $post = Post::where('slug', $slug)->firstOrFail();
+        $post = Post::where('slug', $slug)->with(
+            'user',
+            'images',
+            'subcategory'
+        )->firstOrFail();
 
-        if (Auth::user()  && (Auth::user()->id !== $post->user->id) && !Cookie::has($post->slug)) {
+        if (Auth::check()  && (Auth::user()->id !== $post->user->id) && !Cookie::has($post->slug)) {
             Cookie::queue($post->slug, 'seen', 120);
             $post->incrementViewCount();
         } else if (!Cookie::has($post->slug) && !(Auth::user())) {
@@ -240,7 +248,16 @@ class PostsController extends Controller
             ->orderBy('view_count', 'desc')
             ->take(6)
             ->get();
-        // dd($similarPosts);
+
+        if ($post->subcategory->category->name == 'gigs') {
+            return view('gigs.single')
+            ->with('post', $post)
+                ->with('social', $socialLinks)
+                ->with('similarPosts', $similarPosts)
+                ->with('ads', $ads);
+        }
+
+
 
         return view('posts.single')
             ->with('post', $post)
@@ -459,7 +476,12 @@ class PostsController extends Controller
         $categoryName = $request->get('c');
         $mainCategory = $request->get('m');
         if ($mainCategory == 'opportunities') {
+            
             return redirect()->action([OpportunitiesController::class, 'latest'], ['categoryName' => $categoryName]);
+        }
+
+        if ($mainCategory == 'gigs') {
+            return redirect()->action([GigsController::class, 'latest'], ['categoryName' => $categoryName]);
         }
         // get the logged user campus
         // if (Auth::user()) {
