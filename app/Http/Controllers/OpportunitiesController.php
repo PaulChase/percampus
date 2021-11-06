@@ -51,7 +51,7 @@ class OpportunitiesController extends Controller
             'user',
             'images',
             'subcategory'
-        )s3->paginate(16);
+        )->paginate(16);
 
         return view('opportunities.index')->with('posts', $posts);
     }
