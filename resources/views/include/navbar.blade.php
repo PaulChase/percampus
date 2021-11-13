@@ -6,6 +6,7 @@ use Illuminate\Support\Carbon;
 if (Auth::check()) {
     $noOfUserActivePosts = Auth::user()
         ->posts()
+        ->select(['id', 'status'])
         ->where('status', 'active')
         ->get()
         ->count();
@@ -55,20 +56,15 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
                     <button class=" right-3 top-3 absolute bg-gray-50 rounded-full px-2 py-1 focus:bg-gray-500 "
                         id="closemenu"> <i class="fa fa-times fa-2x text-gray-400"></i></button>
                     @auth
-                        <div class=" p-3">
-                            @if (auth()->user()->avatar == null || auth()->user()->avatar == 'users/default.png')
+                        <div class=" p-3 text-center">
+                            
                                 <p class=" my-4"><i class="fa fa-user-circle fa-5x text-green-400"></i></p>
 
-                            @else
-                                <img src="{{ auth()->user()->avatar }}"
-                                    class=" w-32 h-32 rounded-full mx-auto border-4 border-green-300 object-cover my-4"
-                                    alt="">
-                            @endif
                             <h4 class="font-semibold"> {{ Auth::user()->name }}</h4>
                         </div>
 
                     @else
-                        <div class=" p-3">
+                        <div class=" p-3 text-center">
                             <p class=" my-4 text-center"><i class="fa fa-user-circle fa-5x text-green-400"></i></p>
                             <h4 class="font-semibold"> Honourabe Guest</h4>
                         </div>
@@ -205,8 +201,8 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
 
             {{-- end of nav links for desktop --}}
             <div class="order-2 md:order-3 lg:order-4 lg:col-span-1 flex items-center justify-center" id="nav-content">
-                <button id="addPost"
-                    class="inline-block bg-green-500 px-3 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-600 shadow-inner ">Add
+                <button 
+                    class="inline-block bg-green-500 px-3 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-600 shadow-inner addPost ">Add
                     Post
                 </button>
 
@@ -276,7 +272,7 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
 
 <script>
     $(document).ready(function() {
-        $("#addPost").click(function() {
+        $(".addPost").click(function() {
 
             $("#picktype").show(500)
         })

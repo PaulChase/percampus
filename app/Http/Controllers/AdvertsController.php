@@ -172,6 +172,7 @@ class AdvertsController extends Controller
         $ad->campus_id = $request->input('campus');
         $ad->subcategory_id = $request->input('subcategory');
         $ad->position = $request->input('position');
+        $ad->status = 'active';
         $ad->user_id = auth()->user()->id;
 
         //  checking if image is set and valid

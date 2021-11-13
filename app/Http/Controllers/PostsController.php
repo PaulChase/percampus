@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Carbon;
 use function JmesPath\search;
 
-// use Spatie\Image\Image as SpatieImage;
+
 
 
 
@@ -68,6 +68,19 @@ class PostsController extends Controller
      */
     public function create()
     {
+
+        if (Auth::check() and Auth::user()->role_id !== 1) {
+            $noOfUserActivePosts = Auth::user()
+                ->posts()
+                ->select(['id', 'status'])
+                ->where('status', 'active')
+                ->get()
+                ->count();
+            $postLeft = Auth::user()->post_limit - $noOfUserActivePosts;
+            if ($postLeft <= 0) {
+                return redirect()->route('home')->with('error', 'sorry, you are not allowed to add more posts. Refer your friends to increase your limit');
+            }
+        }
         // get subcatrgories for marketplace
         $subcategories = SubCategory::where('category_id', 2)->get();
         return view('posts.add')->with('subcategories', $subcategories);

@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\Image;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as ImageOptimizer;
+use Illuminate\Support\Facades\Auth;
 
 class GigsController extends Controller
 {
@@ -55,6 +56,19 @@ class GigsController extends Controller
      */
     public function create()
     {
+
+        if (Auth::check() and Auth::user()->role_id !== 1) {
+            $noOfUserActivePosts = Auth::user()
+                ->posts()
+                ->select(['id', 'status'])
+                ->where('status', 'active')
+                ->get()
+                ->count();
+            $postLeft = Auth::user()->post_limit - $noOfUserActivePosts;
+            if ($postLeft <= 0) {
+                return redirect()->route('home')->with('error', 'sorry, you are not allowed to add more posts. Refer your friends to increase your limit');
+            }
+        }
         $subcategories = SubCategory::where('category_id', 4)->get();
         return view('gigs.create')->with('subcategories', $subcategories);
     }

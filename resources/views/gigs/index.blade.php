@@ -37,13 +37,17 @@
                         @endphp
 
                         <div class="py-2 flex items-center justify-between border-gray-100">
-                            @if ($each_post->user->avatar == ("users/default.png" || null))
+                            @if ($each_post->user->avatar == null || $each_post->user->avatar == 'users/default.png')
                             <p class="  inline-block"><i class="fa fa-user-circle fa-2x text-gray-400 "></i>
                             <span class=" font-semibold ml-1"> {{$nameArray[0]}}</span>
                         </p> 
                                 
                             @else
-                                <img src="{{{$each_post->user->avatar}}}" alt="" class="inline-block h-8 w-8">
+                                <div>
+                                    <img src="{{$each_post->user->avatar}}" alt="" class="inline-block rounded-full object-cover h-8 w-8">
+                                    <span class=" font-semibold ml-1"> {{$nameArray[0]}}</span>
+                                </div>
+
                             @endif
                                 
                                 <div class="py-2 "><span class=" uppercase text-xs">from </span><span class=" text-green-400 font-semibold ml-1 text-lg">N{{{$each_post->price}}}</span></div>

@@ -48,7 +48,7 @@ class PagesController extends Controller
         $gig = Category::find(4);
 
         $posts = $marketplace->posts()
-            ->where('status', 'active')->with('user', 'images')
+            ->where('status', 'active')->with('user', 'images', 'subcategory')->orderBy('created_at', 'desc')
         ->take(10)
         ->get()->shuffle();
 
@@ -60,7 +60,7 @@ class PagesController extends Controller
             'user',
             'images',
             'subcategory'
-        )
+        )->orderBy('created_at', 'desc')
         ->take(8)
             ->get()->shuffle();
 
