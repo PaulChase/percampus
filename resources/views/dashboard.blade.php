@@ -271,23 +271,7 @@
 
 @section('js')
     <script>
-        function copyLink() {
-            let referlink = document.getElementById('referlink');
-            let copylink = document.getElementById('copylink');
-
-            referlink.select();
-            referlink.setSelectionRange(0, 99999);
-
-            navigator.clipboard.writeText(referlink.value).then(() => {
-                copylink.innerHTML = 'Link Copied to clipboard';
-            }, (err) => {
-                copylink.innerHTML = 'Error: Copy it manually';
-            });
-
-
-
-            // console.log(copylink.innerHTML);
-        }
+        
 
 
         $(document).ready(function() {

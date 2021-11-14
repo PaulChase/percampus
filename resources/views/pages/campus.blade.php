@@ -61,6 +61,40 @@
         @endif
     </div>
 
+    <div class=" bg-white p-3 my-3">
+        <h3 class=" font-bold text-lg my-4 ">Requested items and services in <span class=" uppercase">{{$campus->nick_name}}</span> campus</h3>
+
+        <div class="grid gap-4   md:grid-cols-3 lg:grid-cols-4 py-3 max-w-7xl mx-auto w-full">
+           
+        @if (count($recentEnquiries) > 0)
+
+       
+            @foreach ($recentEnquiries as $enquiry)
+                <div class=" border-2 border-gray-300 rounded-md p-3  space-y-2">
+                    <h4 class=" text-lg font-semibold ">{{ $enquiry->message}}</h4>
+                    <p  class=" text-sm">In <span class=" uppercase">{{ $enquiry->campus->nick_name}}</span> campus</p>
+                    <p class=" flex justify-between items-center"><span><i class=" fa fa-user mr-2"></i> {{$enquiry->name}}</span> 
+                        @if ($enquiry->contact_mode == 'call')
+                            <a href="tel:0{{$enquiry->contact_info  }}" class="py-1 px-3 rounded-full border border-gray-400 bg-gray-200 contactBuyer" id="{{ $enquiry->id}}"><i class=" fa fa-phone mr-2"></i> Call</a>
+                        @endif
+                        @if ($enquiry->contact_mode == 'whatsapp')
+                            <a href="https://wa.me/?text={{ rawurlencode("Hello $enquiry->name, I saw your post about  $enquiry->message on percampus.com") }}" class=" py-1 px-2 rounded-full border border-green-400  bg-green-100 contactBuyer " id="{{ $enquiry->id}}"><i class=" fab fa-whatsapp mr-2 text-green-500"></i> Whatsapp</a>
+                        @endif
+                </p>
+                </div>
+            
+            @endforeach
+           
+        </div>
+        <div class="my-4">
+                    <a href="{{route('enquiries.index')}}" class="block mx-auto w-3/4 p-3 bg-green-500 rounded-full text-white text-center font-semibold focus:bg-green-700"> View More Requests<i class="fa fa-chevron-right ml-2"></i></a>
+            </div>
+        @else
+            
+            <p> Sorry, There are no items for sale in {{$campus->nick_name}} campus</p>
+        @endif
+    </div>
+
     <div class=" bg-white my-3 p-4">
         <h3 class=" font-bold text-lg my-4 ">Recents Opportunities for students</h3>
 

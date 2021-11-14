@@ -29,10 +29,117 @@
         </div>
         <div class="my-4">
             <h1 class=" text-xl font-semibold"> {{config('app.name')}} &copy;</h1>
-            <p>{{config('app.name')}} is one of the fastest growing online classified ads specifically made  for students on campus where they can buy and sell to each other, find apartments and even share course materials with other students.</p>
+            <p>{{config('app.name')}} is one of the fastest growing online classified ads specifically made  for students on campus where they can buy and sell used items, new products and even services at affordable rates to one another,</p>
             <p>Built with Lots of &#128151; by <strong>Ajonye Paul</strong></p>
         </div>
         
         
     </div>
 </footer>
+
+
+<script>
+    function copyLink() {
+            let referlink = document.getElementById('referlink');
+            let copylink = document.getElementById('copylink');
+
+            referlink.select();
+            referlink.setSelectionRange(0, 99999);
+
+            navigator.clipboard.writeText(referlink.value).then(() => {
+                copylink.innerHTML = 'Link Copied to clipboard';
+            }, (err) => {
+                copylink.innerHTML = 'Error: Copy it manually';
+            });
+
+        }
+    $(document).ready(function() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                })
+                $("#closeEnquiry").click(function() {
+                    $("#Enquiry").hide(500)
+                })
+                $(".showEnquiry").click(function() {
+                    $("#menu").hide()
+                    $("#Enquiry").show(500)
+                })
+
+                $(".addPost").click(function() {
+
+                    $("#picktype").show(500)
+                })
+
+                $("#closepicktype").click(function() {
+                    $("#picktype").hide(500)
+                })
+                $("#openmenu").click(function() {
+
+                    $("#menu").show(500)
+                })
+
+                $("#closemenu").click(function() {
+                    $("#menu").hide(500)
+                })
+
+                $("#contact_mode").change(function() {
+                    let contactMode = $(this).val()
+                    $("#contact_label").text(`Enter ${contactMode} number`)
+                })
+
+
+
+                $("#enquiryform").submit(function(e) {
+                    e.preventDefault()
+                    let submitBtn = $("input[name='submitEnquiry']")
+                    submitBtn.val('Submitting...')
+                    let _token = $('meta[name="csrf-token"]').attr('content');
+                    let name = $("input[name='name']").val();
+                    let campus = $("select[name='campusID']").val();
+                    let contact_mode = $("select[name='contact_mode']").val();
+                    let contact_info = $("input[name='contact_info']").val();
+                    let message = $("textarea[name='message']").val();
+
+                    // console.log(name, campus, contact_mode, contact_info, message);
+                    
+                    $.ajax({
+                    type: "POST",
+                    url: "{{ route('enquiries.store')}}",
+                    data: { name , campus, contact_mode, contact_info,  message},
+                    success : function(data) {
+                        console.log(data.feedback);
+                        if ( data.feedback == 'success') {
+                            $("#enquiryBg").hide(200)
+                            $(".enquiryContainer").css("height", "40%")
+                            $("#successMessage").show(400).css("display", "flex")
+                        }
+
+                    },
+                });
+                   
+                });
+
+                $(".contactBuyer").click(function() {
+                    console.log($(this).attr('id'));
+
+
+                    let enquiryID = $(this).attr('id');
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('contact.buyer') }}",
+                    data: {
+                        enquiryID
+                    }
+                    // success : function(data) {
+                    //     console.log(data.success);
+                    // },
+                });
+
+                
+            });
+    })
+</script>

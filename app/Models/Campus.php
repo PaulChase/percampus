@@ -14,6 +14,10 @@ class Campus extends Model
     {
         return $this->hasMany(User::class);
     }
+    public function enquiries()
+    {
+        return $this->hasMany(Enquiry::class);
+    }
 
     public function posts()
     {

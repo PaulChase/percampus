@@ -119,10 +119,10 @@ class DashboardController extends Controller
             $imageResize->save($path);
 
             // saving it to the s3 bucket and also making it public so my website can access it
-            Storage::disk('local')->put('public/users/' . $fileNameToStore, $imageResize->__toString(), 'public');
+            Storage::disk('s3')->put('public/users/' . $fileNameToStore, $imageResize->__toString(), 'public');
 
             // get the public url from s3
-            $url  = Storage::disk('local')->url('public/users/' . $fileNameToStore);
+            $url  = Storage::disk('s3')->url('public/users/' . $fileNameToStore);
 
             $user = User::find(auth()->user()->id);
             $user->avatar = $url;

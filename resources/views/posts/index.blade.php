@@ -59,8 +59,8 @@
 
         
    </div>
-   @guest
+   {{-- @guest
        <a href="/posts/create" class=" block w-full bg-green-500 fixed bottom-0 z-20 p-3 text-center text-white font-semibold  rounded-t-md "> <i class="fab fa-bag"></i> Start selling for FREE</a>
-   @endguest
+   @endguest --}}
    
 @endsection

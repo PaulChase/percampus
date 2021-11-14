@@ -28,14 +28,15 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
             class="w-full   mx-auto flex flex-wrap items-center justify-between px-3 py-3 md:py-2 lg:p-4 lg:grid lg:grid-cols-8">
 
             <button class="cursor-pointer lg:col-span-1 lg:float-left " id="openmenu">
-                <i class="fa fa-bars fa-2x text-gray-600"></i> <span class=" ml-1 hidden md:inline-block text-lg font-semibold">MENU</span>
+                <i class="fa fa-bars fa-2x text-gray-600"></i> <span
+                    class=" ml-1 hidden md:inline-block text-lg font-semibold">MENU</span>
             </button>
 
             <div class="order-1 lg:col-span-1">
                 @auth
                     <a class=" tracking-wide no-underline hover:no-underline font-bold text-green-600 text-2xl "
                         href="{{ route('campus.home', ['campus' => Auth::user()->campus->nick_name]) }}">
-                        <b> {{ config('app.name') }}  </b>
+                        <b> {{ config('app.name') }} </b>
                     </a>
 
                 @else
@@ -57,8 +58,8 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
                         id="closemenu"> <i class="fa fa-times fa-2x text-gray-400"></i></button>
                     @auth
                         <div class=" p-3 text-center">
-                            
-                                <p class=" my-4"><i class="fa fa-user-circle fa-5x text-green-400"></i></p>
+
+                            <p class=" my-4"><i class="fa fa-user-circle fa-5x text-green-400"></i></p>
 
                             <h4 class="font-semibold"> {{ Auth::user()->name }}</h4>
                         </div>
@@ -74,15 +75,18 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
 
                     <ul class="grid grid-cols-1 gap-3  items-center  text-gray-700 pt-4">
                         <li class="md:ml-2 hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
+                            <button  class=" showEnquiry font-semibold  no-underline hover:no-underline py-2  hover:text-black md:font-medium md:border-none md:p-0" ><i class=" fa fa-question text-gray-500 mr-2" > </i>Ask for an item/service</button>
+                        </li>
+                        <li class="md:ml-2 hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                             <a class="block font-semibold  no-underline hover:no-underline py-2  hover:text-black md:font-medium md:border-none md:p-0 "
                                 href="/dashboard"> <span class="  md:hidden"><i
-                                        class="fa fa-user-circle mr-2"></i></span>
-                                My Profile</a>
+                                        class="fa fa-user-circle mr-2"></i></span>My Profile
+                                    </a>
                         </li>
                         <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                             <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
-                                href="/"> <i class=" fa fa-home text-gray-500 mr-2"></i>
-                                Homepage
+                                href="/"> <i class=" fa fa-home text-gray-500 mr-2"></i>Homepage
+                                
                             </a>
                         </li>
 
@@ -98,29 +102,29 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
                         <li class="md:ml-2 hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                             <a class=" block no-underline py-2 text-grey-darkest hover:text-black md:border-none md:font-medium md:p-0 hover:no-underline font-semibold "
                                 href="/allcampuses">
-                                <i class=" fa fa-building text-gray-500 mr-2"></i>
-                                All Campuses
+                                <i class=" fa fa-building text-gray-500 mr-2"></i>All Campuses
+                                
                             </a>
                         </li>
                         <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                             <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
-                                href="/about"><i class=" fa fa-bookmark text-gray-500 mr-2"></i>
-                                About
+                                href="/about"><i class=" fa fa-bookmark text-gray-500 mr-2"></i>About
+                                
                             </a>
                         </li>
 
                         <li class="md:ml-2 hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                             <a class=" block no-underline py-2 text-grey-darkest hover:text-black md:border-none md:font-medium md:p-0 hover:no-underline font-semibold "
                                 href="/howto">
-                                <i class=" fa fa-info-circle text-gray-500 mr-2"></i>
-                                how to Use
+                                <i class=" fa fa-info-circle text-gray-500 mr-2"></i>how to Use
+                                
                             </a>
                         </li>
                         <li class="md:ml-2 hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                             <a class=" block no-underline py-2 text-grey-darkest hover:text-black md:border-none md:font-medium md:p-0 hover:no-underline font-semibold "
                                 href="https://forms.gle/wkVRH7yDWBEKg6QV6" target="_blank">
-                                <i class=" fa fa-paper-plane text-gray-500 mr-2"></i>
-                                Feedback
+                                <i class=" fa fa-paper-plane text-gray-500 mr-2"></i>Feedback
+                                
                             </a>
                         </li>
 
@@ -131,22 +135,22 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
                             <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                                 <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
                                     href="{{ route('getSubCategories', ['mainCategoryID' => 2]) }}"><i
-                                        class=" fa fa-shopping-cart text-gray-500 mr-2"></i>
-                                    Marketplace
+                                        class=" fa fa-shopping-cart text-gray-500 mr-2"></i>Marketplace
+                                    
                                 </a>
                             </li>
                             <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                                 <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
                                     href="{{ route('getSubCategories', ['mainCategoryID' => 4]) }}"><i
-                                        class=" fa fa-toggle-on text-gray-500 mr-2"></i>
-                                    Gigs
+                                        class=" fa fa-toggle-on text-gray-500 mr-2"></i>Gigs
+                                    
                                 </a>
                             </li>
                             <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                                 <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
                                     href="{{ route('getSubCategories', ['mainCategoryID' => 3]) }}"><i
-                                        class=" fa fa-graduation-cap text-gray-500 mr-2"></i>
-                                    Opportunities
+                                        class=" fa fa-graduation-cap text-gray-500 mr-2"></i>Opportunities
+                                    
                                 </a>
                             </li>
 
@@ -171,22 +175,22 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
                             <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                                 <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
                                     href="{{ route('subcategory', ['campus' => Auth::user()->campus->nick_name, 'c' => 'marketplace']) }}">
-                                    <i class=" fa fa-shopping-cart text-gray-500 mr-2"></i>
-                                    Marketplace
+                                    <i class=" fa fa-shopping-cart text-gray-500 mr-2"></i>Marketplace
+                                    
                                 </a>
                             </li>
                             <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                                 <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
                                     href="{{ route('subcategory', ['campus' => Auth::user()->campus->nick_name, 'c' => 'gigs']) }}">
-                                    <i class=" fa fa-toggle-on text-gray-500 mr-2"></i>
-                                    Gigs
+                                    <i class=" fa fa-toggle-on text-gray-500 mr-2"></i>Gigs
+                                    
                                 </a>
                             </li>
                             <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                                 <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
                                     href="{{ route('subcategory', ['campus' => Auth::user()->campus->nick_name, 'c' => 'opportunities']) }}">
-                                    <i class=" fa fa-graduation-cap text-gray-500 mr-2"></i>
-                                    Opportunities
+                                    <i class=" fa fa-graduation-cap text-gray-500 mr-2"></i>Opportunities
+                                    
                                 </a>
                             </li>
 
@@ -201,9 +205,8 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
 
             {{-- end of nav links for desktop --}}
             <div class="order-2 md:order-3 lg:order-4 lg:col-span-1 flex items-center justify-center" id="nav-content">
-                <button 
-                    class="inline-block bg-green-500 px-3 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-600 shadow-inner addPost ">Add
-                    Post
+                <button
+                    class="inline-block bg-green-500 px-3 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-600 shadow-inner addPost ">Sell your...
                 </button>
 
             </div>
@@ -243,14 +246,19 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
     <div class=" bg-white bottom-0 absolute w-full rounded-t-lg p-4">
         <button class=" float-right m-3 bg-gray-200 px-3 py-1 rounded-full focus:bg-gray-500"
             id="closepicktype">X</button><br>
-        @if ( Auth::check() and $postLeft <= 0)
-            <div><p class=" font-semibold  mt-2">You've reached the Limit of your posts, refer 10 other students with your link below to unlock 5 more additional posts</p><br>
-                <input type="text" value="https://www.percampus.com/join?refer={{Auth::user()->id }}" id="referlink" disabled class=" bg-gray-200 rounded-md w-full overflow-auto  text-center p-2 "> <br>
-                
-                    <button id="copylink" onclick="copyLink()" class="bg-green-500 my-4 rounded-md shadow-lg px-3 py-2 font-semibold  text-white"><i class="fa fa-link mr-2"></i>Copy Link</button>
-                    
-                    
-                </div>
+        @if (Auth::check() and $postLeft <= 0)
+            <div>
+                <p class=" font-semibold  mt-2">You've reached the Limit of your posts, refer 10 other students with
+                    your link below to unlock 5 more additional posts</p><br>
+                <input type="text" value="https://www.percampus.com/join?refer={{ Auth::user()->id }}" id="referlink"
+                    disabled class=" bg-gray-200 rounded-md w-full overflow-auto  text-center p-2 "> <br>
+
+                <button id="copylink" onclick="copyLink()"
+                    class="bg-green-500 my-4 rounded-md shadow-lg px-3 py-2 font-semibold  text-white"><i
+                        class="fa fa-link mr-2"></i>Copy Link</button>
+
+
+            </div>
         @else
             <h3 class=" font-bold text-lg text-center my-5">What type of post do you want to add?</h3>
             <div class=" grid grid-cols-2 gap-5">
@@ -269,25 +277,7 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
     </div>
 </div>
 
+@include('include.enquiryform')
 
-<script>
-    $(document).ready(function() {
-        $(".addPost").click(function() {
 
-            $("#picktype").show(500)
-        })
-
-        $("#closepicktype").click(function() {
-            $("#picktype").hide(500)
-        })
-        $("#openmenu").click(function() {
-
-            $("#menu").show(500)
-        })
-
-        $("#closemenu").click(function() {
-            $("#menu").hide(500)
-        })
-    });
-
-</script>
+<button class="showEnquiry fixed bg-green-600 focus:bg-green-800 text-white font-semibold bottom-4 right-4 py-2 px-4 shadow-xl rounded-full " >Ask for?</button>

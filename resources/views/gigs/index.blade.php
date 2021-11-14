@@ -68,8 +68,8 @@
 
         
    </div>
-   @guest
+   {{-- @guest
        <a href="{{ route('gigs.create')}}" class=" block w-full bg-green-500 fixed bottom-0 z-50 p-3 text-center text-white font-semibold  rounded-t-md"> <i class="fab fa-bag"></i> Sell your skills on campus</a>
-   @endguest
+   @endguest --}}
    
 @endsection

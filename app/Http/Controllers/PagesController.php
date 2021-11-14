@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Advert;
 use App\Models\Campus;
 use App\Models\Category;
+use App\Models\Enquiry;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Page;
@@ -44,6 +45,14 @@ class PagesController extends Controller
         //          return Campus::orderBy('name', 'asc')->get();
         //     });
 
+        $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
+            return Campus::orderBy('name', 'asc')->get();
+        });
+
+        $enquiries = Enquiry::where('status', 'active')->orderBy('created_at', 'desc')
+        ->take(10)
+            ->get()->shuffle();
+
         $marketplace = Category::find(2);
         $gig = Category::find(4);
 
@@ -73,7 +82,9 @@ class PagesController extends Controller
         return view('pages.index')
             ->with('social', $socialLinks)
             ->with('posts', $posts)
-            ->with('gigs', $gigs);
+        ->with('gigs', $gigs)
+        ->with('enquiries', $enquiries)
+        ->with('campuses', $campuses);
     }
 
     // return the about page
@@ -135,10 +146,13 @@ class PagesController extends Controller
             'images',
             'subcategory'
         )->take(6)->get();
+
+        $recentEnquiries = $campus->enquiries()->where('status', 'active')->orderBy('created_at', 'desc')->take(12)->get();
         // dd($recentPosts);
         return view('pages.campus')
             ->with('campus', $campus)
             ->with('recentPosts',  $recentPosts)
+            ->with('recentEnquiries',  $recentEnquiries)
             ->with('recentOpportunities',  $recentOpportunities);
     }
 
@@ -194,13 +208,14 @@ class PagesController extends Controller
 
         $totalPostViews = Post::select(['view_count'])->sum('view_count');
         $totalPostContacts = Post::select(['no_of_contacts'])->sum('no_of_contacts');
+        $totalEnquiriesContacts = Enquiry::select(['requestCount'])->sum('requestCount');
         $totalAdClicks = Advert::select(['linkclick'])->sum('linkClick');
 
         // dd($mostViewedPosts);
 
 
 
-        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews', 'mostViewedPosts', 'totalPostContacts', 'referralsCount', 'searchCount', 'totalAdClicks'));
+        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews', 'mostViewedPosts', 'totalPostContacts', 'referralsCount', 'searchCount', 'totalAdClicks', 'totalEnquiriesContacts'));
     }
 
     public function join(Request $request)
@@ -219,7 +234,8 @@ class PagesController extends Controller
             return redirect()->route('home');
         }
         $pendingPosts = Post::where('status', 'pending')->orderBy('created_at')->paginate(10);
-        return view('pages.checkpoint', compact('pendingPosts'));
+        $pendingEnquiries = Enquiry::where('status', 'pending')->orderBy('created_at')->paginate(10);
+        return view('pages.checkpoint', compact('pendingPosts', 'pendingEnquiries'));
     }
 
     // public function pickCategory()

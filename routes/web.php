@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdvertsController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EnquiriesController;
 use App\Http\Controllers\GigsController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PagesController;
@@ -58,6 +59,10 @@ Route::resource('posts', 'PostsController');
 Route::post('/submitPost', 'PostsController@store')->name('posts.save');
 Route::post('/posts/{id}', 'PostsController@update')->name('posts.toupdate');
 Route::delete('/posts/{id}', 'PostsController@destroy')->name('posts.delete');
+
+Route::resource('enquiries', 'EnquiriesController');
+Route::post('/enquries/contact', [EnquiriesController::class, 'contactBuyer'])->name('contact.buyer');
+
 
 // for Adverts
 Route::get('/ads/create', [AdvertsController::class, 'create']);

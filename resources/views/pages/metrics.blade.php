@@ -46,6 +46,10 @@
                     <h3 class=" mb-2 font-semibold text-lg">Total Ad Clicks</h3>
                     <p class=" text-5xl text-green-400">{{$totalAdClicks}}</p>
                 </div>
+                <div class=" border-2 border-gray-300 p-4 rounded-md my-3 text-center bg-white">
+                    <h3 class=" mb-2 font-semibold text-lg">Total Enquiry Contacts</h3>
+                    <p class=" text-5xl text-green-400">{{$totalEnquiriesContacts}}</p>
+                </div>
             <div class=" border-2 border-gray-300 p-4 rounded-md my-3  bg-white">
                 <h2 class=" text-center text-xl font-semibold my-3">Top 10 Posts</h2>
                 <h3 class=" font-semibold grid grid-cols-6"><span class=" col-span-5">Title</span> <span>Count</span></h3>

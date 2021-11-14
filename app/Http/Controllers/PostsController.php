@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Campus;
 use App\Models\Category;
 use App\Models\Advert;
+use App\Models\Enquiry;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Image;
@@ -34,7 +35,7 @@ class PostsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'byCategory', 'search', 'contactSeller', 'screenPost']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'byCategory', 'search', 'contactSeller']]);
     }
 
 
@@ -545,24 +546,33 @@ class PostsController extends Controller
         }
         $postID = $request->input('postID');
         $status = $request->input('status');
+        $type = $request->input('type');
+        if ($type == 'post') {
+            
+            $post = Post::find($postID);
+            $post->status = $status;
+            $post->save();
 
-        $post = Post::find($postID);
-        $post->status = $status;
-        $post->save();
-
-        if ($status == 'rejected') {
-            $images = Image::where('post_id', $postID)->get();
-            // to delete the post with image from storage
-            if ($images != null &&  $images->count() > 0) {
-                foreach ($images as $image) {
-                    // if ($image->Image_name != 'noimage.jpg') {
-                    //     Storage::disk('s3')->delete('public/images/' . $image->Image_name);
-                    // }
-                    Storage::disk('s3')->delete('public/images/' . $image->Image_name);
-                    $image->delete();
+            if ($status == 'rejected') {
+                $images = Image::where('post_id', $postID)->get();
+                // to delete the post with image from storage
+                if ($images != null &&  $images->count() > 0) {
+                    foreach ($images as $image) {
+                        // if ($image->Image_name != 'noimage.jpg') {
+                        //     Storage::disk('s3')->delete('public/images/' . $image->Image_name);
+                        // }
+                        Storage::disk('s3')->delete('public/images/' . $image->Image_name);
+                        $image->delete();
+                    }
                 }
             }
+        } else {
+            $enquiry = Enquiry::find($postID);
+            $enquiry->status = $status;
+            $enquiry->save();
         }
+
+        
 
 
         return response()->json(['success' => 'status changed']);

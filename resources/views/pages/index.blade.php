@@ -174,9 +174,41 @@
                     View by Category <i class="fa fa-chevron-right ml-2"></i></a>
                 <a href="/gigs"
                     class="block col-span-1  lg:w-1/3 lg:p-5 lg:text-xl p-3 bg-green-500 rounded-full text-white text-center font-semibold focus:bg-green-700">
-                    View More Gigs <i class="fa fa-chevron-right ml-2"></i></a>
+                    View All Gigs <i class="fa fa-chevron-right ml-2"></i></a>
             </div>
         </div>
+        </div>
+
+        <div class="p-3">
+            <div class=" ">
+            <p class=" my-3 text-center">Didn't find what you're looking? <button class="showEnquiry font-medium focus:bg-gray-500 text-sm  inline-block bg-gray-300 rounded-md p-1"><i class=" fa fa-pen mr-1"></i> Make a request here..</button> </p>
+            <h3 class=" font-semibold text-lg mb-3">Requested items/Services</h3>
+                
+            </div>
+
+            <div class="grid gap-4 lg:grid-cols-4  lg:px-5">
+                @foreach ($enquiries as $enquiry)
+                <div class=" border-2 border-gray-300 rounded-md p-3  space-y-2">
+                    <h4 class=" text-lg font-semibold ">{{ $enquiry->message}}</h4>
+                    <p  class=" text-sm">In <span class=" uppercase">{{ $enquiry->campus->nick_name}}</span> campus</p>
+                    <p class=" flex justify-between items-center"><span><i class=" fa fa-user mr-2"></i> {{$enquiry->name}}</span> @if ($enquiry->contact_mode == 'call')
+                        <a href="tel:0{{$enquiry->contact_info  }}" class="py-1 px-3 rounded-full border border-gray-400 bg-gray-200 contactBuyer"  id="{{ $enquiry->id}}"><i class=" fa fa-phone mr-2"></i> Call</a>
+                    @endif
+                        @if ($enquiry->contact_mode == 'whatsapp')
+                            <a href="https://wa.me/?text={{ rawurlencode("Hello $enquiry->name, I saw your post about  $enquiry->message on percampus.com") }}" class="contactBuyer py-1 px-2 rounded-full border border-green-400  bg-green-100" id="{{ $enquiry->id}}"><i class=" fab fa-whatsapp mr-2 text-green-500"></i> Whatsapp</a>
+                            
+                        @endif
+                </p>
+                </div>
+                    
+                @endforeach
+            </div>
+            <div class="my-4 ">
+
+                <a href="/enquiries"
+                    class="block mx-auto w-3/4 lg:w-1/3 lg:p-5 lg:text-xl p-3 bg-green-500 rounded-full text-white text-center font-semibold focus:bg-green-700">
+                    View all requests <i class="fa fa-chevron-right ml-2"></i></a>
+            </div>
         </div>
 
 
@@ -186,7 +218,7 @@
                 class=" bg-gray-700 px-4 py-24 h-auto text-xl text-white font-semibold text-center lg:h-72 lg:flex  lg:items-center lg:px-10">
                 <p class=" md:w-3/12"><i class="fa fa-rocket fa-3x text-green-500 mb-6"></i></p>
                 <div>
-                    <p class=" lg:text-3xl "> If you start selling now, your items will be seen first when buyers start flooding
+                    <p class=" lg:text-3xl "> If you start selling now, your items and Gigs will be seen first when buyers start flooding
                         in. <br> So what are you waiting for?</p>
                     <p class=""> <a href="/register"
                             class=" rounded-full border-2 py-3 px-5 text-base bg-green-500 border-green-500 focus:bg-green-700 focus:border-green-700 md:text-lg block my-7 lg:w-1/3 lg:p-5 lg:text-xl mx-auto">Sign
@@ -255,6 +287,9 @@
         </div>
 
     </main>
+
+@include('include.enquiryform')
+
     @include('include.footer')
 
 @endsection
