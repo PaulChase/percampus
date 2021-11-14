@@ -49,27 +49,7 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
-        // for the aws server
-        // 'mysql' => [
-        //     'driver' => 'mysql',
-        //     'url' => env('DATABASE_URL'),
-        //     'host' => RDS_HOSTNAME,
-        //     'port' => RDS_PORT,
-        //     'database' => RDS_DB_NAME,
-        //     'username' => RDS_USERNAME,
-        //     'password' => RDS_PASSWORD,
-        //     'unix_socket' => env('DB_SOCKET', ''),
-        //     'charset' => 'utf8mb4',
-        //     'collation' => 'utf8mb4_unicode_ci',
-        //     'prefix' => '',
-        //     'prefix_indexes' => true,
-        //     'strict' => true,
-        //     'engine' => null,
-        //     'options' => extension_loaded('pdo_mysql') ? array_filter([
-        //         PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-        //     ]) : [],
-        // ],
-
+     
 
         // for my aws elastic beanstalk
         'mysql' => [
