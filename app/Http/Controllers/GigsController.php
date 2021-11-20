@@ -108,6 +108,8 @@ class GigsController extends Controller
         $post->subcategory_id = $request->input('subcategory');
         $post->user_id = auth()->user()->id;
         $post->status = 'pending';
+        $post->alias = $request->input('alias');
+
         $post->save();
 
         // get the ID of the image that was just added to the Db so I can save it to the images table 

@@ -10,7 +10,7 @@
     style="height: 60vh; background: url({{$campus->bg_image}}) no-repeat center center/cover;"
 >
     <div class=" bg-black top-0 right-0 w-full h-full absolute opacity-80 flex flex-row justify-center items-center text-center p-3">
-    <h2 class="text-3xl md:text-5xl lg:max-w-3xl font-bold mb-4">Welcome to {{$campus->name}} Online Marketplcae</h2>
+    <h2 class="text-3xl md:text-5xl lg:max-w-3xl font-bold mb-4">Welcome to {{$campus->name}} Online Marketplace</h2>
     </div>   
 </section>
 
@@ -19,13 +19,13 @@
     <div class=" bg-white p-3">
         <h3 class=" font-bold text-lg my-4 ">Recents Items for Sale in <span class=" uppercase">{{$campus->nick_name}}</span> campus</h3>
 
-        <div class="grid gap-4 grid-cols-2  md:grid-cols-3 lg:grid-cols-4 py-3 max-w-7xl mx-auto w-full">
+        <div class=" overflow-auto whitespace-nowrap py-3 max-w-7xl mx-auto w-full">
            
         @if (count($recentPosts) > 0)
 
         {{-- iterating through all the posts  --}}
             @foreach ($recentPosts as $each_post)
-                <div class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm md:grid-cols-1  md:gap-y-2 " >
+                <div class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm md:grid-cols-1 w-40 inline-block mr-2 md:gap-y-2 " >
 
                     <div class=" col-span-2  ">
                             <a href="/{{$each_post->user->campus->nick_name}}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}">

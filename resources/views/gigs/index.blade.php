@@ -45,12 +45,28 @@
                             @else
                                 <div>
                                     <img src="{{$each_post->user->avatar}}" alt="" class="inline-block rounded-full object-cover h-8 w-8">
-                                    <span class=" font-semibold ml-1"> {{$nameArray[0]}}</span>
+                                    @if ($each_post->alias)
+                                    <span class=" font-semibold ml-1">{{ $each_post->alias }}</span>
+                        
+
+                        @else
+                        <span class=" font-semibold ml-1"> {{$nameArray[0]}}</span>
+                            
+                        @endif
+                                    
                                 </div>
 
                             @endif
                                 
-                                <div class="py-2 "><span class=" uppercase text-xs">from </span><span class=" text-green-400 font-semibold ml-1 text-lg">N{{{$each_post->price}}}</span></div>
+                                <div class="py-2 ">
+                                    @if ($each_post->price == 0)
+                            <span class=" uppercase text-xs">price depends </span>
+                        @else
+                        <span class=" uppercase text-xs">from </span><span class=" text-green-400 font-semibold ml-1 text-lg">N{{{$each_post->price}}}</span>
+                            
+                        @endif
+                                    
+                                </div>
                             </div>
                             
                         

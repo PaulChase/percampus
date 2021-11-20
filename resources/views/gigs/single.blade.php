@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title') {{ $post->title }} from {{ $post->user->campus->name }} @endsection
-@section('description'){{ $post->title }} for sale, it is also {{ $post->description }} @endsection
+@section('description'){{ $post->title }} at affordable rates, also {{ $post->description }} @endsection
 @section('image_url')
     @if (is_object($post->images()->first()))
         {{ $post->images()->first()->Image_path }}
@@ -31,18 +31,26 @@
                     <h1 class="text-lg lg:text-xl font-semibold my-3 ">{{ $post->title }}</h1>
                     <hr />
                     <div class=" flex justify-between items-center mb-3 pt-2">
-                        
-                        
-                        <p class=" "><span class=" uppercase text-xs">starting at</span> 
-                        </i>  <span class="text-lg text-green-500">N{{ $post->price }}</span>
 
-                        </p>
-                        
+                        @if ($post->price == 0)
+                            <p class=" ">
+                                <span class="text-lg text-green-500 uppercase">price depends</span>
+                            </p>
+                        @else
+                            <p class=" ">
+                                <span class=" uppercase text-xs">starting at</span>
+
+                                <span class="text-lg text-green-500">N{{ $post->price }}</span>
+                            </p>
+                        @endif
+
+
+
                     </div>
                 </div>
 
                 <div class=" mt-3 p-3 bg-gray-50 lg:rounded-sm">
-                    <h3 class=" font-semibold border-b border-gray-200 pb-2">Description</h3>
+                    <h3 class=" font-semibold border-b border-gray-200 pb-2">About the Gig</h3>
                     <p class=" whitespace-pre-line">{{ $post->description }}</p>
                 </div>
 
@@ -73,6 +81,24 @@
                         </div>
                     </div>
                 @endif
+
+                <table class=" w-full bg-gray-50 mt-3  lg:rounded-sm">
+
+
+
+                    <tr class=" border-b border-gray-200">
+                        <td class="p-3 font-semibold"> Category</td>
+                        <td class=" float-right p-3"> <a
+                                href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => $post->subcategory->slug]) }}"
+                                class=" float-right p-3 text-green-500 italic">{{ $post->subcategory->name }}</a> </td>
+                    </tr>
+                    <tr>
+                        <td class="p-3 font-semibold"> Campus</td>
+                        <td class=" float-right p-3 text-green-500 italic"> <a
+                                href="/{{ $post->user->campus->nick_name }}">{{ $post->user->campus->name }}</td></a>
+                    </tr>
+                </table>
+                @include('include.convince')
             </div>
 
 
@@ -89,8 +115,13 @@
                             <img src="{{ $post->user->avatar }}"
                                 class=" w-20 h-20 rounded-full border-2 border-green-300 object-cover mr-3 " alt="">
                         @endif
+                        @if ($post->alias)
+                            {{ $post->alias }}
 
-                        {{ $post->user->name }}
+                        @else
+                            {{ $post->user->name }}
+
+                        @endif
                     </p>
                     <div class=" grid grid-cols-2 gap-3">
                         <a href="tel:0{{ $post->contact_info }}"
@@ -107,7 +138,7 @@
                 @if (count($similarPosts) > 1)
                     <div class=" mt-3 p-3 bg-gray-50   lg:rounded-sm ">
                         <h3 class=" my-3 font-semibold text-lg">Similar Gigs by other students</h3>
-                        <div class="grid gap-4 grid-cols-2">
+                        <div class="overflow-auto whitespace-nowrap">
                             @foreach ($similarPosts as $similarPost)
                                 @php
                                     if ($similarPost->id == $post->id) {
@@ -116,14 +147,14 @@
                                 @endphp
 
                                 <div
-                                    class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm md:grid-cols-1  md:gap-y-2 ">
+                                    class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm w-40 mr-2 ">
 
                                     <div class=" col-span-2  ">
                                         <a
                                             href="/{{ $similarPost->user->campus->nick_name }}/{{ $similarPost->subcategory->slug }}/{{ $similarPost->slug }}">
                                             @if (is_object($similarPost->images()->first()))
                                                 <img src="{{ $similarPost->images()->first()->Image_path }}"
-                                                    class=" w-full  object-fill  rounded-t-sm h-32 md:h-48   md:rounded-b-none md:rounded-t-sm"
+                                                    class=" w-full  object-fill  rounded-t-sm h-32 md:h-40   md:rounded-b-none md:rounded-t-sm"
                                                     lazy="loading" alt="{{ $similarPost->title }}">
                                             @endif
                                         </a>
@@ -137,9 +168,15 @@
                                         </h3>
 
                                         <p>
-                                            <span class=" uppercase text-xs">starting at</span>
+                                            @if (  $similarPost->price == 0)
+                                                <span class=" uppercase text-xs">price depends</span>
+                                            
+                                            @else
+                                                <span class=" uppercase text-xs">starting at</span>
                                             <small class=" text-green-500  text-xs md:text-base font-semibold"> N
                                                 {{ $similarPost->price }} </small>
+                                            @endif
+                                            
 
                                         </p>
                                     </div>

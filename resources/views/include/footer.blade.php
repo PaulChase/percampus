@@ -30,7 +30,7 @@
         <div class="my-4">
             <h1 class=" text-xl font-semibold"> {{config('app.name')}} &copy;</h1>
             <p>{{config('app.name')}} is one of the fastest growing online classified ads specifically made  for students on campus where they can buy and sell used items, new products and even services at affordable rates to one another,</p>
-            <p>Built with Lots of &#128151; by <strong>Ajonye Paul</strong></p>
+            {{-- <p>Built with Lots of &#128151; by <strong>Ajonye Paul</strong></p> --}}
         </div>
         
         

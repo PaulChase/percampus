@@ -1,5 +1,5 @@
 <div id="Enquiry" class=" fixed  w-full h-full z-30 overflow-auto  top-0 left-0 hidden" style="background-color: rgba(0,0,0,0.7); ">
-    <div class=" bg-white bottom-0 absolute w-full rounded-t-lg p-4 h-2/3 overflow-auto enquiryContainer">
+    <div class=" bg-white bottom-0 absolute w-full rounded-t-lg p-4 h-3/4 lg:w-1/3 lg:h-full lg:right-0 lg:rounded-l-md overflow-auto enquiryContainer">
         <button class=" float-right m-3 bg-gray-200 px-3 py-1 rounded-full focus:bg-gray-500"
             id="closeEnquiry">X</button><br>
         <div class=" " id="enquiryBg">

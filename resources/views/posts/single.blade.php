@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title') Buy {{ $post->title }} in {{ $post->user->campus->name }} @endsection
+@section('title') Buy {{ $post->title }} on a university campus @endsection
 @section('description'){{ $post->title }} for sale, it is also {{ $post->description }} @endsection
 @section('image_url')
     @if (is_object($post->images()->first()))
@@ -122,7 +122,13 @@
                                 class=" w-20 h-20 rounded-full border-2 border-green-300 object-cover mr-3 " alt="">
                         @endif
 
+                        @if ($post->alias)
+                        {{ $post->alias }}
+
+                        @else
                         {{ $post->user->name }}
+                            
+                        @endif
                     </p>
                     <div class=" grid grid-cols-2 gap-3">
                         <a href="tel:0{{ $post->contact_info }}"
@@ -139,7 +145,7 @@
                 @if (count($similarPosts) > 1 )
                 <div class=" mt-3 p-3 bg-gray-50   lg:rounded-sm ">
                     <h3 class=" my-3 font-semibold text-lg">Similar Items for sale</h3>
-                    <div class="grid gap-4 grid-cols-2">
+                    <div class=" overflow-auto whitespace-nowrap">
                         @foreach ($similarPosts as $similarPost)
                             @php
                                 if ($similarPost->id == $post->id) {
@@ -148,7 +154,7 @@
                             @endphp
 
                             <div
-                                class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm md:grid-cols-1  md:gap-y-2 ">
+                                class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm inline-block w-40 mr-2">
 
                                 <div class=" col-span-2  ">
                                     <a

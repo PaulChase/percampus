@@ -7,7 +7,7 @@
 
 
     <header class="  text-gray-700   " style="
-            height: 90vh;">
+                height: 90vh;">
 
 
         <div class=" bg-green-100 top-0 right-0 w-full h-full  px-2">
@@ -27,20 +27,28 @@
             </nav>
             <div class="   ">
                 <div class="px-2 md:w-3/5 md:mx-auto ">
-                    <img class=" h-44 w-44 md:h-52  md:w-52 mx-auto my-4"
+                    <img class=" h-32 w-32 md:h-52  md:w-52 mx-auto my-4"
                         src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/social-media-marketing.png"
                         alt="">
                     <p class=" text-3xl lg:text-4xl lg:max-w-3xl  font-semibold my-3">Discover affordable products and
                         Services offered by other Students on your Campus.
                     </p>
-                    <p>Welcome to our campus marketplace, where you will be able to sell new and used items, micro services and gigs very fast to
+                    <p>Welcome to our campus marketplace, where you will be able to sell new and used items, micro services
+                        and gigs very fast to
                         students on your campus </p>
+                        <div>
+                            <form action="{{ url('search') }}" class=" flex bg-white px-4 py-2 my-2 rounded-full text-base shadow-xl">
+                                <input name="query" type="text" placeholder="search the name of the item.." class=" w-full outline-none text-gray-600 focus:bg-white" required>
+                                <button type="submit" class=" focus:bg-green-600 focus:text-white text-green-500 "><i class="fa fa-search "></i></button>
+                            </form>
+
+                        </div>
                     <p class="grid gap-3 grid-cols-2">
                         <a href="/register"
-                            class=" inline-block bg-green-500 opacity-100 py-4  rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-800 mt-5 border-2 border-green-500 shadow-xl  text-center">Start
-                            selling for FREE</a>
+                            class=" inline-block  opacity-100 py-2  rounded-md text-sm font-bold md:text-base focus:bg-green-800 text-gray-700 mt-5  text-center">Start
+                            selling for FREE <i class="fa fa-chevron-right ml-2"></i></a>
                         <a href="/posts"
-                            class=" inline-block opacity-100 py-4  rounded-md text-gray-700 text-sm font-semibold md:text-base border-2 border-green-400  focus:border-green-700 mt-5 shadow-xl  text-center">View
+                            class=" inline-block    rounded-md py-2 text-gray-700 text-sm font-semibold md:text-base border-2 border-green-400  focus:border-green-700 mt-5 shadow-xl  text-center">View
                             Items for Sale</a>
                     </p>
                 </div>
@@ -158,9 +166,15 @@
                             </h3>
 
                             <p>
-                                <span class=" uppercase text-xs">starting from</span>
+                                @if ($each_gig->price == 0)
+                                    <span class=" uppercase text-xs">price depends</span>
+                                
+                                @else
+                                    <span class=" uppercase text-xs">starting from</span>
                                 <span class=" ml-3 text-green-500  text-base md:text-base font-semibold">
                                     N{{ $each_gig->price }} </span>
+                                @endif
+                                
                             </p>
                         </div>
                     </div>
@@ -180,30 +194,40 @@
         </div>
 
         <div class="p-3">
-            <div class=" ">
-            <p class=" my-3 text-center">Didn't find what you're looking? <button class="showEnquiry font-medium focus:bg-gray-500 text-sm  inline-block bg-gray-300 rounded-md p-1"><i class=" fa fa-pen mr-1"></i> Make a request here..</button> </p>
-            <h3 class=" font-semibold text-lg mb-3">Requested items/Services</h3>
-                
+            <div class="">
+                <p class=" bg-green-500 lg:text-2xl lg:py-16 shadow-inner p-4 rounded-md text-white my-3 text-center font-semibold text-lg">Didn't find what you're looking? <br><button
+                        class="showEnquiry shadow-inner my-3 font-medium lg:text-2xl  text-gray-500 focus:bg-gray-500 focus:text-white text-sm  inline-block bg-gray-50 rounded-md py-2 px-4"><i
+                            class=" fa fa-pen mr-1"></i>Click here to make a request here..</button> </p>
+                <h3 class=" font-semibold text-lg mb-3 lg:text-2xl p-2">Requested items/Services</h3>
+
             </div>
 
             <div class="grid gap-4 lg:grid-cols-4  lg:px-5">
                 @foreach ($enquiries as $enquiry)
-                <div class=" border-2 border-gray-300 rounded-md p-3  space-y-2">
-                    <h4 class=" text-lg font-semibold ">{{ $enquiry->message}}</h4>
-                    <p  class=" text-sm">In <span class=" uppercase">{{ $enquiry->campus->nick_name}}</span> campus</p>
-                    <p class=" flex justify-between items-center"><span><i class=" fa fa-user mr-2"></i> {{$enquiry->name}}</span> @if ($enquiry->contact_mode == 'call')
-                        <a href="tel:0{{$enquiry->contact_info  }}" class="py-1 px-3 rounded-full border border-gray-400 bg-gray-200 contactBuyer"  id="{{ $enquiry->id}}"><i class=" fa fa-phone mr-2"></i> Call</a>
-                    @endif
-                        @if ($enquiry->contact_mode == 'whatsapp')
-                            <a href="https://wa.me/?text={{ rawurlencode("Hello $enquiry->name, I saw your post about  $enquiry->message on percampus.com") }}" class="contactBuyer py-1 px-2 rounded-full border border-green-400  bg-green-100" id="{{ $enquiry->id}}"><i class=" fab fa-whatsapp mr-2 text-green-500"></i> Whatsapp</a>
-                            
-                        @endif
-                </p>
-                </div>
-                    
+                    <div class=" border-2 border-gray-300 rounded-md p-3  space-y-2">
+                        <h4 class=" text-lg font-semibold ">{{ $enquiry->message }}</h4>
+                        <p class=" text-sm">In <span class=" uppercase">{{ $enquiry->campus->nick_name }}</span> campus
+                        </p>
+                        <p class=" flex justify-between items-center"><span><i class=" fa fa-user mr-2"></i>
+                                {{ $enquiry->name }}</span>
+                            @if ($enquiry->contact_mode == 'call')
+                                <a href="tel:0{{ $enquiry->contact_info }}"
+                                    class="py-1 px-3 rounded-full border border-gray-400 bg-gray-200 contactBuyer"
+                                    id="{{ $enquiry->id }}"><i class=" fa fa-phone mr-2"></i> Call</a>
+                            @endif
+                            @if ($enquiry->contact_mode == 'whatsapp')
+                                <a href="https://wa.me/?text={{ rawurlencode("Hello $enquiry->name, I saw your post about  $enquiry->message on percampus.com") }}"
+                                    class="contactBuyer py-1 px-2 rounded-full border border-green-400  bg-green-100"
+                                    id="{{ $enquiry->id }}"><i class=" fab fa-whatsapp mr-2 text-green-500"></i>
+                                    Whatsapp</a>
+
+                            @endif
+                        </p>
+                    </div>
+
                 @endforeach
             </div>
-            <div class="my-4 ">
+            <div class="my-4  ">
 
                 <a href="/enquiries"
                     class="block mx-auto w-3/4 lg:w-1/3 lg:p-5 lg:text-xl p-3 bg-green-500 rounded-full text-white text-center font-semibold focus:bg-green-700">
@@ -218,7 +242,8 @@
                 class=" bg-gray-700 px-4 py-24 h-auto text-xl text-white font-semibold text-center lg:h-72 lg:flex  lg:items-center lg:px-10">
                 <p class=" md:w-3/12"><i class="fa fa-rocket fa-3x text-green-500 mb-6"></i></p>
                 <div>
-                    <p class=" lg:text-3xl "> If you start selling now, your items and Gigs will be seen first when buyers start flooding
+                    <p class=" lg:text-3xl "> If you start selling now, your items and Gigs will be seen first when buyers start
+                        flooding
                         in. <br> So what are you waiting for?</p>
                     <p class=""> <a href="/register"
                             class=" rounded-full border-2 py-3 px-5 text-base bg-green-500 border-green-500 focus:bg-green-700 focus:border-green-700 md:text-lg block my-7 lg:w-1/3 lg:p-5 lg:text-xl mx-auto">Sign
@@ -248,28 +273,34 @@
                 <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">what's this site all
                     about? <i class="fa fa-chevron-right float-right"></i></button>
                 <div class="panel p-3 bg-gray-50 rounded-md text-gray-700  border-l-4 border-green-400 hidden">
-                    <p>In summary, this is an online marketplace similar to jiji but for us students on campus to buy and sell
+                    <p>In summary, this is an online marketplace similar to jiji but for us students on campus to buy and
+                        sell
                         both new and used items to one another.</p>
                 </div>
                 <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">who is the website
                     for?<i class="fa fa-chevron-right float-right"></i></button>
                 <div class="panel p-3 bg-gray-50 rounded-md text-gray-700  border-l-4 border-green-400 hidden">
-                    <p>The website is for any student on campus who wants to buy anything from their fellow students, sell a new
+                    <p>The website is for any student on campus who wants to buy anything from their fellow students, sell a
+                        new
                         or used product to their departmental students or campus at large.</p>
                 </div>
                 <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">How can this website
                     benefit me?<i class="fa fa-chevron-right float-right"></i></button>
                 <div class="panel p-3 bg-gray-50 rounded-md text-gray-700  border-l-4 border-green-400 hidden">
-                    <p>With this website you are no longer limited to posting your products on whatsapp status or groups every
-                        now and then. You will now be able to reach all the thousands of students on your campus with a single
+                    <p>With this website you are no longer limited to posting your products on whatsapp status or groups
+                        every
+                        now and then. You will now be able to reach all the thousands of students on your campus with a
+                        single
                         post.</p>
                 </div>
-                <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">Can I make money from
+                <button class="accordion p-3 shadow-2xl rounded-lg font-semibold w-full text-left my-3">Can I make money
+                    from
                     this website?<i class="fa fa-chevron-right float-right"></i></button>
                 <div class="panel p-3 bg-gray-50 rounded-md text-gray-700  border-l-4 border-green-400 hidden">
                     <p>Sure, If you own a business on campus of selling products students wants to buy such as footwears,
                         clothes, phone accessories etc. You can definitely use this website as your personal online store to
-                        showcase all the items you have in stock with thier prices. <br> The more you sell, the more you earn.
+                        showcase all the items you have in stock with thier prices. <br> The more you sell, the more you
+                        earn.
                         The best part is that you keep all the profits (the website is totally FREE, we don't take any cut).
                     </p>
                 </div>
@@ -278,6 +309,7 @@
 
         <div class=" grid lg:grid-cols-2 gap-4 p-4">
 
+    {{-- @include('auth.register') --}}
 
             <div class=" p-4  my-4 text-center">
                 <p class="text-lg font-semibold mb-7">You know a friend that this website may change his/her life for good?
@@ -288,7 +320,7 @@
 
     </main>
 
-@include('include.enquiryform')
+    @include('include.enquiryform')
 
     @include('include.footer')
 

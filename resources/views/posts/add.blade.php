@@ -20,9 +20,20 @@
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">please enter a valid title</small>
                     @enderror
                 </div>
+                @if (Auth::user()->role_id === 1)
+                <div>
+                    
+                    <label for="" class="font-semibold">What's is the seller real name</label><br>
+                    <input name="alias" type="text" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder="the seller's name" value="{{ old('alias')}}"><br>
+                    @error('title')
+                        <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">please enter a valid name</small>
+                    @enderror
+                </div>
+                    
+                @endif
                 <div>
                     <label for="description" class="font-semibold" >Please describe it for us ( don't lie oo &#128512;) <b class=" text-red-500">*</b></label><br>
-                    <textarea name="description" id="" cols="30" rows="4" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder="give a clear description of the item such how long you haved used it, it features and physical description etc.">{{ old('description')}}</textarea><br>
+                    <textarea name="description" id="" cols="30" rows="7" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder="give a clear description of the item such how long you haved used it, it features and physical description etc.">{{ old('description')}}</textarea><br>
                     @error('description')
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">{{ $message }}</small>
                     @enderror

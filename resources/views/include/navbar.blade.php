@@ -79,7 +79,7 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
                         </li>
                         <li class="md:ml-2 hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                             <a class="block font-semibold  no-underline hover:no-underline py-2  hover:text-black md:font-medium md:border-none md:p-0 "
-                                href="/dashboard"> <span class="  md:hidden"><i
+                                href="/dashboard"> <span class=""><i
                                         class="fa fa-user-circle mr-2"></i></span>My Profile
                                     </a>
                         </li>
@@ -217,7 +217,7 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
                     {{ csrf_field() }}
                     <label class="hidden" for="search-form">Search</label>
                     <input class="px-3 py-2 rounded-md w-full focus:outline-none bg-gray-50 shadow lg:col-span-3"
-                        placeholder="search the name of the item e.g mattress" type="text" name="query" required>
+                        placeholder="search the name of the item e.g mattress" type="text" name="query" >
 
 
                     <div class="mt-2 lg:m-0 bg-gray-50 flex lg:col-span-2 ">
@@ -243,10 +243,10 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
 
 <div id="picktype" class=" fixed  w-full h-full z-30 overflow-auto  top-0 left-0 text-center  hidden"
     style="background-color: rgba(0,0,0,0.7); ">
-    <div class=" bg-white bottom-0 absolute w-full rounded-t-lg p-4">
+    <div class=" bg-white bottom-0 absolute w-full rounded-t-lg p-4 lg:w-1/3 lg:h-2/3 lg:top-1/3 lg:right-0 lg:rounded-l-md">
         <button class=" float-right m-3 bg-gray-200 px-3 py-1 rounded-full focus:bg-gray-500"
             id="closepicktype">X</button><br>
-        @if (Auth::check() and $postLeft <= 0)
+        @if (Auth::check() and $postLeft <= 0 and Auth::user()->role_id  !== 1 )
             <div>
                 <p class=" font-semibold  mt-2">You've reached the Limit of your posts, refer 10 other students with
                     your link below to unlock 5 more additional posts</p><br>

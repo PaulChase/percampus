@@ -36,13 +36,32 @@
                        @endforeach
                    </select>
                </div>
-                <div>
+               @if (Auth::user()->role_id === 1)
+               <div>
+                    
+                    <label for="" class="font-semibold">What's is the seller real name</label><br>
+                    <input name="alias" type="text" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder="the seller's name" value="{{ old('alias')}}"><br>
+                    @error('title')
+                        <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">please enter a valid name</small>
+                    @enderror
+                </div>
+                   <div>
+                    <label for="price" class="font-semibold">Set any price<b class=" text-red-500">*</b></label>
+                    <input type="number" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" name="price" placeholder=" e.g 2500 or 300 (without spacing)"  required>
+                    @error('price')
+                        <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">{{ 'the price of the item is Required' }}</small>
+                    @enderror
+                </div>
+               @else
+                   <div>
                     <label for="price" class="font-semibold">The lowest price you charge per Gig (Note: it should be between N200 to N10,000)<b class=" text-red-500">*</b></label>
                     <input type="number" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" name="price" placeholder=" e.g 2500 or 300 (without spacing)" min="200" max="10000" required>
                     @error('price')
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">{{ 'the price of the item is Required' }}</small>
                     @enderror
                 </div>
+               @endif
+                
                 
                 <div>
                     <label for="contact" class="font-semibold">Phone or Whatsapp Number<br> <small>leave it empty if you want to use the number you used to register</small></label>
