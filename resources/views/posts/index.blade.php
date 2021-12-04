@@ -15,18 +15,18 @@
         </div>
         
         {{-- div for posts --}}
-        <div class="grid gap-4 grid-cols-2  md:grid-cols-3 lg:grid-cols-4 py-3 max-w-7xl mx-auto w-full">
+        <div class="grid gap-3 grid-cols-2  md:grid-cols-3 lg:grid-cols-4 py-3 max-w-7xl mx-auto w-full">
            
         @if (count($posts) > 0)
 
         {{-- iterating through all the posts  --}}
             @foreach ($posts as $each_post)
-                <div class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-md md:grid-cols-1  md:gap-y-2 " >
+                <div class=" md:border-none md:shadow-md  bg-white     rounded-md md:grid-cols-1  md:gap-y-2 " >
 
                     <div class=" col-span-2  ">
                             <a href="/{{$each_post->user->campus->nick_name}}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}">
                                 @if (is_object($each_post->images()->first()))
-                                    <img src="{{$each_post->images()->first()->Image_path}}" class=" w-full  object-fill  rounded-t-md h-32 md:h-48   md:rounded-b-none md:rounded-t-md" lazy="loading" alt="{{$each_post->title}}">
+                                    <img src="{{$each_post->images()->first()->Image_path}}" class=" w-full  object-fill  rounded-md h-36 md:h-48   md:rounded-b-none md:rounded-t-md" lazy="loading" alt="{{$each_post->title}}">
                                 @endif
                             </a>
                             
@@ -37,7 +37,13 @@
                         </h3>
                         
                         <p> 
-                            <small class=" text-green-500  text-xs md:text-base font-semibold"> N {{$each_post->price}}  </small>
+                            <small class=" text-green-500  text-xs md:text-base font-semibold">
+                                @if ($each_post->price > 0 && $each_post->price != '' && $each_post->price != ' ')
+                                N{{ $each_post->price }}
+                            @else
+                                {{ 'Contact Me' }}
+                            @endif
+                                 </small>
                         </p>
                     </div>
                 </div>

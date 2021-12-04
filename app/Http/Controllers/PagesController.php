@@ -201,12 +201,26 @@ class PagesController extends Controller
 
         $marketplaceCount = Category::find(2)->posts()->count();
 
-        $opportunitiesCount = Category::find(3)->posts()->count();
+        $opportunitiesCount =
+        Category::find(3)->posts()->count();
+        $servicesCount = Category::find(4)->posts()->count();
 
-        $mostViewedPosts = Post::select(['title', 'view_count'])->orderBy('view_count', 'desc')->take(10)->get();
+        $mostViewedPosts = Post::select(['title', 'view_count'])->where('created_at', '>',  today()->subDays(7))->orderBy('view_count', 'desc')->take(10)->get();
 
 
-        $totalPostViews = Post::select(['view_count'])->sum('view_count');
+
+        $topCampuses = Campus::with('users')->take(10)->get()->sortByDesc(function ($campus) {
+            return $campus->users()->count();
+        });
+
+        // dd($topCampuses);
+
+
+        $totalPostViews = Post::select(['view_count'])->sum(
+            'view_count'
+        );
+        // $totalPostViewsLastWeek = Post::select(['view_count'])->where('created_at', '>',  today()->subDays(7))->sum('view_count');
+        // $totalPostViewsToday = Post::where('created_at', '=',  today())->select(['view_count'])->sum('view_count');
         $totalPostContacts = Post::select(['no_of_contacts'])->sum('no_of_contacts');
         $totalEnquiriesContacts = Enquiry::select(['requestCount'])->sum('requestCount');
         $totalAdClicks = Advert::select(['linkclick'])->sum('linkClick');
@@ -215,7 +229,7 @@ class PagesController extends Controller
 
 
 
-        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews', 'mostViewedPosts', 'totalPostContacts', 'referralsCount', 'searchCount', 'totalAdClicks', 'totalEnquiriesContacts'));
+        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews', 'mostViewedPosts', 'totalPostContacts', 'referralsCount', 'searchCount', 'totalAdClicks', 'totalEnquiriesContacts', 'topCampuses', 'servicesCount'));
     }
 
     public function join(Request $request)

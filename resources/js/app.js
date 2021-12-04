@@ -7,8 +7,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+
 // configure Swiper to use modules
 Swiper.use([Navigation, Pagination]);
+
 
 // init Swiper:
 const swiper = new Swiper(".swiper", {
@@ -31,4 +33,10 @@ const swiper = new Swiper(".swiper", {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
     },
+
+    thumbs: {
+        swiper: picThumbs,
+    },
 });
+
+

@@ -27,6 +27,8 @@
                     </div>
                     <div class="swiper-pagination "></div>
                 </div>
+                
+
                 <div class="px-3 pt-3 pb-1 bg-gray-50 lg:rounded-sm">
                     <h1 class="text-lg lg:text-xl font-semibold my-3 ">{{ $post->title }}</h1>
                     <hr />
@@ -130,6 +132,7 @@
                             
                         @endif
                     </p>
+                    <p class=" font-medium text-center text-base my-2">Contact seller via:</p>
                     <div class=" grid grid-cols-2 gap-3">
                         <a href="tel:0{{ $post->contact_info }}"
                             class=" block p-3 text-center font-semibold focus:border-green-500 rounded-md contact bg-gray-200"><i

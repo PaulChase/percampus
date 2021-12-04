@@ -51,7 +51,7 @@ class PostsController extends Controller
         // testing queries to rank users based on levels
         // $post = DB::table('posts')->join('users', 'users.id' ,'=', 'posts.user_id'  )->join('roles', 'roles.id', '=','users.role_id')->select('posts.*', 'users.*')->orderBy('roles.id', 'desc')->get();
 
-        // $post2 = Post::join('users', 'users.id' ,'=', 'posts.user_id'  )->join('roles', 'roles.id', '=','users.role_id')->select('posts.*', 'users.*')->orderBy('roles.id', 'desc')->get();
+        // $post2 = Post::join('users', 'users.id', '=', 'posts.user_id')->join('roles', 'roles.id', '=', 'users.role_id')->select('posts.*', 'users.*')->orderBy('roles.id', 'desc')->get();
         // dd($post2);
         $posts = $marketplace->posts()->where('status', 'active')->orderBy('created_at', 'desc')->with(
             'user',
@@ -259,10 +259,15 @@ class PostsController extends Controller
         }
 
         $similarPosts = Post::where('status', 'active')
+            ->where('created_at', '>',  today()->subDays(7))
             ->where('subcategory_id', $post->subcategory->id)
+            ->with('images')
             ->orderBy('view_count', 'desc')
             ->take(6)
-            ->get();
+        ->get()
+        ->shuffle();
+
+        // dd($similarPosts);
 
         if ($post->subcategory->category->name == 'gigs') {
             return view('gigs.single')

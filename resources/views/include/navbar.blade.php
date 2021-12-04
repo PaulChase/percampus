@@ -34,13 +34,13 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
 
             <div class="order-1 lg:col-span-1">
                 @auth
-                    <a class=" tracking-wide no-underline hover:no-underline font-bold text-green-600 text-2xl "
+                    <a class=" uppercase tracking-wide no-underline hover:no-underline font-bold text-green-600 text-2xl "
                         href="{{ route('campus.home', ['campus' => Auth::user()->campus->nick_name]) }}">
                         <b> {{ config('app.name') }} </b>
                     </a>
 
                 @else
-                    <a class=" tracking-wide no-underline hover:no-underline font-bold text-green-600 text-2xl " href="/">
+                    <a class=" uppercase tracking-wide no-underline hover:no-underline font-bold text-green-600 text-2xl " href="/">
                         <b> {{ config('app.name') }} </b>
                     </a>
                 @endauth

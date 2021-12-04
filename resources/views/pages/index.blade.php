@@ -7,11 +7,11 @@
 
 
     <header class="  text-gray-700   " style="
-                height: 90vh;">
+                height: auto;">
 
 
-        <div class=" bg-green-100 top-0 right-0 w-full h-full  px-2">
-            <nav class=" flex flex-row justify-between max-w-7xl mx-auto align-middle p-4">
+        <div class="bg-green-200 w-full h-full  px-2">
+            <nav class=" flex flex-row justify-between max-w-7xl mx-auto items-center p-4">
                 <h1 class=" no-underline hover:no-underline font-extrabold  text-2xl lg:text-3xl tracking-widest">
                     {{ config('app.name') }}</h1>
                 @guest
@@ -25,15 +25,12 @@
 
 
             </nav>
-            <div class="   ">
-                <div class="px-2 md:w-3/5 md:mx-auto ">
-                    <img class=" h-32 w-32 md:h-52  md:w-52 mx-auto my-4"
-                        src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/social-media-marketing.png"
-                        alt="">
-                    <p class=" text-3xl lg:text-4xl lg:max-w-3xl  font-semibold my-3">Discover affordable products and
-                        Services offered by other Students on your Campus.
+            <div class=" flex justify-center items-center md:w-3/5 md:mx-auto ">
+                <div class="px-2  w-full my-10 lg:my-14">
+                    
+                    <p class=" text-3xl lg:text-4xl lg:max-w-3xl  font-semibold my-3">Hey there, Are you looking for items for sale on your campus?
                     </p>
-                    <p>Welcome to our campus marketplace, where you will be able to sell new and used items, micro services
+                    <p>If yes? welcome to our campus marketplace where you will be able to sell new and used items, offer services
                         and gigs very fast to
                         students on your campus </p>
                         <div>
@@ -63,17 +60,17 @@
 
         <div class="p-3">
             <h3 class="p-3  font-semibold text-xl lg:text-2xl my-3"> What other Students are Selling </h3>
-            <div class="grid gap-4 grid-cols-2 lg:grid-cols-4 lg:px-5">
+            <div class="grid gap-3 grid-cols-2 lg:grid-cols-4 lg:px-5">
                 @foreach ($posts as $each_item)
                     <div
-                        class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-md md:grid-cols-1  md:gap-y-2 ">
+                        class=" md:border-none md:shadow-md  bg-white     rounded-md md:grid-cols-1  md:gap-y-2 ">
 
                         <div class="   ">
                             <a
                                 href="/{{ $each_item->user->campus->nick_name }}/{{ $each_item->subcategory->slug }}/{{ $each_item->slug }}">
                                 @if (is_object($each_item->images()->first()))
                                     <img src="{{ $each_item->images()->first()->Image_path }}"
-                                        class=" w-full  object-fill  rounded-t-sm h-32 md:h-48   md:rounded-b-none md:rounded-t-md"
+                                        class=" w-full  object-fill  rounded-md h-36 md:h-48   md:rounded-b-none md:rounded-t-md"
                                         lazy="loading" alt="{{ $each_item->title }}">
                                 @endif
                             </a>
@@ -89,8 +86,13 @@
                             <p>
                                 <span class="block italic">In <span
                                         class=" uppercase">{{ $each_item->user->campus->nick_name }}</span> campus</span>
-                                <small class=" text-green-500  text-xs md:text-base font-semibold"> N
-                                    {{ $each_item->price }} </small>
+                                <small class=" text-green-500  text-xs md:text-base font-semibold"> 
+                                    @if ($each_item->price > 0 && $each_item->price != '' && $each_item->price != ' ')
+                                N{{ $each_item->price }}
+                            @else
+                                {{ 'Contact Me' }}
+                            @endif
+                                     </small>
                             </p>
                         </div>
                     </div>
@@ -130,9 +132,9 @@
                 </a>
                 <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'household']) }}"
                     class="focus:bg-green-700 rounded-md">
-                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/pot.png"
+                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/book.png"
                         alt="" class=" h-24  w-24 mx-auto my-2 lg:w-40 lg:h-40">
-                    <h4 class=" font-semibold">Household </h4>
+                    <h4 class=" font-semibold">Books </h4>
                 </a>
             </div>
             <div class="my-8">

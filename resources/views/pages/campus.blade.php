@@ -25,7 +25,7 @@
 
         {{-- iterating through all the posts  --}}
             @foreach ($recentPosts as $each_post)
-                <div class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm md:grid-cols-1 w-40 inline-block mr-2 md:gap-y-2 " >
+                <div class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm md:grid-cols-1 w-40 md:w-60 inline-block mr-2 md:gap-y-2 " >
 
                     <div class=" col-span-2  ">
                             <a href="/{{$each_post->user->campus->nick_name}}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}">
@@ -53,7 +53,7 @@
            
         </div>
         <div class="my-4">
-                    <a href="{{route('subcategory', ['campus'=> $campus->nick_name,'c'=> 'marketplace'])}}" class="block mx-auto w-3/4 p-3 bg-green-500 rounded-full text-white text-center font-semibold focus:bg-green-700"> View More items<i class="fa fa-chevron-right ml-2"></i></a>
+                    <a href="{{route('subcategory', ['campus'=> $campus->nick_name,'c'=> 'marketplace'])}}" class="block mx-auto w-3/4 md:w-1/4 p-3 bg-green-500 rounded-full text-white text-center font-semibold focus:bg-green-700"> View More items<i class="fa fa-chevron-right ml-2"></i></a>
             </div>
         @else
             
@@ -87,7 +87,7 @@
            
         </div>
         <div class="my-4">
-                    <a href="{{route('enquiries.index')}}" class="block mx-auto w-3/4 p-3 bg-green-500 rounded-full text-white text-center font-semibold focus:bg-green-700"> View More Requests<i class="fa fa-chevron-right ml-2"></i></a>
+                    <a href="{{route('enquiries.index')}}" class="block mx-auto w-3/4 p-3 bg-green-500 rounded-full text-white text-center font-semibold focus:bg-green-700  md:w-1/4"> View More Requests<i class="fa fa-chevron-right ml-2"></i></a>
             </div>
         @else
             
@@ -132,7 +132,7 @@
            
         </div>
         <div class="my-4">
-                    <a href="{{route('subcategory', ['campus'=> $campus->nick_name,'c'=> 'opportunities'])}}" class="block mx-auto w-3/4 p-3 bg-green-500 rounded-full text-white text-center font-semibold focus:bg-green-700"> View More Opportunities<i class="fa fa-chevron-right ml-2"></i></a>
+                    <a href="{{route('subcategory', ['campus'=> $campus->nick_name,'c'=> 'opportunities'])}}" class="block mx-auto w-3/4 p-3 bg-green-500 rounded-full text-white text-center font-semibold focus:bg-green-700  md:w-1/4"> View More Opportunities<i class="fa fa-chevron-right ml-2"></i></a>
             </div>
         
    </div>

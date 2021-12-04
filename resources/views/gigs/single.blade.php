@@ -147,7 +147,8 @@
                                 @endphp
 
                                 <div
-                                    class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm w-40 mr-2 ">
+                                    class="border border-gray-200 md:border-none md:shadow-md  bg-white inline-block   
+                                    rounded-sm w-40 mr-2 ">
 
                                     <div class=" col-span-2  ">
                                         <a
