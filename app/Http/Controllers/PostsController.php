@@ -125,6 +125,8 @@ class PostsController extends Controller
         $post->subcategory_id = $request->input('subcategory');
         $post->user_id = auth()->user()->id;
         $post->status = 'pending';
+
+        // set an alias if its not posted by the actual user
         $post->alias = $request->input('alias');
         $post->save();
 
