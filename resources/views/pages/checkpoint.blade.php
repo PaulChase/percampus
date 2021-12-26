@@ -143,6 +143,8 @@
                     },
                 });
 
+                // hide the current post after approving/rejecting the post
+
                 // $(`div[id='${postID}']`).hide(500);
                 $(this).parents("div[level='grand']").hide(200);
 

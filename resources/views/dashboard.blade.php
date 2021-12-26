@@ -110,7 +110,7 @@
                         <a href="/admin" class="border-2 border-green-200 rounded-md p-3 text-center font-semibold "
                             target="_blank">Admin Panel</a>
                         <a href="/checkpoint" class="border-2 border-green-200 rounded-md p-3 text-center font-semibold "
-                            target="_blank">Check Point</a>
+                            target="_blank">CheckPoint</a>
                     </div>
                 @endif
 
