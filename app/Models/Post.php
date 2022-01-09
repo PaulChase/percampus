@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
 
-class Post extends Model
+class Post extends Model implements Viewable
 {
-    use HasFactory, Sluggable;
+    use HasFactory, Sluggable, InteractsWithViews;
 
     /*
     creating relatioship b/w the post and user that added it.  The function means that a post belongs to a particular user

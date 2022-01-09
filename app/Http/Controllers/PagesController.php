@@ -18,6 +18,7 @@ use Jorenvh\Share\Share;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
 {
@@ -148,7 +149,7 @@ class PagesController extends Controller
         )->take(6)->get();
 
         $recentEnquiries = $campus->enquiries()->where('status', 'active')->orderBy('created_at', 'desc')->take(12)->get();
-        // dd($recentPosts);
+        
         return view('pages.campus')
             ->with('campus', $campus)
             ->with('recentPosts',  $recentPosts)
@@ -171,7 +172,6 @@ class PagesController extends Controller
 
         $subCategories = $category->subcategories()->orderBy('name')->get();
 
-        // dd($campus);
         return view('pages.subcategory')
             ->with('subCategories', $subCategories)
             ->with('campus', $campus)
@@ -183,7 +183,7 @@ class PagesController extends Controller
         $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
             return Campus::orderBy('name', 'asc')->get();
         });
-        // $campuses = Campus::orderBy('name')->get();
+        
 
         return view('pages.allcampuses')->with('campuses', $campuses);
     }
@@ -201,8 +201,7 @@ class PagesController extends Controller
 
         $marketplaceCount = Category::find(2)->posts()->count();
 
-        $opportunitiesCount =
-        Category::find(3)->posts()->count();
+        $opportunitiesCount = Category::find(3)->posts()->count();
         $servicesCount = Category::find(4)->posts()->count();
 
         $mostViewedPosts = Post::select(['title', 'view_count'])->where('created_at', '>',  today()->subDays(7))->orderBy('view_count', 'desc')->take(10)->get();
@@ -213,23 +212,48 @@ class PagesController extends Controller
             return $campus->users()->count();
         });
 
-        // dd($topCampuses);
+        
 
 
         $totalPostViews = Post::select(['view_count'])->sum(
             'view_count'
         );
-        // $totalPostViewsLastWeek = Post::select(['view_count'])->where('created_at', '>',  today()->subDays(7))->sum('view_count');
-        // $totalPostViewsToday = Post::where('created_at', '=',  today())->select(['view_count'])->sum('view_count');
+        
         $totalPostContacts = Post::select(['no_of_contacts'])->sum('no_of_contacts');
         $totalEnquiriesContacts = Enquiry::select(['requestCount'])->sum('requestCount');
         $totalAdClicks = Advert::select(['linkclick'])->sum('linkClick');
 
-        // dd($mostViewedPosts);
+
+
+        // the metrics from the new laravel viewable package
+
+        // today metrics
+        $totalViewsToday = DB::table('views')->where('viewed_at', '>=', today())->select('id')->get()->count();
+        $uniqueViewsToday = DB::table('views')->where('viewed_at', '>=', today())->select('visitor')->distinct()->get()->count();
+
+        // yesterday metrics
+        $totalViewsYesterday = DB::table('views')->whereBetween('viewed_at', [today()->subDay(), today()])->select('id')->get()->count();
+        $uniqueViewsYesterday = DB::table('views')->whereBetween('viewed_at', [today()->subDay(), today()])->select('visitor')->distinct()->get()->count();
+
+        // last 7 days metrics
+        $totalViewsLast7Days = DB::table('views')->where('viewed_at', '>=', today()->subWeek())->select('id')->get()->count();
+        $uniqueViewsLast7Days = DB::table('views')->where('viewed_at', '>=', today()->subWeek())->select('visitor')->distinct()->get()->count();
+
+        // this month metrics
+        $totalViewsThisMonth = DB::table('views')->where('viewed_at', '>=', today()->subDays(today()->day))->select('id')->get()->count();
+        $uniqueViewsThisMonth = DB::table('views')->where('viewed_at', '>=', today()->subDays(today()->day))->select('visitor')->distinct()->get()->count();
+
+        // overall metrics
+        $totalViews = DB::table('views')->select('id')->get()->count();
+        $uniqueViews = DB::table('views')->select('visitor')->distinct()->get()->count();
+
+
+        // dd($uniqueViews);
 
 
 
-        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews', 'mostViewedPosts', 'totalPostContacts', 'referralsCount', 'searchCount', 'totalAdClicks', 'totalEnquiriesContacts', 'topCampuses', 'servicesCount'));
+
+        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews', 'mostViewedPosts', 'totalPostContacts', 'referralsCount', 'searchCount', 'totalAdClicks', 'totalEnquiriesContacts', 'topCampuses', 'servicesCount', 'totalViewsToday', 'uniqueViewsToday', 'totalViewsYesterday', 'uniqueViewsYesterday', 'totalViewsLast7Days', 'uniqueViewsLast7Days', 'totalViewsThisMonth', 'uniqueViewsThisMonth', 'totalViews', 'uniqueViews'));
     }
 
     public function join(Request $request)
@@ -244,6 +268,7 @@ class PagesController extends Controller
 
     public function checkpoint()
     {
+        // redirect users back to dashboard if not admin
         if (auth()->user()->role_id != 1) {
             return redirect()->route('home');
         }

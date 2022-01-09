@@ -179,6 +179,7 @@ return [
         // TCG\Voyager\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Jorenvh\Share\Providers\ShareServiceProvider::class,
+        CyrildeWit\EloquentViewable\EloquentViewableServiceProvider::class,
 
     ],
 

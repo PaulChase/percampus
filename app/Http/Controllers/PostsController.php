@@ -205,7 +205,7 @@ class PostsController extends Controller
      */
     public function show($campusNickName, $categoryName, $slug)
     {
-        // dd(today()->subDays(30));
+        
         // to generate social share links
         $share = new Share;
         $socialLinks = $share->currentPage(null, ['class' => 'text-white text-2xl bg-gray-600 rounded-full py-2 px-3'], '<ul class = " flex flex-row justify-between">', '</ul>')->facebook()->whatsapp()->telegram()->twitter();
@@ -217,15 +217,22 @@ class PostsController extends Controller
             'subcategory'
         )->firstOrFail();
 
-        if (Auth::check()  && (Auth::user()->id !== $post->user->id) && !Cookie::has($post->slug)) {
-            Cookie::queue($post->slug, 'seen', 120);
-            $post->incrementViewCount();
-        } else if (!Cookie::has($post->slug) && !(Auth::user())) {
+        // the time interval before recording a new post as seen
+        $expiresAt = now()->addHours(3);
 
-            Cookie::queue($post->slug, 'seen', 120);
-            $post->incrementViewCount();
+        // if the logged in user owns the post, do not record the view so as to avoid spammy views
+        if (Auth::check()  && (Auth::user()->id !== $post->user->id) && !Cookie::has($post->slug)) {
+            views($post)->cooldown($expiresAt)->record();
+        } else if (!(Auth::check()) && !Cookie::has($post->slug)) {
+            // only record for guest that hasn't seen the post
+            views($post)->cooldown($expiresAt)->record();
+
+            // Cookie::queue($post->slug, 'seen', 120);
+            // $post->incrementViewCount();
         }
-        // get the logged in user campus ID
+
+
+        // get the logged in user campus ID so as to show ads that is related to their campus
         if (Auth::user()) {
             $campusID = auth()->user()->campus_id;
         } else {

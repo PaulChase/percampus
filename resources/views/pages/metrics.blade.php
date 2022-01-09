@@ -5,6 +5,78 @@
 @section('content')
 
     <div class=" bg-white  max-w-7xl mx-auto">
+        <h2 class=" text-center text-3xl  font-bold my-3">New Metrics</h2>
+
+        <div class="p-3">
+
+            {{-- today metrics --}}
+            <h3 class=" font-semibold text-lg text-gray-600">Today:</h3>
+            <div class=" grid grid-cols-2 gap-x-4">
+                <div class=" border-2 border-gray-300 p-4 rounded-md my-3 text-center bg-white">
+                    <h3 class=" mb-2 font-semibold text-lg">Total Views</h3>
+                    <p class=" text-3xl text-green-400">{{ $totalViewsToday }}</p>
+                </div>
+                <div class=" border-2 border-gray-300 p-4 rounded-md my-3 text-center bg-white">
+                    <h3 class=" mb-2 font-semibold text-lg">Unique Visitors</h3>
+                    <p class=" text-3xl text-green-400">{{ $uniqueViewsToday }}</p>
+                </div>
+            </div>
+
+            {{-- yesterday metrics --}}
+            <h3 class=" font-semibold text-lg text-gray-600">Yesterday:</h3>
+            <div class=" grid grid-cols-2 gap-x-4">
+                <div class=" border-2 border-gray-300 p-4 rounded-md my-3 text-center bg-white">
+                    <h3 class=" mb-2 font-semibold text-lg">Total Views</h3>
+                    <p class=" text-3xl text-green-400">{{ $totalViewsYesterday }}</p>
+                </div>
+                <div class=" border-2 border-gray-300 p-4 rounded-md my-3 text-center bg-white">
+                    <h3 class=" mb-2 font-semibold text-lg">Unique Visitors</h3>
+                    <p class=" text-3xl text-green-400">{{ $uniqueViewsYesterday }}</p>
+                </div>
+            </div>
+
+            {{-- last 7 days metrics --}}
+            <h3 class=" font-semibold text-lg text-gray-600">Last 7 days:</h3>
+            <div class=" grid grid-cols-2 gap-x-4">
+                <div class=" border-2 border-gray-300 p-4 rounded-md my-3 text-center bg-white">
+                    <h3 class=" mb-2 font-semibold text-lg">Total Views</h3>
+                    <p class=" text-3xl text-green-400">{{ $totalViewsLast7Days }}</p>
+                </div>
+                <div class=" border-2 border-gray-300 p-4 rounded-md my-3 text-center bg-white">
+                    <h3 class=" mb-2 font-semibold text-lg">Unique Visitors</h3>
+                    <p class=" text-3xl text-green-400">{{ $uniqueViewsLast7Days }}</p>
+                </div>
+            </div>
+
+            {{-- this month metrics --}}
+            <h3 class=" font-semibold text-lg text-gray-600">This Month:</h3>
+            <div class=" grid grid-cols-2 gap-x-4">
+                <div class=" border-2 border-gray-300 p-4 rounded-md my-3 text-center bg-white">
+                    <h3 class=" mb-2 font-semibold text-lg">Total Views</h3>
+                    <p class=" text-3xl text-green-400">{{ $totalViewsThisMonth }}</p>
+                </div>
+                <div class=" border-2 border-gray-300 p-4 rounded-md my-3 text-center bg-white">
+                    <h3 class=" mb-2 font-semibold text-lg">Unique Visitors</h3>
+                    <p class=" text-3xl text-green-400">{{ $uniqueViewsThisMonth }}</p>
+                </div>
+            </div>
+
+            {{-- overall metrics --}}
+            <h3 class=" font-semibold text-lg text-gray-600">OverAll:</h3>
+            <div class=" grid grid-cols-2 gap-x-4">
+                <div class=" border-2 border-gray-300 p-4 rounded-md my-3 text-center bg-white">
+                    <h3 class=" mb-2 font-semibold text-lg">Total Views</h3>
+                    <p class=" text-3xl text-green-400">{{ $totalViews }}</p>
+                </div>
+                <div class=" border-2 border-gray-300 p-4 rounded-md my-3 text-center bg-white">
+                    <h3 class=" mb-2 font-semibold text-lg">Unique Visitors</h3>
+                    <p class=" text-3xl text-green-400">{{ $uniqueViews }}</p>
+                </div>
+            </div>
+
+
+        </div>
+        <h2 class=" text-center text-3xl  font-bold my-3">Old Metrics</h2>
         <div  class="lg:grid lg:grid-cols-2 gap-4">
 <div class="p-3 ">
             <div class=" border-2 border-gray-300 p-4 rounded-md my-3 text-center bg-white">
