@@ -9,6 +9,10 @@
                 </div>
             </div>
 
+            <div>
+                <i class="fa fa-map-marker mr-2 fa-2x"></i> We are currently located in Federal University of Technology, Minna Campus
+            </div>
+
             <div class=" p-2 my-4">
                 <p class=" text-center">To stay up to date with our latest updates, new features, student news and happenings, follow us on:</p>
                 <div class=" grid grid-cols-1 gap-3 my-3 ">

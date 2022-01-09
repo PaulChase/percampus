@@ -6,49 +6,53 @@
 @section('focus')
 
 
-    <header class="  text-gray-700   " style="
-                height: auto;">
+    <header class="text-white gray-70  " >
 
 
-        <div class="bg-green-200 w-full h-full  px-2">
+        <div class="bg-green-700 w-full h-full  px-2">
             <nav class=" flex flex-row justify-between max-w-7xl mx-auto items-center p-4">
                 <h1 class=" no-underline hover:no-underline font-extrabold  text-2xl lg:text-3xl tracking-widest">
-                    {{ config('app.name') }} </h1>
+                    Per Campus </h1>
                 @guest
-                    <a href="/register"
-                        class=" inline-block border-2 border-green-400 px-4 py-2 rounded-md  text-sm font-semibold md:text-base focus:bg-green-700">Register</a>
+                     <a href="/register"
+                        class=" inline-block border-2border-green-400 px-4 py-3 rounded-full  text-sm font-semibold md:text-base focus:bg-green-700 bg-white text-gray-600 ">
+                        Register</a>
                 @else
                     <a href="/dashboard"
-                        class=" inline-block border-2 border-green-400 px-4 py-2 rounded-md  text-sm font-semibold md:text-base focus:bg-green-700">My
+                        class=" inline-block border-2border-green-400 px-4 py-3 rounded-full  text-sm font-semibold md:text-base focus:bg-green-700 bg-white text-gray-600 ">My
                         Profile</a>
                 @endguest
 
 
             </nav>
-            <div class=" flex justify-center items-center md:w-3/5 md:mx-auto ">
-                <div class="px-2  w-full my-10 lg:my-14">
+            <div class="flex flex-col lg:flex-row justify-center lg:justify-between items-center md:max-w-6xl md:mx-auto py-6 lg:py-10">
+                <div class="px-2  w-full my-10 lg:my-14 lg:max-w-2xl">
                     
-                    <p class=" text-3xl lg:text-4xl lg:max-w-3xl  font-semibold my-3">Hey there, Are you looking for items for sale on your campus?
+                    <p class=" text-3xl lg:text-4xl lg:max-w-3xl  font-extrabold my-3">Hey there, Are you looking for items for sale on your campus?
                     </p>
-                    <p>If yes? welcome to our campus marketplace where you will be able to sell new and used items, offer services
+                    <p class=" lg:text-lg font-medium lg:font-semibold">If yes? welcome to our campus marketplace where you will be able to sell new and used items, offer services
                         and gigs very fast to
                         students on your campus </p>
-                        <div>
-                            <form action="{{ url('search') }}" class=" flex bg-white px-4 py-2 my-2 rounded-full text-base shadow-xl">
+                        <div class=" my-6">
+                            <form action="{{ url('search') }}" class=" flex bg-white px-4 py-3  rounded-full text-base shadow-xl">
                                 <input name="query" type="text" placeholder="search the name of the item.." class=" w-full outline-none text-gray-600 focus:bg-white" required>
                                 <button type="submit" class=" focus:bg-green-600 focus:text-white text-green-500 "><i class="fa fa-search "></i></button>
                             </form>
 
                         </div>
-                    <p class="grid gap-3 grid-cols-2">
+                    <p class="grid gap-3 grid-cols-2 py-4">
                         <a href="/register"
-                            class=" inline-block  opacity-100 py-2  rounded-md text-sm font-bold md:text-base focus:bg-green-800 text-gray-700 mt-5  text-center">Start
-                            selling for FREE <i class="fa fa-chevron-right ml-2"></i></a>
+                            class=" inline-block  opacity-100 py-3  rounded-full text-sm font-bold md:text-base focus:bg-green-800 text-white   text-center border border-white">Start
+                            selling now <i class="fa fa-chevron-right ml-2"></i></a>
                         <a href="/posts"
-                            class=" inline-block    rounded-md py-2 text-gray-700 text-sm font-semibold md:text-base border-2 border-green-400  focus:border-green-700 mt-5 shadow-xl  text-center">View
+                            class=" inline-block    rounded-full py-3 text-sm font-semibold md:text-base border-2 border-green-500  bg-green-500 focus:border-green-700  shadow-xl  text-center text-white">View
                             Items for Sale</a>
                     </p>
                 </div>
+                <div class=" lg:w-96 hidden lg:block">
+                <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/public/bg/experimental-online-shopping-1+(1)+(1).png" alt="">
+                </div>
+                
             </div>
         </div>
     </header>
@@ -197,8 +201,8 @@
 
         <div class="p-3">
             <div class="">
-                <p class=" bg-green-500 lg:text-2xl lg:py-16 shadow-inner p-4 rounded-md text-white my-3 text-center font-semibold text-lg">Didn't find what you're looking? <br><button
-                        class="showEnquiry shadow-inner my-3 font-medium lg:text-2xl  text-gray-500 focus:bg-gray-500 focus:text-white text-sm  inline-block bg-gray-50 rounded-md py-2 px-4"><i
+                <p class=" bg-green-500 lg:text-2xl lg:py-16 shadow-inner px-4 py-8 rounded-md text-white my-3 text-center font-bold text-2xl">Didn't find what you're looking? <br><button
+                        class="showEnquiry shadow-inner my-3 font-semibold lg:text-2xl  text-gray-500 focus:bg-gray-500 focus:text-white   inline-block bg-gray-50 rounded-full py-3 px-4 text-base"><i
                             class=" fa fa-pen mr-1"></i>Click here to make a request here..</button> </p>
                 <h3 class=" font-semibold text-lg mb-3 lg:text-2xl p-2">Requested items/Services</h3>
 
