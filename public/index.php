@@ -44,6 +44,9 @@ require __DIR__ . '/../vendor/autoload.php';
 |
 */
 
+// for solving the STDIN error when call artisan migrate
+if (!defined('STDIN')) define('STDIN', fopen("php://stdin", "r"));
+
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
 $kernel = $app->make(Kernel::class);
