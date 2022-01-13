@@ -51,7 +51,7 @@ class PagesController extends Controller
         });
 
         $enquiries = Enquiry::where('status', 'active')->orderBy('created_at', 'desc')
-        ->take(10)
+            ->take(10)->with('campus')
             ->get()->shuffle();
 
         $marketplace = Category::find(2);
@@ -83,9 +83,9 @@ class PagesController extends Controller
         return view('pages.index')
             ->with('social', $socialLinks)
             ->with('posts', $posts)
-        ->with('gigs', $gigs)
-        ->with('enquiries', $enquiries)
-        ->with('campuses', $campuses);
+            ->with('gigs', $gigs)
+            ->with('enquiries', $enquiries)
+            ->with('campuses', $campuses); // for enquiry form
     }
 
     // return the about page

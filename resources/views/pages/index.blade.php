@@ -215,14 +215,14 @@
                         <p class=" text-sm">In <span class=" uppercase">{{ $enquiry->campus->nick_name }}</span> campus
                         </p>
                         <p class=" flex justify-between items-center"><span><i class=" fa fa-user mr-2"></i>
-                                {{ $enquiry->name }}</span>
+                            {{ $enquiry->name }}</span>
                             @if ($enquiry->contact_mode == 'call')
                                 <a href="tel:0{{ $enquiry->contact_info }}"
                                     class="py-1 px-3 rounded-full border border-gray-400 bg-gray-200 contactBuyer"
                                     id="{{ $enquiry->id }}"><i class=" fa fa-phone mr-2"></i> Call</a>
                             @endif
                             @if ($enquiry->contact_mode == 'whatsapp')
-                                <a href="https://wa.me/?text={{ rawurlencode("Hello $enquiry->name, I saw your post about  $enquiry->message on percampus.com") }}"
+                                <a href="https://wa.me/234{{$enquiry->contact_info}}?text={{ rawurlencode("Hello $enquiry->name, I saw your post about  '$enquiry->message' on percampus.com") }}"
                                     class="contactBuyer py-1 px-2 rounded-full border border-green-400  bg-green-100"
                                     id="{{ $enquiry->id }}"><i class=" fab fa-whatsapp mr-2 text-green-500"></i>
                                     Whatsapp</a>
@@ -334,6 +334,7 @@
 
 @section('js')
     <script>
+        // for the FAQ section
         $(document).ready(function() {
             $('.accordion').click(function() {
                 $(this).next().toggle(500)
