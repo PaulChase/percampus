@@ -90,7 +90,7 @@
                             id="closeRefer">X</button>
 
                         <p>
-                            <a href="https://wa.me/?text={{ rawurlencode('Great Nigerian student, you have been invited to join Percampus - the fastest growing online marketplace for students to buy and sell new and used items to one another. click the link below to see the items available on your campus. https://www.percampus.com/join?refer=') }}{{ Auth::user()->id }}"
+                            <a href="https://wa.me/?text={{ rawurlencode('Great Nigerian student, you have been invited to join Percampus - the fastest growing online marketplace for students to buy and sell new and used items, offer services to one another. click the link below to see the items available on your campus. https://www.percampus.com/join?refer=') }}{{ Auth::user()->id }}"
                                 class=" block w-4/5 mx-auto p-3 rounded-2xl border-2 text-center font-medium border-gray-100 mb-3 focus:border-green-500">
                                 <i class=" fab fa-whatsapp mr-2 "></i>WhatsApp</a>
                             <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.percampus.com/join?refer={{ Auth::user()->id }}"
@@ -176,7 +176,7 @@
 
                     @else
                         <div class=" bg-gray-100 text-xl rounded-md p-4  my-3 text-center">
-                            <p>You have no Posts yet, Try Adding some.</p>
+                            <p>Sell your first item or service today to see how easy the process is. <br> Start by clicking the "sell your" button at top right</p>
                         </div>
                     @endif
 

@@ -96,6 +96,7 @@
                                         <option value="{{$campus->id}}" class="">{{$campus->name}}</option>
                                     @endforeach
                                 </select>
+                                <small class=" my-2 block">If can't find your campus on the list, <a href="https://wa.me/2347040214836?text={{ rawurlencode("Hello Paul, I can't find my campus on the list ") }}" class=" font-semibold text-green-600">click here</a></small>
                             </div>
                         </div>
 

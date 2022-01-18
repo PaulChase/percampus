@@ -204,10 +204,6 @@ class PagesController extends Controller
         $opportunitiesCount = Category::find(3)->posts()->count();
         $servicesCount = Category::find(4)->posts()->count();
 
-        $mostViewedPosts = Post::select(['title', 'view_count'])->where('created_at', '>',  today()->subDays(7))->orderBy('view_count', 'desc')->take(10)->get();
-
-
-
         $topCampuses = Campus::with('users')->take(10)->get()->sortByDesc(function ($campus) {
             return $campus->users()->count();
         });
@@ -248,12 +244,22 @@ class PagesController extends Controller
         $uniqueViews = DB::table('views')->select('visitor')->distinct()->get()->count();
 
 
-        // dd($uniqueViews);
+        // new users today
+        $newUsersToday = User::where('created_at', '>=', today())->select('id')->get()->count();
+
+        // new users yesterday
+        $newUsersYesterday = User::whereBetween('created_at', [today()->subDay(), today()])->select('id')->get()->count();
+
+        // new users last 7 days
+        $newUsersLast7Days = User::where('created_at', '>=', today()->subWeek())->select('id')->get()->count();
+
+        // new users this month
+        $newUsersThisMonth = User::where('created_at', '>=', today()->subDays(today()->day))->select('id')->get()->count();
 
 
 
 
-        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews', 'mostViewedPosts', 'totalPostContacts', 'referralsCount', 'searchCount', 'totalAdClicks', 'totalEnquiriesContacts', 'topCampuses', 'servicesCount', 'totalViewsToday', 'uniqueViewsToday', 'totalViewsYesterday', 'uniqueViewsYesterday', 'totalViewsLast7Days', 'uniqueViewsLast7Days', 'totalViewsThisMonth', 'uniqueViewsThisMonth', 'totalViews', 'uniqueViews'));
+        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews',  'totalPostContacts', 'referralsCount', 'searchCount', 'totalAdClicks', 'totalEnquiriesContacts', 'topCampuses', 'servicesCount', 'totalViewsToday', 'uniqueViewsToday', 'totalViewsYesterday', 'uniqueViewsYesterday', 'totalViewsLast7Days', 'uniqueViewsLast7Days', 'totalViewsThisMonth', 'uniqueViewsThisMonth', 'totalViews', 'uniqueViews', 'newUsersToday', 'newUsersYesterday', 'newUsersLast7Days', 'newUsersThisMonth'));
     }
 
     public function join(Request $request)
