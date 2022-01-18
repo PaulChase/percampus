@@ -142,7 +142,7 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
                             <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                                 <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
                                     href="{{ route('getSubCategories', ['mainCategoryID' => 4]) }}"><i
-                                        class=" fa fa-toggle-on text-gray-500 mr-2"></i>Gigs
+                                        class=" fa fa-toggle-on text-gray-500 mr-2"></i>Services
                                     
                                 </a>
                             </li>
@@ -182,7 +182,7 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
                             <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                                 <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
                                     href="{{ route('subcategory', ['campus' => Auth::user()->campus->nick_name, 'c' => 'gigs']) }}">
-                                    <i class=" fa fa-toggle-on text-gray-500 mr-2"></i>Gigs
+                                    <i class=" fa fa-toggle-on text-gray-500 mr-2"></i>Services
                                     
                                 </a>
                             </li>
@@ -261,17 +261,18 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
             </div>
         @else
             <h3 class=" font-bold text-lg text-center my-5">What type of post do you want to add?</h3>
-            <div class=" grid grid-cols-2 gap-5">
-                <a href="/posts/create" class=" bg-green-100 rounded-lg p-3 focus:bg-green-300">
-                    <i class="fa fa-bullhorn fa-3x my-3 text-green-500"></i> <br>
-                    <span class=" font-semibold">An item for sale</span>
-                </a>
-
-                <a href="{{ route('gigs.create') }}" class=" bg-green-100 rounded-lg p-3 focus:bg-green-300">
-                    <i class="fa fa-toggle-on text-green-500 fa-3x my-3"></i> <br>
-                    <span class=" font-semibold">Offer a Micro Service (Gig)</span>
-                </a>
-            </div>
+            <ul class=" text-gray-700 space-y-5 font-semibold mt-4 text-base lg:text-base lg:mt-8">
+                    <li><a href="{{ route('posts.create') }}"
+                            class=" p-3 font-semibold text-center border-2 border-gray-500 rounded-full block hover:bg-gray-700 hover:text-white subscribed" >
+                            <i class="fa fa-bullhorn mr-2"></i> Sell a product</a>
+                        </li>
+                    <li><a href="{{ route('gigs.create') }}"
+                            class=" p-3 font-semibold text-center border-2 border-gray-500 rounded-full block hover:bg-gray-700 hover:text-white subscribed" >
+                            <i class="fa fa-toggle-on mr-2"></i> Offer a service</a>
+                        </li>
+                    
+                </ul>
+            
         @endif
 
     </div>

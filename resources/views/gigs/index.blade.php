@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title') Cheap Gigs offered by Students @endsection
+@section('title') Cheap Services offered by Students @endsection
 
 @section('content')
    <div class=" bg-gray-50 px-2 py-3">
 
         <div class="text-lg font-medium  px-2 md:text-center md:text-xl">
-            <h2>Recent Gigs <i>{{$cName ?? ''}}</i></h2>
+            <h2>Recent Services <i>{{$cName ?? ''}}</i></h2>
         </div>
         
         {{-- div for posts --}}
@@ -79,7 +79,7 @@
         </div>
             {{$posts->links()}}
         @else
-            <p>No Gigs today</p>
+            <p>No Services today</p>
         @endif
 
         

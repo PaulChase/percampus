@@ -272,7 +272,7 @@
 
         </div>
 
-        {{-- faq --}}
+        {{-- FAQ --}}
         <div class=" bg-gray-700 px-4 py-24 h-auto  text-white    lg:px-10">
             <div class=" max-w-2xl mx-auto">
                 <h3 class=" font-bold text-lg text-center mb-5">Frequently Asked Questions (FAQ)</h3>
@@ -313,15 +313,13 @@
             </div>
         </div>
 
-        <div class=" grid lg:grid-cols-2 gap-4 p-4">
+        <div class=" max-w-2xl mx-auto px-4 py-12 lg:py-32  text-center text-xl lg:text-3xl font-semibold ">
 
-    {{-- @include('auth.register') --}}
-
-            <div class=" p-4  my-4 text-center">
-                <p class="text-lg font-semibold mb-7">You know a friend that this website may change his/her life for good?
+    
+                <p class=" font-semibold  ">You know a friend that this website may change his/her life for good?
                     Don't hesitate to click the share buttons below </p>
                 {!! $social !!}
-            </div>
+           
         </div>
 
     </main>
