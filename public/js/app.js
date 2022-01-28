@@ -1861,9 +1861,6 @@ var swiper = new swiper__WEBPACK_IMPORTED_MODULE_0__.default(".swiper", {
   // Optional parameters
   direction: "horizontal",
   loop: true,
-  slidesPerView: 3,
-  spaceBetween: 30,
-  freeMode: true,
   // If we need pagination
   pagination: {
     el: ".swiper-pagination",
@@ -1874,9 +1871,6 @@ var swiper = new swiper__WEBPACK_IMPORTED_MODULE_0__.default(".swiper", {
   navigation: {
     nextEl: ".swiper-button-next",
     prevEl: ".swiper-button-prev"
-  },
-  thumbs: {
-    swiper: picThumbs
   }
 });
 

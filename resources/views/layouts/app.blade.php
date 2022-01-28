@@ -33,13 +33,16 @@
 
 
     <meta name="author" content="{{ $post->user->name ?? 'percampus' }}">
+
+    {!! OpenGraph::generate() !!}
+    {!! Twitter::generate() !!}
     {{-- for social media sharing --}}
-    <meta property="og:site_name" content="Percampus">
+    {{-- <meta property="og:site_name" content="Percampus">
     <meta property="og:url" content="{{ url()->full() }}">
     <meta property="og:type" content="website">
     <meta property="og:title" content="@yield('title')">
     <meta property="og:description" content="@yield('description')">
-    <meta property="og:image" content="@yield('image_url')">
+    <meta property="og:image" content="@yield('image_url')"> --}}
 
 
     <!-- CSRF Token -->

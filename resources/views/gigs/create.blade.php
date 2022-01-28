@@ -15,7 +15,7 @@
                 <div>
                     
                     <label for="" class="font-semibold">What is the title of the Service<b class=" text-red-500 ">*</b></label><br>
-                    <input name="title" type="text" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder="e.g I will design a nice looking website for your business"><br>
+                    <input name="title" type="text" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" placeholder="e.g I will design a nice looking website for your business" value="{{ old('title')}}"><br>
                     @error('title')
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">please enter a valid title</small>
                     @enderror
@@ -47,7 +47,7 @@
                 </div>
                    <div>
                     <label for="price" class="font-semibold">Set any price<b class=" text-red-500">*</b></label>
-                    <input type="number" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" name="price" placeholder=" e.g 2500 or 300 (without spacing)"  required>
+                    <input type="number" class="  p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" name="price" placeholder=" e.g 2500 or 300 (without spacing)"  value="{{ old('price')}}" required>
                     @error('price')
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">{{ 'the price of the item is Required' }}</small>
                     @enderror

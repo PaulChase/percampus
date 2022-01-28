@@ -11,19 +11,18 @@ use App\Models\Post;
 use App\Models\Image;
 use App\Models\Search;
 use App\Models\SubCategory;
-use App\Models\User;
+
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as ImageOptimizer;
-use Illuminate\Http\File;
+
 use Jorenvh\Share\Share;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Carbon;
 use function JmesPath\search;
-
-
-
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\TwitterCard;
 
 
 class PostsController extends Controller
@@ -217,6 +216,18 @@ class PostsController extends Controller
             'subcategory'
         )->firstOrFail();
 
+        OpenGraph::setDescription($post->description);
+        OpenGraph::setTitle($post->title);
+        OpenGraph::setUrl(url()->full());
+        OpenGraph::addProperty('type', 'ecommerce');
+
+        // if the post has at least one image
+        if ($post->images->count()) {
+            OpenGraph::addImage('https://www.percampus.com' . $post->images()->first()->Image_path);
+        }
+
+        TwitterCard::setTitle($post->title);
+
         // the time interval before recording a new post as seen
         $expiresAt = now()->addHours(3);
 
@@ -254,11 +265,11 @@ class PostsController extends Controller
         $recentPosts = $marketplace->posts()
             ->where('status', 'active')
             ->orderBy('created_at', 'desc')
-            ->take(4)
+            ->take(6)
             ->get();
 
 
-        // if the request is an opportunitie post, go to opportunity post view
+        // if the request is an opportunity post, go to opportunity post view
         if ($post->subcategory->category->name == 'opportunities') {
             return view('opportunities.single')
                 ->with('post', $post)
@@ -538,8 +549,10 @@ class PostsController extends Controller
         $postID = $request->input('postID');
         $post = Post::find($postID);
 
+        // just to make every cookie name unique
         $contactCookie = $postID . $post->slug;
 
+        // don't count if its the owner of the post that clicked the contact button, just to avoid spamming 
         if (Auth::user()  && (Auth::user()->id !== $post->user->id) && !Cookie::has($contactCookie)) {
 
             Cookie::queue($contactCookie, 'contacted', 1440);

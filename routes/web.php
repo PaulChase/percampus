@@ -37,17 +37,14 @@ Route::post('/screenpost', [PostsController::class, 'screenPost'])->name('screen
 Route::get('/join', [PagesController::class, 'join'])->name('join');
 Route::get('/checkpoint', [PagesController::class, 'checkpoint'])->name('checkpoint');
 Route::post('/updateprofilepic', [DashboardController::class, 'updateProfilePic'])->name('update.profilepic');
-// Route::get('/getuserinfo', function ( Request $request)
-// {
-//     return view('auth.getuserinfo')->with('name', $request->get('name'));
-// })->name('getuserinfo');
+
 Route::view('/getuserinfo', 'auth.getuserinfo')->name('getuserinfo');
 Route::post('/pushuserinfo', [DashboardController::class, 'pushUserInfo'])->name('push.userinfo');
 // Route::get('createlink', function() {
 //     Artisan::call('storage:link');
 // });
 
-// // get the subcategories without going through the campus page so therefore the campus is not known
+ // get the subcategories without going through the campus page so therefore the campus is not known
 Route::get('s/', [SubcategoriesController::class, 'getSubcategories'])->name('getSubCategories');
 
 // get the posts without going through the campus page so therefore the campus is not known
@@ -65,12 +62,15 @@ Route::post('/enquries/contact', [EnquiriesController::class, 'contactBuyer'])->
 
 
 // for Adverts
-Route::get('/ads/create', [AdvertsController::class, 'create']);
-Route::post('/ads/click', [AdvertsController::class, 'adClick'])->name('ad.click');
-Route::get('/ads/edit/{id}', [AdvertsController::class, 'edit']);
-Route::put('/ads/update/{id}', [AdvertsController::class, 'update'])->name('ads.update');
-Route::delete('/ads/{ad}', [AdvertsController::class, 'destroy'])->name('ads.delete');
-Route::post('/ads/save', [AdvertsController::class, 'store'])->name('ads.save');
+Route::group(['prefix' => 'ads'], function () {
+    Route::get('/create', [AdvertsController::class, 'create']);
+    Route::post('/click', [AdvertsController::class, 'adClick'])->name('ad.click');
+    Route::get('/edit/{id}', [AdvertsController::class, 'edit']);
+    Route::put('/update/{id}', [AdvertsController::class, 'update'])->name('ads.update');
+    Route::delete('/{ad}', [AdvertsController::class, 'destroy'])->name('ads.delete');
+    Route::post('/save', [AdvertsController::class, 'store'])->name('ads.save');
+});
+
 
 // for opportunities
 Route::resource('opportunities', 'OpportunitiesController');
@@ -87,7 +87,7 @@ Auth::routes();
 Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('/auth/google/user', [LoginController::class, 'getGoogleUser']);
 
-Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('home');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
 
 Route::get('search', [PostsController::class, 'search']);
 
@@ -101,8 +101,8 @@ Route::get('/{campusNickName}/{categoryName}/{slug}', [PostsController::class, '
 // Route::get('/{campus}/{subCategoryName}', [PostsController::class, 'byCategory']);
 
 
-
-Route::get('/{campus}/library', [PagesController::class, 'library'])->name('library');
+// not offering library services for now
+// Route::get('/{campus}/library', [PagesController::class, 'library'])->name('library');
 
 // to all the subcategories in that parent category
 Route::get('/{campus}/subcategories', [PagesController::class, 'subCategory'])->name('subcategory');

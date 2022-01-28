@@ -16,16 +16,22 @@
         <div class=" max-w-7xl mx-auto py-3 lg:grid lg:grid-cols-6 lg:gap-5">
             {{-- {{ dd($post->images()->get())}} --}}
             <div class="lg:col-span-4">
-                <div class="cover-photos swiper w-full  lg:rounded-sm" id='contact'>
-                    <div class="swiper-wrapper">
+                <div class="  w-full  lg:rounded-sm" id='contact'>
+                    <div class=" overflow-auto whitespace-nowrap">
                         @foreach ($post->images()->get() as $image)
-                            <div class="swiper-slide ">
+                            <div class="inline-block 
+                            @if ($post->images()->count() === 1)
+                                w-full
+                            @else
+                                w-4/5 lg:w-auto
+                            @endif
+                            mr-3">
                                 <img src="{{ $image->Image_path }}" class=" w-full h-80 md:h-96 object-fill "
                                     alt="{{ $post->title }}">
                             </div>
                         @endforeach
                     </div>
-                    <div class="swiper-pagination "></div>
+                    
                 </div>
                 <div class="px-3 pt-3 pb-1 bg-gray-50 lg:rounded-sm">
                     <h1 class="text-lg lg:text-xl font-semibold my-3 ">{{ $post->title }}</h1>

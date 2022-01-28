@@ -64,12 +64,16 @@
         {{-- pop up for visitor to subscribe --}}
         <div id="subscribePopUp" class=" fixed  w-full h-full z-30 overflow-auto  top-0 left-0 bg-black bg-opacity-80 hidden ">
             <div
-                class=" bg-white bottom-0 absolute w-full rounded-t-lg p-4 h-2/3 lg:w-2/5  lg:top-24 lg:left-1/4 lg:h-auto  lg:rounded-md overflow-auto lg:bottom-28 text-gray-600 ">
+                class=" bg-white bottom-0 absolute w-full rounded-t-lg p-4  lg:w-2/5  lg:top-24 lg:left-1/4 lg:h-auto  lg:rounded-md overflow-auto lg:bottom-28 text-gray-600 ">
                 <button class=" float-right m-3 bg-gray-200 px-3 py-1 rounded-full focus:bg-gray-500 "
                     id="closeSubscibePopUp">close</button><br>
                 <h3 class=" mt-3 font-semibold text-base text-center lg:text-xl">Wait!!! before you think of leaving, <br> if you
                     want to keep up with student opportunites, scholarships, give aways, cheap items for sale etc? </h3>
                 <ul class=" text-gray-700 space-y-5 mt-4 text-sm lg:text-base lg:mt-8">
+                    <li><a href="https://chat.whatsapp.com/IMgxpeH4gYj6tgKFCod6ts"
+                            class=" p-3 font-semibold text-center border-2 border-gray-500 rounded-full block hover:bg-gray-700 hover:text-white subscribed" target="_blank">
+                            <i class="fab fa-whatsapp mr-2"></i> Join us on whatsApp</a>
+                        </li>
                     <li><a href="https://facebook.com/groups/671905473756091/"
                             class=" p-3 font-semibold text-center border-2 border-gray-500 rounded-full block hover:bg-gray-700 hover:text-white subscribed" target="_blank">
                             <i class="fab fa-facebook mr-2"></i> Join our facebook group</a>

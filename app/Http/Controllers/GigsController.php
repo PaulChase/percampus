@@ -38,13 +38,12 @@ class GigsController extends Controller
 
     public function latest($categoryName)
     {
-        // dd('here');
         $category = SubCategory::where('slug', $categoryName)->firstOrFail();
         $posts = $category->posts()->where('status', 'active')->orderBy('created_at', 'desc')->with(
             'user',
             'images',
             'subcategory'
-        )->paginate(16);
+        )->paginate(20);
 
         return view('gigs.index')->with('posts', $posts);
     }

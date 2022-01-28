@@ -18,6 +18,7 @@ class SubcategoriesController extends Controller
     public function getSubCategories(Request $request)
     {
         $mainCategoryID = $request->get('mainCategoryID');
+
         $mainCategory = Category::find($mainCategoryID);
         
         // $subCategories = $mainCategory->subcategories()->orderBy('name')->get();
@@ -37,6 +38,10 @@ class SubcategoriesController extends Controller
 
         $categoryName = $request->get('c');
         $mainCategory = $request->get('m');
+
+        /*
+        if the main category is among these below, redirect the request to the latest controller on their respective controller so it can find the posts and render it to the 
+        */
         if ($mainCategory == 'opportunities') {
             return redirect()->action([OpportunitiesController::class, 'latest'], ['categoryName' => $categoryName]);
         } elseif ($mainCategory == 'gigs') {
@@ -49,11 +54,11 @@ class SubcategoriesController extends Controller
         //     // or get it from the arguments from the URL
         //     $campus = Campus::where('nick_name', $campusNickName)->firstOrFail();
         // }
-        
-        $categoryID = SubCategory::where('slug', $categoryName)->value('id');
+
+        $category = SubCategory::where('slug', $categoryName)->firstOrFail();
 
         // get posts from the campus above the match the category
-        $posts = Post::where('subcategory_id', $categoryID)->where('status', 'active')->orderBy('created_at', 'desc')->paginate(16);
+        $posts = $category->posts()->where('status', 'active')->orderBy('created_at', 'desc')->paginate(20);
 
 
         return view('posts.index')->with('posts', $posts)->with('cName', $categoryName);
