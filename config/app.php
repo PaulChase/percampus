@@ -180,7 +180,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Jorenvh\Share\Providers\ShareServiceProvider::class,
         CyrildeWit\EloquentViewable\EloquentViewableServiceProvider::class,
-
+        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
     ],
 
     /*
@@ -235,6 +235,11 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'ImageOptimizer' => Intervention\Image\Facades\Image::class,
         'share' => \Jorenvh\Share\ShareFacade::class,
+        'SEOMeta'       => Artesaos\SEOTools\Facades\SEOMeta::class,
+        'OpenGraph'     => Artesaos\SEOTools\Facades\OpenGraph::class,
+        'Twitter'       => Artesaos\SEOTools\Facades\TwitterCard::class,
+        'JsonLd'        => Artesaos\SEOTools\Facades\JsonLd::class,
+        'JsonLdMulti'   => Artesaos\SEOTools\Facades\JsonLdMulti::class,
     ],
 
 ];
