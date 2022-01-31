@@ -84,6 +84,21 @@
                 @endif
                 {{-- end of Ads section --}}
 
+                {{-- google display ads --}}
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2073252647616982"
+     crossorigin="anonymous"></script>
+<!-- display1 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2073252647616982"
+     data-ad-slot="6686664449"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+{{-- google display ads end --}}
+
                 <table class=" w-full bg-gray-50 mt-3  lg:rounded-sm">
 
                     <tr class=" border-b border-gray-200">
@@ -151,6 +166,21 @@
 
                 </div>
 
+                {{-- google display ads --}}
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2073252647616982"
+     crossorigin="anonymous"></script>
+<!-- display1 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2073252647616982"
+     data-ad-slot="6686664449"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+{{-- google display ads end --}}
+
                 @if (count($similarPosts) > 1 )
                 <div class=" mt-3 p-3 bg-gray-50   lg:rounded-sm ">
                     <h3 class=" my-3 font-semibold text-lg">Similar Items for sale</h3>
@@ -193,6 +223,21 @@
 
 
                         @endforeach
+
+                        {{-- native ads unit --}}
+                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2073252647616982"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="+1v+s4-1b-27+96"
+     data-ad-client="ca-pub-2073252647616982"
+     data-ad-slot="7774377226"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+                            {{-- native ads unit end --}}
 
                     </div>
 

@@ -78,6 +78,22 @@
                 </div>
 
             </div>
+
+            {{-- google display ads --}}
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2073252647616982"
+     crossorigin="anonymous"></script>
+<!-- display1 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2073252647616982"
+     data-ad-slot="6686664449"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+{{-- google display ads end --}}
+
             {{-- Middle Ads section --}}
                 {{-- @if ($ads->count() > 0)
                     <div class=" mt-3 bg-gray-50 p-3 lg:rounded-sm">
@@ -116,6 +132,21 @@
             </table>
         </div>
 
+        {{-- google display ads --}}
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2073252647616982"
+     crossorigin="anonymous"></script>
+<!-- display1 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2073252647616982"
+     data-ad-slot="6686664449"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+{{-- google display ads end --}}
+
         <div class=" lg:col-span-2">
 
             <div class=" mt-3 p-3 bg-gray-50 lg:mt-0 lg:rounded-sm">
@@ -139,8 +170,8 @@
 
             
 
-            <script async="async" data-cfasync="false" src="//pl16709005.trustedgatetocontent.com/ea58161327edc8f0ced5adb72df97e34/invoke.js"></script>
-            <div id="container-ea58161327edc8f0ced5adb72df97e34">
+            {{-- <script async="async" data-cfasync="false" src="//pl16709005.trustedgatetocontent.com/ea58161327edc8f0ced5adb72df97e34/invoke.js"></script>
+            <div id="container-ea58161327edc8f0ced5adb72df97e34"> --}}
                 
             </div>
 
