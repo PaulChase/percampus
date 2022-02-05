@@ -95,6 +95,10 @@
                     <h3 class=" mb-2 font-semibold text-lg">New Users This Month</h3>
                     <p class=" text-5xl text-green-400">{{ $newUsersThisMonth }}</p>
                 </div>
+                <div class=" border-2 border-gray-300 p-4 rounded-md my-3 text-center bg-white">
+                    <h3 class=" mb-2 font-semibold text-lg">Total verified users</h3>
+                    <p class=" text-5xl text-green-400">{{ $verifiedUsers }}</p>
+                </div>
             </div>
         </div>
         <h2 class=" text-center text-3xl  font-bold my-3">Old Metrics</h2>

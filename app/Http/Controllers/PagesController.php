@@ -257,9 +257,15 @@ class PagesController extends Controller
         $newUsersThisMonth = User::where('created_at', '>=', today()->subDays(today()->day))->select('id')->get()->count();
 
 
+        // get number of verified users
+        $verifiedUsers = User::verified()->get()->count();
 
 
-        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews',  'totalPostContacts', 'referralsCount', 'searchCount', 'totalAdClicks', 'totalEnquiriesContacts', 'topCampuses', 'servicesCount', 'totalViewsToday', 'uniqueViewsToday', 'totalViewsYesterday', 'uniqueViewsYesterday', 'totalViewsLast7Days', 'uniqueViewsLast7Days', 'totalViewsThisMonth', 'uniqueViewsThisMonth', 'totalViews', 'uniqueViews', 'newUsersToday', 'newUsersYesterday', 'newUsersLast7Days', 'newUsersThisMonth'));
+
+
+
+
+        return view('pages.metrics', compact('usersCount', 'postsCount', 'marketplaceCount', 'opportunitiesCount', 'totalPostViews',  'totalPostContacts', 'referralsCount', 'searchCount', 'totalAdClicks', 'totalEnquiriesContacts', 'topCampuses', 'servicesCount', 'totalViewsToday', 'uniqueViewsToday', 'totalViewsYesterday', 'uniqueViewsYesterday', 'totalViewsLast7Days', 'uniqueViewsLast7Days', 'totalViewsThisMonth', 'uniqueViewsThisMonth', 'totalViews', 'uniqueViews', 'newUsersToday', 'newUsersYesterday', 'newUsersLast7Days', 'newUsersThisMonth', 'verifiedUsers'));
     }
 
     public function join(Request $request)

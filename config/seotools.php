@@ -36,8 +36,8 @@ return [
          * The default configurations to be used by the opengraph generator.
          */
         'defaults' => [
-            'title'       => 'Over 9000 Thousand!', // set false to total remove
-            'description' => 'For those who helped create the Genki Dama', // set false to total remove
+            'title'       => 'Percampus.com | buy and sell on campus', // set false to total remove
+            'description' => 'The easiest way to buy and sell products and services to students on campus', // set false to total remove
             'url'         => null, // Set null for using Url::current(), set false to total remove
             'type'        => false,
             'site_name'   => false,
@@ -49,8 +49,8 @@ return [
          * The default values to be used by the twitter cards generator.
          */
         'defaults' => [
-            'card'        => 'buy and sell 10x faster on your campus',
-            'site'        => 'www.percampus.com',
+            'card'        => 'summary_large_image',
+            'site'        => '@Percampus_com',
         ],
     ],
     'json-ld' => [

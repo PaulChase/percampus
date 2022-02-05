@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends \TCG\Voyager\Models\User
+class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
@@ -61,5 +61,10 @@ class User extends \TCG\Voyager\Models\User
     public function referrals()
     {
         return $this->hasMany(Referral::class, 'referer');
+    }
+
+    public function scopeVerified($query)
+    {
+        return $query->whereNotNull('email_verified_at');
     }
 }

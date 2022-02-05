@@ -15,7 +15,7 @@ class GigsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'latest']]);
+        $this->middleware(['auth', 'verified'], ['except' => ['index', 'latest']]);
     }
 
     /**

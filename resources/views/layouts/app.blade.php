@@ -40,12 +40,15 @@
     <meta name="author" content="{{ $post->user->name ?? 'percampus' }}">
 
     {!! OpenGraph::generate() !!}
-    {!! Twitter::generate() !!}
+
+    {{-- just stoped working all of sudden --}}
+    {{-- {!! Twitter::generate() !!} --}}
+    <meta property="twitter:title" content="@yield('title')">
+
     {{-- for social media sharing --}}
     {{-- <meta property="og:site_name" content="Percampus">
     <meta property="og:url" content="{{ url()->full() }}">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="@yield('title')">
     <meta property="og:description" content="@yield('description')">
     <meta property="og:image" content="@yield('image_url')"> --}}
 

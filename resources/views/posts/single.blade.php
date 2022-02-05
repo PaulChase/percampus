@@ -19,7 +19,8 @@
                 <div class="  w-full  lg:rounded-sm" id='contact'>
                     <div class=" overflow-auto whitespace-nowrap">
                         @foreach ($post->images()->get() as $image)
-                            <div class="inline-block 
+                            <div
+                                class="inline-block 
                             @if ($post->images()->count() === 1)
                                 w-full
                             @else
@@ -31,9 +32,9 @@
                             </div>
                         @endforeach
                     </div>
-                
+
                 </div>
-                
+
 
                 <div class="px-3 pt-3 pb-1 bg-gray-50 lg:rounded-sm">
                     <h1 class="text-lg lg:text-xl font-semibold my-3 ">{{ $post->title }}</h1>
@@ -66,7 +67,8 @@
                                 @if ($ad->position == 'middle')
                                     <div class=" border-2 border-gray-200 rounded-sm  my-2">
                                         <a href="{{ $ad->link }}" target="_blank"
-                                            class="adclick grid grid-cols-6 gap-2 md:grid-cols-1 md:gap-0 md:gap-y-2 " id="{{ $ad->id}}">
+                                            class="adclick grid grid-cols-6 gap-2 md:grid-cols-1 md:gap-0 md:gap-y-2 "
+                                            id="{{ $ad->id }}">
                                             <h3 class=" col-span-4  p-2 my-auto font-semibold">{{ $ad->title }}</h3>
                                             <div class="col-span-2 md:order-first">
                                                 <img src="{{ $ad->image_url }}"
@@ -84,20 +86,6 @@
                 @endif
                 {{-- end of Ads section --}}
 
-                {{-- google display ads --}}
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2073252647616982"
-     crossorigin="anonymous"></script>
-<!-- display1 -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2073252647616982"
-     data-ad-slot="6686664449"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-{{-- google display ads end --}}
 
                 <table class=" w-full bg-gray-50 mt-3  lg:rounded-sm">
 
@@ -146,11 +134,11 @@
                         @endif
 
                         @if ($post->alias)
-                        {{ $post->alias }}
+                            {{ $post->alias }}
 
                         @else
-                        {{ $post->user->name }}
-                            
+                            {{ $post->user->name }}
+
                         @endif
                     </p>
                     <p class=" font-medium text-center text-base my-2">Contact seller via:</p>
@@ -166,86 +154,59 @@
 
                 </div>
 
-                {{-- google display ads --}}
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2073252647616982"
-     crossorigin="anonymous"></script>
-<!-- display1 -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2073252647616982"
-     data-ad-slot="6686664449"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-{{-- google display ads end --}}
+             
 
-                @if (count($similarPosts) > 1 )
-                <div class=" mt-3 p-3 bg-gray-50   lg:rounded-sm ">
-                    <h3 class=" my-3 font-semibold text-lg">Similar Items for sale</h3>
-                    <div class=" overflow-auto whitespace-nowrap">
-                        @foreach ($similarPosts as $similarPost)
-                            @php
-                                if ($similarPost->id == $post->id) {
-                                    continue;
-                                }
-                            @endphp
+                @if (count($similarPosts) > 1)
+                    <div class=" mt-3 p-3 bg-gray-50   lg:rounded-sm ">
+                        <h3 class=" my-3 font-semibold text-lg">Similar Items for sale</h3>
+                        <div class=" overflow-auto whitespace-nowrap">
+                            @foreach ($similarPosts as $similarPost)
+                                @php
+                                    if ($similarPost->id == $post->id) {
+                                        continue;
+                                    }
+                                @endphp
 
-                            <div
-                                class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm inline-block w-40 mr-2">
+                                <div
+                                    class="border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm inline-block w-40 mr-2">
 
-                                <div class=" col-span-2  ">
-                                    <a
-                                        href="/{{ $similarPost->user->campus->nick_name }}/{{ $similarPost->subcategory->slug }}/{{ $similarPost->slug }}">
-                                        @if (is_object($similarPost->images()->first()))
-                                            <img src="{{ $similarPost->images()->first()->Image_path }}"
-                                                class=" w-full  object-fill  rounded-t-sm h-32 md:h-40   md:rounded-b-none md:rounded-t-sm"
-                                                lazy="loading" alt="{{ $similarPost->title }}">
-                                        @endif
-                                    </a>
+                                    <div class=" col-span-2  ">
+                                        <a
+                                            href="/{{ $similarPost->user->campus->nick_name }}/{{ $similarPost->subcategory->slug }}/{{ $similarPost->slug }}">
+                                            @if (is_object($similarPost->images()->first()))
+                                                <img src="{{ $similarPost->images()->first()->Image_path }}"
+                                                    class=" w-full  object-fill  rounded-t-sm h-32 md:h-40   md:rounded-b-none md:rounded-t-sm"
+                                                    lazy="loading" alt="{{ $similarPost->title }}">
+                                            @endif
+                                        </a>
 
+                                    </div>
+                                    <div class="col-span-4  flex flex-col justify-center md:justify-start px-3 py-2">
+                                        <h3
+                                            class=" text-sm md:text-lg text-gray-600 mb-2 font-semibold overflow-hidden whitespace-nowrap overflow-ellipsis">
+                                            <a href="/{{ $similarPost->user->campus->nick_name }}/{{ $similarPost->subcategory->slug }}/{{ $similarPost->slug }}"
+                                                class="focus:text-green-600">{{ $similarPost->title }}</a>
+                                        </h3>
+
+                                        <p>
+                                            <small class=" text-green-500  text-xs md:text-base font-semibold"> N
+                                                {{ $similarPost->price }} </small>
+
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="col-span-4  flex flex-col justify-center md:justify-start px-3 py-2">
-                                    <h3
-                                        class=" text-sm md:text-lg text-gray-600 mb-2 font-semibold overflow-hidden whitespace-nowrap overflow-ellipsis">
-                                        <a href="/{{ $similarPost->user->campus->nick_name }}/{{ $similarPost->subcategory->slug }}/{{ $similarPost->slug }}"
-                                            class="focus:text-green-600">{{ $similarPost->title }}</a>
-                                    </h3>
-
-                                    <p>
-                                        <small class=" text-green-500  text-xs md:text-base font-semibold"> N
-                                            {{ $similarPost->price }} </small>
-
-                                    </p>
-                                </div>
-                            </div>
 
 
-                        @endforeach
+                            @endforeach
 
-                        {{-- native ads unit --}}
-                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2073252647616982"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="fluid"
-     data-ad-layout-key="+1v+s4-1b-27+96"
-     data-ad-client="ca-pub-2073252647616982"
-     data-ad-slot="7774377226"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-                            {{-- native ads unit end --}}
+                           
+                        </div>
 
                     </div>
-
-                </div>
                 @endif
 
 
-                {{--Bottom Ads section --}}
+                {{-- Bottom Ads section --}}
                 @if ($ads->count() > 0)
                     <div class=" mt-3 bg-gray-50 p-3 lg:rounded-sm">
                         <h2 class=" my-3 font-bold  tracking-wide">Sponsored</h2>
@@ -255,7 +216,8 @@
                                 @if ($ad->position == 'bottom')
                                     <div class=" border-2 border-gray-200 rounded-sm  my-2">
                                         <a href="{{ $ad->link }}" target="_blank"
-                                            class="adclick grid grid-cols-6 gap-2 md:grid-cols-1 md:gap-0 md:gap-y-2 " id="{{ $ad->id}}">
+                                            class="adclick grid grid-cols-6 gap-2 md:grid-cols-1 md:gap-0 md:gap-y-2 "
+                                            id="{{ $ad->id }}">
                                             <h3 class=" col-span-4  p-2 my-auto font-semibold">{{ $ad->title }}</h3>
                                             <div class="col-span-2 md:order-first">
                                                 <img src="{{ $ad->image_url }}"
@@ -330,7 +292,7 @@
                 });
 
 
-                
+
             });
 
             $(".adclick").click(function() {
@@ -346,11 +308,10 @@
                     //     console.log(data.success);
                     // },
                 });
-  
+
             });
 
 
         });
-
     </script>
 @endsection

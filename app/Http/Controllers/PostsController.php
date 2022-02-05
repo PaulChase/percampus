@@ -34,7 +34,7 @@ class PostsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'byCategory', 'search', 'contactSeller']]);
+        $this->middleware(['auth', 'verified'], ['except' => ['index', 'show', 'byCategory', 'search', 'contactSeller']]);
     }
 
 
@@ -287,7 +287,7 @@ class PostsController extends Controller
         ->get()
         ->shuffle();
 
-        // dd($similarPosts);
+      
 
         if ($post->subcategory->category->name == 'gigs') {
             return view('gigs.single')

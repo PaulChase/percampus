@@ -8,16 +8,20 @@
         <div class="  mx-auto py-2 lg:grid lg:grid-cols-6 lg:gap-3 max-w-7xl ">
             <div class=" lg:col-span-2 ">
                 <div class=" bg-gray-50 p-3">
+
                     @if (auth()->user()->avatar == null || auth()->user()->avatar == 'users/default.png')
-                        <p class=" my-2 bg-gray-100 rounded-sm p-2">Clients are likely to call you if they see the face of
+                        <p class=" my-2 bg-gray-100 rounded-sm p-2">Clients are likely to contact you if they see the face of
                             the
                             seller, so update your DP</p>
                     @endif
+
+                    {{-- button to open profile pic form --}}
                     <div class=" relative">
 
                         <button class=" absolute right-2 top-2 p-1 border border-gray-200 bg-gray-100 rounded-md "
                             id="showformforpic"><i class=" fa fa-pen mx-1"></i> Edit Profile Pic</button>
                     </div>
+
                     <div class=" text-center p-3 ">
 
                         @if (auth()->user()->avatar == null || auth()->user()->avatar == 'users/default.png')
@@ -32,9 +36,25 @@
                             <span>{{ Auth::user()->campus->name ?? ' ' }}</span> <br>
                             <span class=" italic">Email: {{ Auth::user()->email }}</span>
                         </p>
+
+                        
                     </div>
                 </div>
 
+                @if (!auth()->user()->hasVerifiedEMail())
+                             <div class=" my-2 bg-gray-50 p-3 text-base   text-center">
+                                 <p>Hello {{auth()->user()->name}},  <br> to enjoy the full previledges of this website you need to verify your email.</p> <br>
+                                 <form class="" method="POST" action="{{ route('verification.resend') }}">
+                        @csrf
+                      
+                        <button type="submit" class="font-bold text-green-600">Click here to receive verification email</button>.
+                    </form>
+                                 
+                   
+                </div>
+                        @endif
+
+                {{-- form to update profil pic --}}
                 <div id="updatepic" class=" fixed  w-full h-full z-20 overflow-auto  top-0 left-0  hidden   "
                     style="background-color: rgba(0,0,0,0.7); ">
                     <div class=" bg-white bottom-0 absolute w-full rounded-t-lg p-4">
@@ -45,7 +65,7 @@
                             @csrf
                             <label for="" class=" font-semibold ">Select the Picture you want as your Profile Pic (it
                                 shouldn't
-                                be more than 3MB in size oo)</label>
+                                be more than 3MB in size )</label>
                             <input type="file" name="profilepic"
                                 class="p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200"
                                 required>
@@ -57,6 +77,7 @@
                         </form>
                     </div>
                 </div>
+
                 <div class=" my-2 bg-gray-50 p-3 text-base grid grid-cols-2 gap-3 ">
                     <div class="border-2 border-gray-200 rounded-md  text-center p-3"> No of Posts Remaining <br> <span
                             class=" text-green-500 font-semibold text-lg mt-2 bg-green-100 inline-block rounded-full px-3 py-1">{{ Auth::user()->post_limit - $noOfUserActivePosts }}</span>
@@ -294,6 +315,7 @@
                 $("#refer").show(500);
             })
 
+            // for controlling the form for users to upload a profile pic
             $("#showformforpic").click(function() {
                 $("#updatepic").show(500)
             })

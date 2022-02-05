@@ -19,11 +19,12 @@
                 <div class="  w-full  lg:rounded-sm" id='contact'>
                     <div class=" overflow-auto whitespace-nowrap">
                         @foreach ($post->images()->get() as $image)
-                            <div class="inline-block 
+                            <div
+                                class="inline-block 
                             @if ($post->images()->count() === 1)
                                 w-full
                             @else
-                                w-4/5 lg:w-auto
+                                 w-11/12 lg:w-auto
                             @endif
                             mr-3">
                                 <img src="{{ $image->Image_path }}" class=" w-full h-80 md:h-96 object-fill "
@@ -31,7 +32,7 @@
                             </div>
                         @endforeach
                     </div>
-                    
+
                 </div>
                 <div class="px-3 pt-3 pb-1 bg-gray-50 lg:rounded-sm">
                     <h1 class="text-lg lg:text-xl font-semibold my-3 ">{{ $post->title }}</h1>
@@ -60,7 +61,7 @@
                     <p class=" whitespace-pre-line">{{ $post->description }}</p>
                 </div>
 
-                {{-- Middle Ads section --}}
+                {{-- Middle sponsored ads section --}}
                 @if ($ads->count() > 0)
                     <div class=" mt-3 bg-gray-50 p-3 lg:rounded-sm">
                         <h2 class=" my-3 font-bold  tracking-wide">Sponsored</h2>
@@ -88,20 +89,6 @@
                     </div>
                 @endif
 
-                {{-- google display ads --}}
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2073252647616982"
-     crossorigin="anonymous"></script>
-<!-- display1 -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2073252647616982"
-     data-ad-slot="6686664449"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-{{-- google display ads end --}}
 
                 <table class=" w-full bg-gray-50 mt-3  lg:rounded-sm">
 
@@ -156,20 +143,7 @@
 
                 </div>
 
-                {{-- google display ads --}}
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2073252647616982"
-     crossorigin="anonymous"></script>
-<!-- display1 -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2073252647616982"
-     data-ad-slot="6686664449"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-{{-- google display ads end --}}
+               
 
                 @if (count($similarPosts) > 1)
                     <div class=" mt-3 p-3 bg-gray-50   lg:rounded-sm ">
@@ -205,15 +179,15 @@
                                         </h3>
 
                                         <p>
-                                            @if (  $similarPost->price == 0)
+                                            @if ($similarPost->price == 0)
                                                 <span class=" uppercase text-xs">price depends</span>
-                                            
+
                                             @else
                                                 <span class=" uppercase text-xs">starting at</span>
-                                            <small class=" text-green-500  text-xs md:text-base font-semibold"> N
-                                                {{ $similarPost->price }} </small>
+                                                <small class=" text-green-500  text-xs md:text-base font-semibold"> N
+                                                    {{ $similarPost->price }} </small>
                                             @endif
-                                            
+
 
                                         </p>
                                     </div>
@@ -222,20 +196,7 @@
 
                             @endforeach
 
-                            {{-- native ads unit --}}
-                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2073252647616982"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="fluid"
-     data-ad-layout-key="+1v+s4-1b-27+96"
-     data-ad-client="ca-pub-2073252647616982"
-     data-ad-slot="7774377226"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-                            {{-- native ads unit end --}}
+                           
 
                         </div>
 
@@ -337,6 +298,5 @@
 
 
         });
-
     </script>
 @endsection
