@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Referral;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Notifications\WelcomeEmailNotification;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -83,6 +84,9 @@ class RegisterController extends Controller
             $referral->referer = Cookie::get('refererID');
             $referral->save();
         }
+
+        $newUser->notify(new WelcomeEmailNotification());
+
         return $newUser;
     }
 }

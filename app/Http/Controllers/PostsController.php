@@ -11,7 +11,7 @@ use App\Models\Post;
 use App\Models\Image;
 use App\Models\Search;
 use App\Models\SubCategory;
-
+use App\Notifications\ApprovalEmailNotification;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Storage;
@@ -573,9 +573,12 @@ class PostsController extends Controller
         if (auth()->user()->role_id != 1) {
             return redirect()->route('home');
         }
+
         $postID = $request->input('postID');
         $status = $request->input('status');
         $type = $request->input('type');
+
+        // checking if it's a post so I can delete the related images if it's rejected
         if ($type == 'post') {
             
             $post = Post::find($postID);
@@ -584,6 +587,7 @@ class PostsController extends Controller
 
             if ($status == 'rejected') {
                 $images = Image::where('post_id', $postID)->get();
+
                 // to delete the post with image from storage
                 if ($images != null &&  $images->count() > 0) {
                     foreach ($images as $image) {
@@ -594,6 +598,8 @@ class PostsController extends Controller
                         $image->delete();
                     }
                 }
+            } else {
+                $post->user->notify(new ApprovalEmailNotification($post));
             }
         } else {
             $enquiry = Enquiry::find($postID);
