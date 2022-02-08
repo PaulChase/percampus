@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', 'PagesController@index')->name('welcome');
 Route::view('/about', 'pages.about');
+// Route::get('/testtwt', [PagesController::class, 'testTwt']);
 Route::view('/howto', 'pages.howto');
 Route::view('/safety', 'pages.safety');
 Route::view('/terms', 'pages.terms');

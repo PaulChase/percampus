@@ -181,6 +181,7 @@ return [
         Jorenvh\Share\Providers\ShareServiceProvider::class,
         CyrildeWit\EloquentViewable\EloquentViewableServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
+       
     ],
 
     /*
@@ -240,6 +241,7 @@ return [
         'Twitter'       => Artesaos\SEOTools\Facades\TwitterCard::class,
         'JsonLd'        => Artesaos\SEOTools\Facades\JsonLd::class,
         'JsonLdMulti'   => Artesaos\SEOTools\Facades\JsonLdMulti::class,
+       
     ],
 
 ];

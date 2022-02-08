@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
-
+use Coderjerk\BirdElephant\BirdElephant;
+use Coderjerk\BirdElephant\Compose\Tweet;
 class PagesController extends Controller
 {
     public function __construct()
@@ -270,5 +271,11 @@ class PagesController extends Controller
     //     $categories = Category::orderBy('name')->get();
 
     //     return view('pages.pickcategory')->with('categories', $categories);
+    // }
+
+
+    // public function testTwt()
+    // {
+        
     // }
 }
