@@ -116,6 +116,7 @@
         @include('include/messages')
         @yield('content')
     </main>
+    @include('include.categories')
     @include('include.footer')
 
     @yield('js')

@@ -154,8 +154,10 @@
                     Explore All Categories <i class="fa fa-chevron-right ml-2"></i></a>
             </div>
         </div>
+
+
         <div class="p-3 bg-white">
-            <h3 class="p-3  font-semibold text-xl lg:text-2xl my-3"> Recent Gigs from other students </h3>
+            <h3 class="p-3  font-semibold text-xl lg:text-2xl my-3"> Recent Services from other students </h3>
             <div class="grid gap-4 lg:grid-cols-4  lg:px-5">
                 @foreach ($gigs as $each_gig)
                     <div
@@ -201,14 +203,14 @@
                     View by Category <i class="fa fa-chevron-right ml-2"></i></a>
                 <a href="/gigs"
                     class="block col-span-1  lg:w-1/3 lg:p-5 lg:text-xl p-3 bg-green-500 rounded-full text-white text-center font-semibold focus:bg-green-700">
-                    View All Gigs <i class="fa fa-chevron-right ml-2"></i></a>
+                    More Services <i class="fa fa-chevron-right ml-2"></i></a>
             </div>
         </div>
         </div>
 
         <div class="p-3">
             <div
-                class=" bg-green-700  lg:py-44 shadow-inner px-4 py-16 rounded-md text-white my-3 text-center font-bold text-2xl lg:text-4xl">
+                class=" bg-green-700  lg:py-36 shadow-inner px-4 py-16 rounded-md text-white my-3 text-center font-bold text-2xl lg:text-4xl">
                 <p class="">Didn't find what you're looking? <br>
                 </p>
                 <button
@@ -255,26 +257,48 @@
 
         {{-- call to action --}}
         @guest
-            <div
-                class=" bg-gray-700 px-4 py-24 h-auto text-xl text-white font-semibold text-center lg:h-72 lg:flex  lg:items-center lg:px-10">
-                <p class=" md:w-3/12"><i class="fa fa-rocket fa-3x text-green-500 mb-6"></i></p>
+            <div class=" bg-gray-700 px-4   text-base lg:text-lg text-white     lg:px-10 py-24 ">
+                <h2 class=" uppercase mb-16 font-bold text-xl lg:text-2xl">Steps to selling your 1st product/service</h2>
+                <div class=" overflow-auto whitespace-nowrap py-4 ">
+                    <div class="w-3/5 lg:w-1/4  inline-block mr-5  whitespace-normal align-top shadow-xl p-4 bg-gray-800 rounded-md">
+                        <i class="fa fa-pen-square fa-3x mb-4"></i>
+                        <p class=" ">You will quickly <a href="/register" class=" underline">register here</a>, don't worry the process is very easy.</p>
+                    </div>
+                    <div class="w-3/5 lg:w-1/4  inline-block mr-5   whitespace-normal align-top  shadow-xl p-4 bg-gray-800 rounded-md">
+                        <i class="fa fa-mouse-pointer fa-3x mb-4"></i>
+                        <p>Next, click the grern 'sell your' at the top right corner and pick either you want to sell a product or service.</p>
+                    </div>
+                    <div class="w-3/5 lg:w-1/4  inline-block mr-5  whitespace-normal align-top shadow-xl p-4 bg-gray-800 rounded-md">
+                        <i class="fa fa-upload fa-3x mb-4"></i>
+                        <p>Fill in few details about the product or service such as name, price etc. Also upload an image to better decribe the product and then click the submit button when you're done.</p>
+                    </div>
+                    <div class="w-3/5 lg:w-1/4  inline-block mr-5  whitespace-normal align-top shadow-xl p-4 bg-gray-800 rounded-md">
+                        <i class="fa fa-check-circle fa-3x mb-4"></i>
+                        <p>Your post will be submitted for review and within a few mins you will receive an email if it was approved or not. You can always visit your dashboard to check your post status </p>
+                    </div>
+                </div>
+
+                <a href="/register"
+                            class=" rounded-full border-2 py-3 px-5 text-base bg-green-500 border-green-500 focus:bg-green-700 focus:border-green-700 md:text-lg block  lg:w-1/3 lg:p-4 lg:text-xl mx-auto mt-6 lg:mt-12 font-semibold text-center">Sign
+                            Me up ASAP</a>
+                {{-- <p class="mb-8 lg:mb-16"><i class="fa fa-rocket fa-4x text-green-500  block"></i></p>
                 <div>
-                    <p class=" lg:text-3xl "> If you start selling now, your items and Gigs will be seen first when buyers
+                    <p class=" lg:text-3xl lg:max-w-3xl lg:mx-auto"> If you start selling now, your products and services will be seen first when buyers
                         start
                         flooding
                         in. <br> So what are you waiting for?</p>
-                    <p class=""> <a href="/register"
-                            class=" rounded-full border-2 py-3 px-5 text-base bg-green-500 border-green-500 focus:bg-green-700 focus:border-green-700 md:text-lg block my-7 lg:w-1/3 lg:p-5 lg:text-xl mx-auto">Sign
-                            Me up ASAP</a></p>
-                </div>
+                    <a href="/register"
+                            class=" rounded-full border-2 py-3 px-5 text-base bg-green-500 border-green-500 focus:bg-green-700 focus:border-green-700 md:text-lg block  lg:w-1/3 lg:p-4 lg:text-xl mx-auto mt-6 lg:mt-12 font-semibold">Sign
+                            Me up ASAP</a>
+                </div> --}}
             </div>
         @endguest
 
         <div class=" text-center p-4 lg:grid lg:grid-cols-2 lg:my-12 py-16">
             <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/school.png" alt=""
                 class="h-40 w-40 lg:w-60 lg:h-60 mx-auto my-4">
-            <div>
-                <p class=" text-2xl font-semibold ">Want to view items for sale on your campus?</p>
+            <div class="lg:text-2xl">
+                <p class=" text-2xl font-semibold lg:text-3xl">Want to view items for sale on your campus?</p>
                 <div class="my-8">
                     <a href="/allcampuses"
                         class="block mx-auto w-11/12 lg:w-3/5 p-3 bg-white rounded-full text-green-500 border-2 border-green-300  text-center font-semibold focus:bg-green-500 focus:text-white">

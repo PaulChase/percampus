@@ -59,7 +59,7 @@ class PagesController extends Controller
 
         $posts = $marketplace->posts()
             ->where('status', 'active')->with('user', 'images', 'subcategory')->orderBy('created_at', 'desc')
-        ->take(10)
+            ->take(12)
         ->get()->shuffle();
 
         $gigs = $gig->posts()
@@ -88,31 +88,7 @@ class PagesController extends Controller
             ->with('campuses', $campuses); // for enquiry form
     }
 
-    // return the about page
-    // public function about()
-    // {
-
-    //     return view('pages.about');
-    // }
-
-    // return the howto page
-    // public function howto()
-    // {
-
-    //     return view('pages.howto');
-    // }
-
-    // public function safety()
-    // {
-
-    //     return view('pages.safety');
-    // }
-
-    // public function terms()
-    // {
-
-    //     return view('pages.terms');
-    // }
+   
 
     public function showCampusPage($campusNickName)
     {
