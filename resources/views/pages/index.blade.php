@@ -266,7 +266,7 @@
                     </div>
                     <div class="w-3/5 lg:w-1/4  inline-block mr-5   whitespace-normal align-top  shadow-xl p-4 bg-gray-800 rounded-md">
                         <i class="fa fa-mouse-pointer fa-3x mb-4"></i>
-                        <p>Next, click the grern 'sell your' at the top right corner and pick either you want to sell a product or service.</p>
+                        <p>Next, click the green 'sell your' button at the top right corner and pick whether you want to sell a product or service.</p>
                     </div>
                     <div class="w-3/5 lg:w-1/4  inline-block mr-5  whitespace-normal align-top shadow-xl p-4 bg-gray-800 rounded-md">
                         <i class="fa fa-upload fa-3x mb-4"></i>
@@ -274,7 +274,7 @@
                     </div>
                     <div class="w-3/5 lg:w-1/4  inline-block mr-5  whitespace-normal align-top shadow-xl p-4 bg-gray-800 rounded-md">
                         <i class="fa fa-check-circle fa-3x mb-4"></i>
-                        <p>Your post will be submitted for review and within a few mins you will receive an email if it was approved or not. You can always visit your dashboard to check your post status </p>
+                        <p>Your post will be submitted for review and within a few minutes you will receive an email if it was approved or not. You can always visit your dashboard to check your post status </p>
                     </div>
                 </div>
 

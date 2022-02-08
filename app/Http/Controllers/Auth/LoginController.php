@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use App\Models\Referral;
+use App\Notifications\WelcomeEmailNotification;
 
 
 
@@ -85,6 +86,7 @@ class LoginController extends Controller
 
             ]);
 
+            $newUser->notify(new WelcomeEmailNotification());
             if (Cookie::has('refererID')) {
                 $referral = new Referral;
                 $referral->referee = $newUser->id;
