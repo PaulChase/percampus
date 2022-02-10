@@ -42,9 +42,37 @@ Route::post('/updateprofilepic', [DashboardController::class, 'updateProfilePic'
 
 Route::view('/getuserinfo', 'auth.getuserinfo')->name('getuserinfo');
 Route::post('/pushuserinfo', [DashboardController::class, 'pushUserInfo'])->name('push.userinfo');
-// Route::get('createlink', function() {
-//     Artisan::call('storage:link');
-// });
+
+// to run artisan commands in production
+Route::get('cache-config', function () {
+
+    try {
+        Artisan::call('config:cache');
+        return 'config was cached successfully';
+    } catch (Exception $e) {
+        return $e->getMessage();
+    }
+});
+
+Route::get('cache-view', function () {
+
+    try {
+        Artisan::call('view:cache');
+        return 'view was cached successfully';
+    } catch (Exception $e) {
+        return $e->getMessage();
+    }
+});
+
+Route::get('cache-route', function () {
+
+    try {
+        Artisan::call('route:cache');
+        return 'route was cached successfully';
+    } catch (Exception $e) {
+        return $e->getMessage();
+    }
+});
 
  // get the subcategories without going through the campus page so therefore the campus is not known
 Route::get('s/', [SubcategoriesController::class, 'getSubcategories'])->name('getSubCategories');
