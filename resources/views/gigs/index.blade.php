@@ -19,7 +19,7 @@
                 <div class="border-2 border-gray-200 md:border-none md:shadow-md grid  bg-white      rounded-md grid-cols-1  md:gap-y-2 " >
 
                     <div class="   ">
-                            <a href="/{{$each_post->user->campus->nick_name}}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}">
+                            <a href="/{{$each_post->alias_campus ? $each_post->alias_user_campus->nick_name : $each_post->user->campus->nick_name }}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}">
                                 @if (is_object($each_post->images()->first()))
                                     <img src="{{$each_post->images()->first()->Image_path}}" class=" w-full  object-cover  rounded-t-md h-44 md:h-48   md:rounded-b-none md:rounded-t-sm" lazy="loading" alt="">
                                 @endif
@@ -29,7 +29,7 @@
                     </div>        
                     <div class="  flex flex-col justify-center md:justify-start px-3 py-2">
                         <h3 class=" text-base  text-gray-600 mb-2 font-semibold gigtext " >
-                            <a href="/{{$each_post->user->campus->nick_name}}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}" class="focus:text-green-600">{{$each_post->title}}</a>
+                            <a href="/{{$each_post->alias_campus ? $each_post->alias_user_campus->nick_name : $each_post->user->campus->nick_name }}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}" class="focus:text-green-600">{{$each_post->title}}</a>
                         </h3>
                         <hr>
                         @php
@@ -59,7 +59,7 @@
                             @endif
                                 
                                 <div class="py-2 ">
-                                    @if ($each_post->price == 0)
+                                    @if ($each_post->price === 0)
                             <span class=" uppercase text-xs">price depends </span>
                         @else
                         <span class=" uppercase text-xs">from </span><span class=" text-green-400 font-semibold ml-1 text-lg">N{{{$each_post->price}}}</span>

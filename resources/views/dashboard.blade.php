@@ -172,7 +172,7 @@
 
                                 <div class=" flex justify-between mt-2">
                                     <div>
-                                        <a href="/{{ $each_post->user->campus->nick_name }}/{{ $each_post->subcategory->slug }}/{{ $each_post->slug }}"
+                                        <a href="/{{$each_post->alias_campus ? $each_post->alias_user_campus->nick_name : $each_post->user->campus->nick_name}}/{{ $each_post->subcategory->slug }}/{{ $each_post->slug }}"
                                             class=" bg-gray-200 py-2 px-3 rounded-md inline-block hover:bg-gray-400 focus:bg-gray-400">
                                             <i class="la la-paint-brush"></i> View</a>
                                     </div>

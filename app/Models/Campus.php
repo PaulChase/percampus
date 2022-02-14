@@ -23,4 +23,9 @@ class Campus extends Model
     {
         return $this->hasManyThrough(Post::class, User::class);
     }
+
+    public function alias_posts()
+    {
+        return $this->hasMany(Post::class, 'alias_campus');
+    }
 }

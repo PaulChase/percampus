@@ -1,6 +1,6 @@
 @extends('layouts.focused')
 
-@section('title') Welcome to the Number 1 online marketplace for students on campus @endsection
+@section('title') Welcome to the Number One online marketplace for students on campus @endsection
 
 
 @section('focus')
@@ -70,14 +70,14 @@
 
 
         <div class="p-3">
-            <h3 class="p-3  font-semibold text-xl lg:text-2xl my-3"> What other Students are Selling </h3>
-            <div class="grid gap-3 grid-cols-2 lg:grid-cols-4 lg:px-5">
+            <h3 class="p-3  font-semibold text-xl lg:text-2xl my-5 bg-green-200 rounded-md text-green-700"> What other Students are Selling </h3>
+            <div class="grid gap-5 grid-cols-2 lg:grid-cols-4 lg:px-5">
                 @foreach ($posts as $each_item)
                     <div class=" md:border-none md:shadow-md  bg-white     rounded-md md:grid-cols-1  md:gap-y-2 ">
 
                         <div class="   ">
                             <a
-                                href="/{{ $each_item->user->campus->nick_name }}/{{ $each_item->subcategory->slug }}/{{ $each_item->slug }}">
+                                href="/{{$each_item->alias_campus ? $each_item->alias_user_campus->nick_name : $each_item->user->campus->nick_name }}/{{ $each_item->subcategory->slug }}/{{ $each_item->slug }}">
                                 @if (is_object($each_item->images()->first()))
                                     <img src="{{ $each_item->images()->first()->Image_path }}"
                                         class=" w-full  object-fill  rounded-md h-36 md:h-48   md:rounded-b-none md:rounded-t-md"
@@ -89,13 +89,13 @@
                         <div class="col-span-4  flex flex-col justify-center md:justify-start px-3 py-2">
                             <h3
                                 class=" text-sm md:text-lg text-gray-600 mb-2 font-semibold overflow-hidden whitespace-nowrap overflow-ellipsis">
-                                <a href="/{{ $each_item->user->campus->nick_name }}/{{ $each_item->subcategory->slug }}/{{ $each_item->slug }}"
+                                <a href="/{{ $each_item->alias_campus ? $each_item->alias_user_campus->nick_name : $each_item->user->campus->nick_name }}/{{ $each_item->subcategory->slug }}/{{ $each_item->slug }}"
                                     class="focus:text-green-600">{{ $each_item->title }}</a>
                             </h3>
 
                             <p>
                                 <span class="block italic">In <span
-                                        class=" uppercase">{{ $each_item->user->campus->nick_name }}</span>
+                                        class=" uppercase">{{ $each_item->alias_campus ? $each_item->alias_user_campus->nick_name : $each_item->user->campus->nick_name }}</span>
                                     campus</span>
                                 <small class=" text-green-500  text-xs md:text-base font-semibold">
                                     @if ($each_item->price > 0 && $each_item->price != '' && $each_item->price != ' ')
@@ -157,7 +157,7 @@
 
 
         <div class="p-3 bg-white">
-            <h3 class="p-3  font-semibold text-xl lg:text-2xl my-3"> Recent Services from other students </h3>
+            <h3 class="p-3  font-semibold text-xl lg:text-2xl  my-5 bg-green-200 rounded-md text-green-700"> Recent Services from other students </h3>
             <div class="grid gap-4 lg:grid-cols-4  lg:px-5">
                 @foreach ($gigs as $each_gig)
                     <div
@@ -165,7 +165,7 @@
 
                         <div class=" col-span-2   ">
                             <a
-                                href="/{{ $each_gig->user->campus->nick_name }}/{{ $each_gig->subcategory->slug }}/{{ $each_gig->slug }}">
+                                href="/{{ $each_gig->alias_campus ? $each_gig->alias_user_campus->nick_name : $each_gig->user->campus->nick_name}}/{{ $each_gig->subcategory->slug }}/{{ $each_gig->slug }}">
                                 @if (is_object($each_gig->images()->first()))
                                     <img src="{{ $each_gig->images()->first()->Image_path }}"
                                         class=" w-full  object-cover  rounded-l-md h-32 md:h-48   md:rounded-b-none md:rounded-t-md"
@@ -176,7 +176,7 @@
                         </div>
                         <div class="col-span-3  flex flex-col justify-between md:justify-start p-3">
                             <h3 class=" text-sm md:text-lg text-gray-600 mb-2 font-semibold gigtext">
-                                <a href="/{{ $each_gig->user->campus->nick_name }}/{{ $each_gig->subcategory->slug }}/{{ $each_gig->slug }}"
+                                <a href="/{{  $each_gig->alias_campus ? $each_gig->alias_user_campus->nick_name : $each_gig->user->campus->nick_name }}/{{ $each_gig->subcategory->slug }}/{{ $each_gig->slug }}"
                                     class="focus:text-green-600 ">{{ $each_gig->title }}</a>
                             </h3>
 
@@ -211,14 +211,14 @@
         <div class="p-3">
             <div
                 class=" bg-green-700  lg:py-36 shadow-inner px-4 py-16 rounded-md text-white my-3 text-center font-bold text-2xl lg:text-4xl">
-                <p class="">Didn't find what you're looking? <br>
+                <p class="">If you didn't find the item you were looking for? click the button below to ask for it. e.g you can ask, <br> 'who has any infinix phone sell?, <br>
                 </p>
                 <button
                     class="showEnquiry shadow-inner my-3 font-semibold lg:text-xl lg:px-10  text-gray-500 focus:bg-gray-500 focus:text-white   inline-block bg-gray-50 rounded-full py-3 px-4 text-base lg:mt-8"><i
                         class=" fa fa-pen mr-1"></i>Click here to make a request here..</button>
 
             </div>
-            <h3 class=" font-semibold text-lg mb-3 lg:text-2xl p-2">Requested items/Services</h3>
+            <h3 class=" font-semibold text-lg  my-5 bg-green-200 rounded-md text-green-700 lg:text-2xl p-2">Requested items/Services</h3>
 
             <div class="grid gap-4 lg:grid-cols-4  lg:px-5">
                 @foreach ($enquiries as $enquiry)

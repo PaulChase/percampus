@@ -1,3 +1,17 @@
+
+ @php
+
+use App\Models\Campus;
+use Illuminate\Support\Carbon;
+
+// $campuses = Campus::orderBy('name')->get();
+$campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
+    return Campus::orderBy('name', 'asc')->get();
+});
+
+@endphp
+
+
 @extends('layouts.app')
 
 @section('title') Offer A Service @endsection
@@ -11,7 +25,7 @@
             <div><h1 class="text-center text-xl font-semibold my-4">Add details about your Service</h1></div>
 
             <form method="POST" action="{{ route('gigs.store')}}" enctype="multipart/form-data" class=" space-y-4 text-gray-500">
-                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                @csrf
                 <div>
                     
                     <label for="" class="font-semibold">What is the title of the Service<b class=" text-red-500 ">*</b></label><br>
@@ -52,6 +66,17 @@
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">{{ 'the price of the item is Required' }}</small>
                     @enderror
                 </div>
+
+                         {{-- for admins to add campuses to posts --}}
+
+ <label for="" class="font-semibold">What's is the seller real campus</label><br>
+                <select name="campus" id=""
+                            class=" p-1 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200 col-span-3 lg:p-2 lg:m-0">
+                            <option value="{{ null }}" selected>Pick the Campus to search in...</option>
+                            @foreach ($campuses as $campus)
+                                <option value="{{ $campus->id }}" class="">{{ $campus->name }}</option>
+                            @endforeach
+                        </select>
                @else
                    <div>
                     <label for="price" class="font-semibold">The lowest price you charge per Service (Note: it should be between N200 to N10,000)<b class=" text-red-500">*</b></label>

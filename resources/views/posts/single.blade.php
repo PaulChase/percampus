@@ -113,8 +113,13 @@
                     </tr>
                     <tr>
                         <td class="p-3 font-semibold"> Campus</td>
-                        <td class=" float-right p-3 text-green-500 italic"> <a
-                                href="/{{ $post->user->campus->nick_name }}">{{ $post->user->campus->name }}</td></a>
+                       
+                        <td class=" float-right p-3 text-green-500 italic">
+                          
+                            <a
+                                href="/{{$post->alias_campus ? $post->alias_user_campus->nick_name: $post->user->campus->nick_name }}">{{ $post->alias_user_campus ? $post->alias_user_campus->name: $post->user->campus->name }}</a>
+                        
+                     </td>
                     </tr>
                 </table>
                 @include('include.convince')

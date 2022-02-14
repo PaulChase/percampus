@@ -123,10 +123,11 @@ class PostsController extends Controller
         $post->in_stock = $request->input('instock');
         $post->subcategory_id = $request->input('subcategory');
         $post->user_id = auth()->user()->id;
-        $post->status = 'pending';
+        $post->status = auth()->user()->role_id === 1 ? 'active' : 'pending';
 
         // set an alias if its not posted by the actual user
         $post->alias = $request->input('alias');
+        $post->alias_campus = $request->input('campus') ? $request->input('campus') : null;
         $post->save();
 
         // get the ID of the image that was just added to the Db so I can save it to the images table 

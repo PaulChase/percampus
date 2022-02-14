@@ -106,12 +106,15 @@ class GigsController extends Controller
         $post->contact_info = $phoneNo;
         $post->subcategory_id = $request->input('subcategory');
         $post->user_id = auth()->user()->id;
-        $post->status = 'pending';
+        $post->status = auth()->user()->role_id === 1 ? 'active' : 'pending';
+
         $post->alias = $request->input('alias');
+        $post->alias_campus = $request->input('campus') ? $request->input('campus') : null;
+
 
         $post->save();
 
-        // get the ID of the image that was just added to the Db so I can save it to the images table 
+        // get the ID of the image that was just added to the Db so I can save it to the images table. find a better to do this in the future
         $thePostId = Post::latest()->value('id');
 
         //  checking if image is set and valid

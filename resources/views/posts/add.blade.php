@@ -1,3 +1,16 @@
+
+ @php
+
+use App\Models\Campus;
+use Illuminate\Support\Carbon;
+
+// $campuses = Campus::orderBy('name')->get();
+$campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
+    return Campus::orderBy('name', 'asc')->get();
+});
+
+@endphp
+
 @extends('layouts.app')
 
 @section('title') Add Post @endsection
@@ -20,6 +33,8 @@
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">please enter a valid title</small>
                     @enderror
                 </div>
+
+                {{-- for admins to add posts  --}}
                 @if (Auth::user()->role_id === 1)
                 <div>
                     
@@ -29,6 +44,17 @@
                         <small class="bg-red-300 p-2 inline-block rounded-sm text-sm mt-1">please enter a valid name</small>
                     @enderror
                 </div>
+
+                {{-- for admins to add campuses to posts --}}
+
+ <label for="" class="font-semibold">What's is the seller real campus</label><br>
+                <select name="campus" id=""
+                            class=" p-1 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200 col-span-3 lg:p-2 lg:m-0">
+                            <option value="{{ null }}" selected>Pick the Campus to search in...</option>
+                            @foreach ($campuses as $campus)
+                                <option value="{{ $campus->id }}" class="">{{ $campus->name }}</option>
+                            @endforeach
+                        </select>
                     
                 @endif
                 <div>

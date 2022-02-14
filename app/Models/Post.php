@@ -21,6 +21,11 @@ class Post extends Model implements Viewable
         return $this->belongsTo(User::class);
     }
 
+    public function alias_user_campus()
+    {
+        return $this->belongsTo(Campus::class, 'alias_campus');
+    }
+
     public function subcategory()
     {
         return $this->belongsTo(SubCategory::class);
@@ -47,10 +52,10 @@ class Post extends Model implements Viewable
         ];
     }
 
-    public function incrementViewCount() {
-        $this->view_count++;
-        return $this->save();
-    }
+    // public function incrementViewCount() {
+    //     $this->view_count++;
+    //     return $this->save();
+    // }
 
     public function incrementContactCount() {
         $this->no_of_contacts++;

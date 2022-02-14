@@ -24,7 +24,7 @@
                 <div class=" md:border-none md:shadow-md  bg-white     rounded-md md:grid-cols-1  md:gap-y-2 " >
 
                     <div class=" col-span-2  ">
-                            <a href="/{{$each_post->user->campus->nick_name}}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}">
+                            <a href="/{{$each_post->alias_campus ? $each_post->alias_user_campus->nick_name : $each_post->user->campus->nick_name }}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}">
                                 @if (is_object($each_post->images()->first()))
                                     <img src="{{$each_post->images()->first()->Image_path}}" class=" w-full  object-fill  rounded-md h-36 md:h-48   md:rounded-b-none md:rounded-t-md" lazy="loading" alt="{{$each_post->title}}">
                                 @endif
@@ -33,7 +33,7 @@
                     </div>        
                     <div class="col-span-4  flex flex-col justify-center md:justify-start px-3 py-2">
                         <h3 class=" text-sm md:text-base text-gray-600 mb-2 font-semibold overflow-hidden whitespace-nowrap overflow-ellipsis">
-                            <a href="/{{$each_post->user->campus->nick_name}}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}" class="focus:text-green-600">{{$each_post->title}}</a>
+                            <a href="/{{$each_post->alias_campus ? $each_post->alias_user_campus->nick_name : $each_post->user->campus->nick_name }}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}" class="focus:text-green-600">{{$each_post->title}}</a>
                         </h3>
                         
                         <p> 
