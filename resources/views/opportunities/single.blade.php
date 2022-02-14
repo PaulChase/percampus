@@ -50,7 +50,7 @@
 
                 <div class=" overflow-auto whitespace-nowrap  py-3 max-w-7xl mx-auto w-full">
                     @foreach ($recentPosts as $each_post)
-                    <div class=" inline-block border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm md:grid-cols-1 mr-3 w-40  md:gap-y-2 ">
+                    <div class=" inline-block border border-gray-200 md:border-none md:shadow-md  bg-white     rounded-sm md:grid-cols-1 mr-3 w-40 lg:w-52  md:gap-y-2 ">
 
                         <div class=" col-span-2  ">
                             <a href="/{{$each_post->user->campus->nick_name}}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}">

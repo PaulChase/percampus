@@ -42,7 +42,7 @@
     {!! OpenGraph::generate() !!}
 
     {{-- just stoped working all of sudden --}}
-    {{-- {!! Twitter::generate() !!} --}}
+    {!! Twitter::generate() !!}
     <meta property="twitter:title" content="@yield('title')">
 
     {{-- for social media sharing --}}

@@ -18,7 +18,7 @@
             <div class="lg:col-span-4">
                 <div class="  w-full  lg:rounded-sm" id='contact'>
                     <div class=" overflow-auto whitespace-nowrap">
-                        @foreach ($post->images()->get() as $image)
+                        @foreach ($post->images as $image)
                             <div
                                 class="inline-block 
                             @if ($post->images()->count() === 1)
@@ -161,7 +161,7 @@
 
                                 <div
                                     class="border border-gray-200 md:border-none md:shadow-md  bg-white inline-block   
-                                    rounded-sm w-40 mr-2 ">
+                                    rounded-sm w-40 lg:w-52 mr-2 ">
 
                                     <div class=" col-span-2  ">
                                         <a

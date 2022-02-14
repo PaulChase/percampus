@@ -23,7 +23,9 @@ use Illuminate\Support\Carbon;
 use function JmesPath\search;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\TwitterCard;
-
+use Coderjerk\BirdElephant\BirdElephant;
+use Coderjerk\BirdElephant\Compose\Tweet;
+use Coderjerk\BirdElephant\Compose\Media;
 
 class PostsController extends Controller
 {
@@ -123,7 +125,7 @@ class PostsController extends Controller
         $post->in_stock = $request->input('instock');
         $post->subcategory_id = $request->input('subcategory');
         $post->user_id = auth()->user()->id;
-        $post->status = auth()->user()->role_id === 1 ? 'active' : 'pending';
+        $post->status = 'pending';
 
         // set an alias if its not posted by the actual user
         $post->alias = $request->input('alias');
@@ -227,7 +229,8 @@ class PostsController extends Controller
             OpenGraph::addImage('https://www.percampus.com' . $post->images()->first()->Image_path);
         }
 
-        TwitterCard::setTitle($post->title);
+        TwitterCard::setTitle("Buy " . $post->title);
+        TwitterCard::setSite('@percampus_com');
 
         // the time interval before recording a new post as seen
         $expiresAt = now()->addHours(3);
@@ -586,11 +589,32 @@ class PostsController extends Controller
             $post->status = $status;
             $post->save();
 
-            if ($status == 'rejected') {
-                $images = Image::where('post_id', $postID)->get();
+            // only try to upload posts with images to twitter
+            if ($post->images->count() > 0) {
 
-                // to delete the post with image from storage
-                if ($images != null &&  $images->count() > 0) {
+                $credentials = array(
+                    'bearer_token' => env('TWITTER_BEARER_TOKEN'), // OAuth 2.0 Bearer Token requests
+                    'consumer_key' =>  env('TWITTER_CONSUMER_KEY'), // identifies your app, always needed
+                    'consumer_secret' => env('TWITTER_CONSUMER_SECRET'), // app secret, always needed
+                    'token_identifier' => env('TWITTER_ACCESS_TOKEN'), // OAuth 1.0a User Context requests
+                    'token_secret' => env('TWITTER_ACCESS_TOKEN_SECRET'), // OAuth 1.0a User Context requests
+                );
+
+                $twitter = new BirdElephant($credentials);
+
+                $image = $twitter->tweets()->upload("https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/public/images/{$post->images()->first()->Image_name}");
+
+                $media = (new Media)->mediaIds([$image->media_id_string]);
+
+                $tweet = (new Tweet)->text("title: '{$post->title}'. If interested, visit our website for more info: https://www.percampus.com/{$post->user->campus->nick_name}/{$post->subcategory->slug}/{$post->slug}  #{$post->user->campus->nick_name} #percampus")->media($media);
+
+                $twitter->tweets()->tweet($tweet);
+
+                // delete the posts images if they are rejected
+                if ($status == 'rejected') {
+
+                    $images = Image::where('post_id', $postID)->get();
+
                     foreach ($images as $image) {
                         // if ($image->Image_name != 'noimage.jpg') {
                         //     Storage::disk('s3')->delete('public/images/' . $image->Image_name);
@@ -599,9 +623,9 @@ class PostsController extends Controller
                         $image->delete();
                     }
                 }
-            } else {
-                $post->user->notify(new ApprovalEmailNotification($post));
             }
+
+            $post->user->notify(new ApprovalEmailNotification($post));
         } else {
             $enquiry = Enquiry::find($postID);
             $enquiry->status = $status;

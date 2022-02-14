@@ -106,7 +106,7 @@ class GigsController extends Controller
         $post->contact_info = $phoneNo;
         $post->subcategory_id = $request->input('subcategory');
         $post->user_id = auth()->user()->id;
-        $post->status = auth()->user()->role_id === 1 ? 'active' : 'pending';
+        $post->status = 'pending';
 
         $post->alias = $request->input('alias');
         $post->alias_campus = $request->input('campus') ? $request->input('campus') : null;

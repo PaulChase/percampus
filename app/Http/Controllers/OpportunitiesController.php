@@ -98,7 +98,7 @@ class OpportunitiesController extends Controller
         $post->apply_deadline = $request->input('deadline');
         $post->subcategory_id = $request->input('subcategory');
         $post->user_id = auth()->user()->id;
-        $post->status = auth()->user()->role_id === 1 ? 'active' : 'pending';
+        $post->status = 'pending';
 
         $post->save();
 
