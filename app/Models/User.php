@@ -62,6 +62,11 @@ class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
         return $this->hasMany(Referral::class, 'referer');
     }
 
+    public function postViews()
+    {
+        return $this->hasManyThrough(PostView::class, Post::class, 'user_id', 'viewable_id');
+    }
+
     public function scopeVerified($query)
     {
         return $query->whereNotNull('email_verified_at');

@@ -206,7 +206,7 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
             {{-- end of nav links for desktop --}}
             <div class="order-2 md:order-3 lg:order-4 lg:col-span-1 flex items-center justify-center" id="nav-content">
                 <button
-                    class="inline-block bg-green-500 px-3 py-2 rounded-md text-white text-sm font-semibold md:text-base focus:bg-green-600 shadow-inner addPost ">Sell your...
+                    class="inline-block bg-green-500 px-3 py-2 rounded-md text-white text-sm font-bold md:text-base focus:bg-green-600 shadow-inner addPost ">Sell A...
                 </button>
 
             </div>

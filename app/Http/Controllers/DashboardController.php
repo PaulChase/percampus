@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advert;
+use App\Models\PostView;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Collection;
@@ -32,12 +33,13 @@ class DashboardController extends Controller
     public function index()
     {
 
+        // dd(auth()->user()->postViews->count());
         $ads = Advert::get();
 
-        $posts = Auth::user()->posts()->whereIn('status', ['active', 'pending', 'rejected'])->orderBy('created_at', 'desc')->with(
-            'user',
-            'subcategory'
-        )->get();
+        // $posts = Auth::user()->posts()->whereIn('status', ['active', 'pending', 'rejected'])->orderBy('created_at', 'desc')->with(
+        //     'user',
+        //     'subcategory'
+        // )->get();
 
         $noOfUserActivePosts = Auth::user()->posts()->where('status', 'active')->get()->count();
 
@@ -51,7 +53,7 @@ class DashboardController extends Controller
 
         // $arranged = $collection->sortByDesc('id');
 
-        return view('dashboard')->with('posts', $posts)->with('ads', $ads)->with('noOfUserActivePosts', $noOfUserActivePosts);
+        return view('dashboard')->with('ads', $ads)->with('noOfUserActivePosts', $noOfUserActivePosts);
     }
 
 
@@ -130,7 +132,10 @@ class DashboardController extends Controller
         }
 
         return  redirect('/dashboard')->with('success', 'Your Profile Pic Has Been Upated');
+    }
 
-        
+    public function userPosts()
+    {
+        return view('auth.user-posts');
     }
 }

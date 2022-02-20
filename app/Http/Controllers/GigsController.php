@@ -36,6 +36,7 @@ class GigsController extends Controller
         return view('gigs.index')->with('posts', $posts);
     }
 
+    // this is redirected from the subcategory method
     public function latest($categoryName)
     {
         $category = SubCategory::where('slug', $categoryName)->firstOrFail();

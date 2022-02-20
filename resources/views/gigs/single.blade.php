@@ -121,7 +121,7 @@
                     <h3 class=" font-semibold border-b border-gray-200 pb-2">Posted by:</h3>
                     <p class=" text-xl my-3 flex items-center">
                         @if ($post->user->avatar == null || $post->user->avatar == 'users/default.png')
-                            <span class="fa fa-user-circle fa-2x text-gray-400 mr-2"></span>
+                           <span class=" py-2 px-4 bg-green-700 font-bold text-2xl rounded-full text-white mr-3">{{ $post->user->name[0] }} </span>
                         @else
                             <img src="{{ $post->user->avatar }}"
                                 class=" w-20 h-20 rounded-full border-2 border-green-300 object-cover mr-3 " alt="">
@@ -134,6 +134,7 @@
 
                         @endif
                     </p>
+                       <p class=" font-semibold text-center text-base my-2">Click, to contact seller via:</p>
                     <div class=" grid grid-cols-2 gap-3">
                         <a href="tel:0{{ $post->contact_info }}"
                             class=" block p-3 text-center font-semibold focus:border-green-500 rounded-md contact bg-gray-200"><i

@@ -256,7 +256,7 @@
 
 
         {{-- call to action --}}
-        @guest
+        
             <div class=" bg-gray-700 px-4   text-base lg:text-lg text-white     lg:px-10 py-24 ">
                 <h2 class=" uppercase mb-16 font-bold text-xl lg:text-2xl">Steps to selling your 1st product/service</h2>
                 <div class=" overflow-auto whitespace-nowrap py-4 ">
@@ -266,7 +266,7 @@
                     </div>
                     <div class="w-3/5 lg:w-1/4  inline-block mr-5   whitespace-normal align-top  shadow-xl p-4 bg-gray-800 rounded-md">
                         <i class="fa fa-mouse-pointer fa-3x mb-4"></i>
-                        <p>Next, click the green 'sell your' button at the top right corner and pick whether you want to sell a product or service.</p>
+                        <p>Next, click the green 'sell A...' button at the top right corner and pick whether you want to sell a product or service.</p>
                     </div>
                     <div class="w-3/5 lg:w-1/4  inline-block mr-5  whitespace-normal align-top shadow-xl p-4 bg-gray-800 rounded-md">
                         <i class="fa fa-upload fa-3x mb-4"></i>
@@ -292,7 +292,7 @@
                             Me up ASAP</a>
                 </div> --}}
             </div>
-        @endguest
+        
 
         <div class=" text-center p-4 lg:grid lg:grid-cols-2 lg:my-12 py-16">
             <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/school.png" alt=""

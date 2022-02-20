@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use TCG\Voyager\Facades\Voyager;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,6 +115,7 @@ Route::get('gigs/latest/{categoryName}', [GigsController::class, 'latest']);
 
 
 Auth::routes(['verify' => true]);
+Route::get('dashboard/posts', [DashboardController::class, 'userPosts'])->name('user.posts');
 
 // email verification links
 Route::get('/email/verify', function () {

@@ -207,11 +207,12 @@ class PostsController extends Controller
      */
     public function show($campusNickName, $categoryName, $slug)
     {
-        
+
         // to generate social share links
         $share = new Share;
-        $socialLinks = $share->currentPage(null, ['class' => 'text-white text-2xl bg-gray-600 rounded-full py-2 px-3'], '<ul class = " flex flex-row justify-between">', '</ul>')->facebook()->whatsapp()->telegram()->twitter();
+        $socialLinks = $share->currentPage(null, ['class' => 'text-green-500 text-2xl bg-red-900 border-2 border-gray-300 rounded-full py-2 px-3'], '<ul class = " flex flex-row justify-between">', '</ul>')->facebook()->whatsapp()->telegram()->twitter();
 
+      
 
         $post = Post::where('slug', $slug)->with(
             'user',
@@ -625,7 +626,10 @@ class PostsController extends Controller
                 }
             }
 
-            $post->user->notify(new ApprovalEmailNotification($post));
+            if ($post->user->role_id !== 1) {
+                $post->user->notify(new ApprovalEmailNotification($post));
+            }
+
         } else {
             $enquiry = Enquiry::find($postID);
             $enquiry->status = $status;

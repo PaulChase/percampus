@@ -36,6 +36,13 @@ class Post extends Model implements Viewable
         return $this->hasMany(Image::class);
     }
 
+    public function postViews()
+    {
+        return $this->hasMany(PostView::class, 'viewable_id');
+    }
+
+
+
     
 
     // for generating dynamic slug
