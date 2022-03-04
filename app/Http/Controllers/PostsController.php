@@ -97,11 +97,13 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required',
-            'description' => 'required',
+            'title' => 'required|string',
+            'description' => 'required|string',
             'images' => 'nullable|max:2', // validate the number of incoming images
             'images.*' => 'mimes:jpeg,jpg,png|max:2048', //validate for file extensions and image size
-            'price' => 'required '
+            'price' => 'required ',
+            'subcategory' => 'required|integer',
+            'instock' => 'required|string'
 
         ]);
 

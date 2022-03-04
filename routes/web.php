@@ -29,13 +29,13 @@ use TCG\Voyager\Facades\Voyager;
 */
 
 Route::get('/', 'PagesController@index')->name('welcome');
-Route::view('/about', 'pages.about');
+Route::view('/about-us', 'pages.about');
 // Route::get('/tweet', [PagesController::class, 'testTwt']);
 Route::view('/howto', 'pages.howto');
 Route::view('/safety', 'pages.safety');
 Route::view('/terms', 'pages.terms');
 Route::get('/allcampuses', 'PagesController@getAllCampuses');
-Route::get('/metrics', [PagesController::class, 'showMetricsPage'])->name('metrics');
+Route::get('/metrics', [PagesController::class, 'showMetricsPage'])->name('metrics')->middleware('auth');
 Route::post('/contactSeller', [PostsController::class, 'contactSeller'])->name('contact.seller');
 Route::post('/screenpost', [PostsController::class, 'screenPost'])->name('screenpost');
 Route::get('/join', [PagesController::class, 'join'])->name('join');
@@ -89,6 +89,7 @@ Route::post('/submitPost', 'PostsController@store')->name('posts.save');
 Route::post('/posts/{id}', 'PostsController@update')->name('posts.toupdate');
 Route::delete('/posts/{id}', 'PostsController@destroy')->name('posts.delete');
 
+
 Route::resource('enquiries', 'EnquiriesController');
 Route::post('/enquries/contact', [EnquiriesController::class, 'contactBuyer'])->name('contact.buyer');
 
@@ -116,6 +117,8 @@ Route::get('gigs/latest/{categoryName}', [GigsController::class, 'latest']);
 
 Auth::routes(['verify' => true]);
 Route::get('dashboard/posts', [DashboardController::class, 'userPosts'])->name('user.posts');
+Route::get('dashboard/mass-create', [PagesController::class, 'massCreate'])->name('mass.create')->middleware('auth');
+Route::post('dashboard/mass-create', [PagesController::class, 'massStore'])->name('mass.store')->middleware('auth');
 
 // email verification links
 Route::get('/email/verify', function () {

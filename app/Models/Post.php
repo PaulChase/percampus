@@ -12,6 +12,8 @@ class Post extends Model implements Viewable
 {
     use HasFactory, Sluggable, InteractsWithViews;
 
+    protected $guarded = [];
+
     /*
     creating relatioship b/w the post and user that added it.  The function means that a post belongs to a particular user
 
@@ -21,6 +23,7 @@ class Post extends Model implements Viewable
         return $this->belongsTo(User::class);
     }
 
+    // relationship for the user added by the admin
     public function alias_user_campus()
     {
         return $this->belongsTo(Campus::class, 'alias_campus');

@@ -58,9 +58,9 @@
         @endif
 
         {{-- form to update profil pic --}}
-        <div id="updatepic" class=" fixed  w-full h-full z-20 overflow-auto  top-0 left-0  hidden   "
+        <div id="updatepic" class=" fixed  w-full h-full z-20 overflow-auto  top-0 left-0  hidden    "
           style="background-color: rgba(0,0,0,0.7); ">
-          <div class=" bg-white bottom-0 absolute w-full rounded-t-lg p-4">
+          <div class=" bg-white bottom-0 absolute w-full rounded-t-lg p-4 lg:w-1/3">
             <button class=" float-right m-3 bg-gray-200 px-3 py-1 rounded-full focus:bg-gray-500"
               id="closeformforpic">X</button><br>
 

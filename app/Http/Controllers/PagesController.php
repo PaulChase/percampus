@@ -6,6 +6,7 @@ use App\Models\Advert;
 use App\Models\Campus;
 use App\Models\Category;
 use App\Models\Enquiry;
+use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Page;
@@ -19,8 +20,9 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
-use Coderjerk\BirdElephant\BirdElephant;
-use Coderjerk\BirdElephant\Compose\Tweet;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as ImageOptimizer;
+
 class PagesController extends Controller
 {
     public function __construct()
@@ -168,6 +170,9 @@ class PagesController extends Controller
     public function showMetricsPage()
     {
 
+        if (auth()->user()->role_id !== 1) {
+            return redirect()->route('home')->with('error', 'you are allowed');
+        }
         $usersCount = User::select(['id'])->count();
 
         $postsCount = Post::select(['id'])->count();
@@ -266,6 +271,97 @@ class PagesController extends Controller
         return view('pages.checkpoint', compact('pendingPosts', 'pendingEnquiries'));
     }
 
+    public function massCreate()
+    {
+
+        if (auth()->user()->role_id !== 1) {
+            return redirect()->back()->with('error', 'you are allowed');
+        }
+        $subcategories = SubCategory::where('category_id', 2)->get();
+        return view('pages.maas-create')->with('subcategories', $subcategories);
+    }
+
+    public function massStore(Request $request)
+    {
+
+        //  checking if image is set and valid
+        if (
+            $request->hasFile('images')
+        ) {
+            // array of all the images uploaded 
+            $images = $request->file('images');
+
+            // looping through the submitted images
+            foreach ($images as $image) {
+
+                $post =  Post::create([
+                    'title' => $request->input('title'),
+                    'description' => $request->input('description'),
+                    'price' => number_format($request->input('price')),
+                    'venue' => $request->input('venue'),
+                    'contact_info' => ltrim($request->input('contact'), 0),
+                    'item_condition' => $request->input('condition'),
+                    'in_stock' => $request->input('instock'),
+                    'subcategory_id' => $request->input('subcategory'),
+                    'user_id' => auth()->id(),
+                    'alias' => $request->input('alias'),
+                    'alias_campus' => $request->input('alias_campus'),
+                    'status' => 'pending',
+                ]);
+
+                $thePostId = $post->id;
+
+                $fileNameWithExt = $image->getClientOriginalName();
+
+                // get only the file name
+                $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+                // the name should be the title of the post bcoz of some SEO tactics
+                // $fileName = $request->input('title');
+
+                // get the extension e.g .png, .jpg etc
+                $extension = $image->getClientOriginalExtension();
+
+                /*
+                the filename to store is a combination of the the main file name with a timestamp, then the file extension. The reason is to have a unique filename for every image uplaoded.
+                */
+                $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
+
+                // the path to store
+                $path = $image->getRealPath() . '.jpg';
+
+                // reducing the file size of the image and also optimizing it for fast loading
+                $imageResize = ImageOptimizer::make($image);
+                $imageResize->resize(1000, 1000, function ($const) {
+                    $const->aspectRatio();
+                })->encode('jpg', 60);
+                $imageResize->save($path);
+
+                // saving it to the s3 bucket and also making it public so my website can access it
+                Storage::disk('s3')->put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
+
+                // get the public url from s3
+                $url  = Storage::disk('s3')->url('public/images/' . $fileNameToStore);
+
+                // then save the image record to the Db
+                $this->saveImage($thePostId, $fileNameToStore, $url);
+            }
+        }
+
+        return  redirect('/dashboard')->with('success', 'Your Post Has Been Added but is currently being reviewed and will become active very soon');
+    }
+
+    // method for saving image to database
+    public function saveImage($postId, $name, $path)
+    {
+        $imagedb = new Image;
+
+        $imagedb->post_id = $postId;
+        $imagedb->Image_name = $name;
+        $imagedb->Image_path = $path;
+        $imagedb->save();
+    }
+
     // public function pickCategory()
     // {
     //     $categories = Category::orderBy('name')->get();
@@ -294,4 +390,7 @@ class PagesController extends Controller
 
     // //     dd(true);
     // // }
+
+
+
 }

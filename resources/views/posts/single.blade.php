@@ -15,7 +15,7 @@
 
 @section('content')
 
-  <div class=" bg-gray-200">
+  <div class=" bg-gray-200  lg:text-xl">
 
     <div class=" max-w-7xl mx-auto py-3 lg:grid lg:grid-cols-6 lg:gap-5">
       {{-- {{ dd($post->images()->get())}} --}}
@@ -29,7 +29,7 @@
                             @else
                                 w-4/5 lg:w-auto @endif
                              mr-3">
-                <img src="{{ $image->Image_path }}" class=" w-full h-80 md:h-96 object-fill " alt="{{ $post->title }}">
+                <img src="{{ $image->Image_path }}" class=" w-full h-80 md:h-96 object-cover " alt="{{ $post->title }}">
               </div>
             @endforeach
           </div>
@@ -131,7 +131,7 @@
           <h3 class=" font-semibold border-b border-gray-200 pb-2">Posted by:</h3>
           <p class=" text-xl my-3 flex items-center">
             @if ($post->user->avatar == null || $post->user->avatar == 'users/default.png')
-              <span class=" py-2 px-4 bg-green-700 font-bold text-2xl rounded-full text-white mr-3">{{ $post->user->name[0] }} </span>
+              <span class=" py-2 px-4 bg-green-700 font-bold text-2xl rounded-full text-white mr-3">{{$post->alias ? $post->alias[0] : $post->user->name[0] }} </span>
             @else
               <img src="{{ $post->user->avatar }}"
                 class=" w-20 h-20 rounded-full border-2 border-green-300 object-cover mr-3 " alt="">
@@ -146,7 +146,7 @@
             <a href="tel:0{{ $post->contact_info }}"
               class=" block p-3 text-center font-semibold focus:border-green-500 rounded-md contact bg-gray-200"><i
                 class="fa fa-phone mr-3  text-green-500 "></i> Call</a>
-            <a href="https://wa.me/234{{ $post->contact_info }}?text=Hello%20{{ $post->alias ?$post->alias :  $post->user->name }},%20I%20saw%20your%20adverstisement%20on%20www.percampus.com%20I%20want%20to%20ask%20if%20the%20item%20you%20posted%20is%20still%20available%20for%20sale"
+            <a href="https://wa.me/234{{ $post->contact_info }}?text=Hello%20{{ $post->alias ? $post->alias :  $post->user->name }},%20I%20saw%20your%20adverstisement%20on%20www.percampus.com%20I%20want%20to%20ask%20if%20the%20item%20you%20posted%20is%20still%20available%20for%20sale"
               class="font-semibold block p-3 text-center focus:border-green-500 rounded-md contact bg-green-200"><i
                 class="fab fa-whatsapp mr-3  text-green-500"></i> Whatsapp</a>
 
@@ -168,14 +168,14 @@
                 @endphp
 
                 <div
-                  class="border border-gray-200 md:border-none md:shadow-md  bg-white lg:w-52  rounded-sm inline-block w-40 mr-2">
+                  class="border border-gray-200 md:border-none md:shadow-md  bg-white lg:w-56  rounded-sm inline-block w-40 mr-2 ">
 
                   <div class=" col-span-2  ">
                     <a
                       href="/{{ $similarPost->user->campus->nick_name }}/{{ $similarPost->subcategory->slug }}/{{ $similarPost->slug }}">
                       @if (is_object($similarPost->images()->first()))
                         <img src="{{ $similarPost->images()->first()->Image_path }}"
-                          class=" w-full  object-fill  rounded-t-sm h-32 md:h-40   md:rounded-b-none md:rounded-t-sm"
+                          class=" w-full  object-cover  rounded-t-sm h-32 md:h-40   md:rounded-b-none md:rounded-t-sm"
                           lazy="loading" alt="{{ $similarPost->title }}">
                       @endif
                     </a>
@@ -189,8 +189,13 @@
                     </h3>
 
                     <p>
-                      <small class=" text-green-500  text-xs md:text-base font-semibold"> N
-                        {{ $similarPost->price }} </small>
+                      <small class=" text-green-500  text-xs md:text-base font-semibold"> 
+                         @if ($similarPost->price > 0 && $similarPost->price != '' && $similarPost->price != ' ')
+                                N{{ $similarPost->price }}
+                            @else
+                                {{ 'Contact Me' }}
+                            @endif
+                          </small>
 
                     </p>
                   </div>
@@ -202,6 +207,10 @@
 
           </div>
         @endif
+
+       
+
+         
 
 
         {{-- Bottom Ads section --}}
@@ -237,6 +246,14 @@
           {{-- {{ dd( $social )}} --}}
           {!! $social !!}
         </div>
+
+         <div class=" my-3 bg-gray-50 p-3 lg:rounded-sm">
+            <h2 class=" my-3 font-bold  tracking-wide">Around the Web</h2>
+
+            <script async="async" data-cfasync="false" src="//pl16709005.trustedgatetocontent.com/ea58161327edc8f0ced5adb72df97e34/invoke.js"></script>
+            <div id="container-ea58161327edc8f0ced5adb72df97e34"></div>
+             
+          </div>
         {{-- end of Social share --}}
 
         {{-- @if (!Auth::guest())

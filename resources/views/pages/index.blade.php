@@ -80,7 +80,7 @@
                                 href="/{{$each_item->alias_campus ? $each_item->alias_user_campus->nick_name : $each_item->user->campus->nick_name }}/{{ $each_item->subcategory->slug }}/{{ $each_item->slug }}">
                                 @if (is_object($each_item->images()->first()))
                                     <img src="{{ $each_item->images()->first()->Image_path }}"
-                                        class=" w-full  object-fill  rounded-md h-36 md:h-48   md:rounded-b-none md:rounded-t-md"
+                                        class=" w-full  object-cover  rounded-md h-36 md:h-48   md:rounded-b-none md:rounded-t-md"
                                         lazy="loading" alt="{{ $each_item->title }}">
                                 @endif
                             </a>

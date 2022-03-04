@@ -13,7 +13,7 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
 @extends('layouts.app')
 
 @section('title')
-  Add Post
+  Mass create posts
 @endsection
 
 @section('content')
@@ -23,10 +23,10 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
     <div class="px-4 py-4 md:max-w-lg mx-auto md:shadow-lg rounded-md bg-white">
 
       <div>
-        <h1 class="text-center text-xl font-semibold my-4">Add an Item</h1>
+        <h1 class="text-center text-xl font-semibold my-4">Add items</h1>
       </div>
 
-      <form method="POST" action="{{ route('posts.save') }}" enctype="multipart/form-data"
+      <form method="POST" action="{{ route('mass.store') }}" enctype="multipart/form-data"
         class=" space-y-4 text-gray-500">
         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
         <div>

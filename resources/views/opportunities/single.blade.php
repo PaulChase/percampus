@@ -14,7 +14,7 @@
                 <div class="swiper-wrapper">
                     @foreach ($post->images()->get() as $image)
                     <div class="swiper-slide ">
-                        <img src="{{$image->Image_path}}" class=" w-full h-96 md:h-96 object-fill " alt="{{$post->title}}">
+                        <img src="{{$image->Image_path}}" class=" w-full h-96 md:h-96 object-cover " alt="{{$post->title}}">
                     </div>
                     @endforeach
                 </div>

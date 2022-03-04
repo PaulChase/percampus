@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-@section('title') Recent Posts in {{$cName ?? ''}} @endsection
 
 @section('content')
    <div class=" bg-gray-50 px-3 py-3">
