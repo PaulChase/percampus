@@ -268,8 +268,8 @@ class PagesController extends Controller
         if (auth()->user()->role_id != 1) {
             return redirect()->route('home');
         }
-        $pendingPosts = Post::where('status', 'pending')->orderBy('created_at')->paginate(10);
-        $pendingEnquiries = Enquiry::where('status', 'pending')->orderBy('created_at')->paginate(10);
+        $pendingPosts = Post::where('status', 'pending')->orderBy('created_at')->get();
+        $pendingEnquiries = Enquiry::where('status', 'pending')->orderBy('created_at')->get();
         return view('pages.checkpoint', compact('pendingPosts', 'pendingEnquiries'));
     }
 
