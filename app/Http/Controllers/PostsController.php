@@ -289,8 +289,8 @@ class PostsController extends Controller
             // ->where('created_at', '>',  today()->subDays(7))
             ->where('subcategory_id', $post->subcategory->id)
             ->with('images')
-            // ->orderBy('view_count', 'desc')
-            ->take(6)
+            ->orderBy('created_at', 'desc')
+            ->take(8)
         ->get()
         ->shuffle();
 
