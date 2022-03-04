@@ -609,7 +609,7 @@ class PostsController extends Controller
 
                 $media = (new Media)->mediaIds([$image->media_id_string]);
 
-                $tweet = (new Tweet)->text("title: '{$post->title}'. If interested, visit our website for more info: https://www.percampus.com/{$post->user->campus->nick_name}/{$post->subcategory->slug}/{$post->slug}  #{$post->user->campus->nick_name} #percampus")->media($media);
+                $tweet = (new Tweet)->text("title: '{$post->title}'. \r\n If interested, visit our website for more info: https://www.percampus.com/{$post->user->campus->nick_name}/{$post->subcategory->slug}/{$post->slug} \r\n  #{$post->user->campus->nick_name} #percampus")->media($media);
 
                 $twitter->tweets()->tweet($tweet);
 
