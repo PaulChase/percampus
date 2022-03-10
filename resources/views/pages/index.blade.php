@@ -131,21 +131,21 @@
                 </a>
                 <a class="focus:bg-green-700 rounded-md"
                     href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'men']) }}">
-                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/running-shoes.png"
+                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/clothes-hanger.png"
                         alt="" class=" h-24  w-24 mx-auto my-2 lg:w-40 lg:h-40">
-                    <h4 class=" font-semibold"> Shoes & Footwears</h4>
+                    <h4 class=" font-semibold"> Men's Clothing</h4>
                 </a>
-                <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'women']) }}"
+                <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'laptops']) }}"
                     class="focus:bg-green-700 rounded-md">
-                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/dress.png"
+                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/laptop.png"
                         alt="" class=" h-24  w-24 mx-auto my-2 lg:w-40 lg:h-40">
-                    <h4 class=" font-semibold">Women Clothings</h4>
+                    <h4 class=" font-semibold">Laptops & PC</h4>
                 </a>
-                <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'household']) }}"
+                <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'beauty']) }}"
                     class="focus:bg-green-700 rounded-md">
-                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/book.png"
+                    <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/cosmetics.png"
                         alt="" class=" h-24  w-24 mx-auto my-2 lg:w-40 lg:h-40">
-                    <h4 class=" font-semibold">Books </h4>
+                    <h4 class=" font-semibold">Beauty & Jewelries </h4>
                 </a>
             </div>
             <div class="my-8">

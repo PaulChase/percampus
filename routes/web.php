@@ -45,6 +45,7 @@ Route::post('/updateprofilepic', [DashboardController::class, 'updateProfilePic'
 Route::view('/getuserinfo', 'auth.getuserinfo')->name('getuserinfo');
 Route::post('/pushuserinfo', [DashboardController::class, 'pushUserInfo'])->name('push.userinfo');
 
+
 // to run artisan commands in production
 Route::get('cache-config', function () {
 

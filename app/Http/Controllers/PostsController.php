@@ -19,13 +19,14 @@ use Intervention\Image\ImageManagerStatic as ImageOptimizer;
 
 use Jorenvh\Share\Share;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Carbon;
-use function JmesPath\search;
+
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\TwitterCard;
 use Coderjerk\BirdElephant\BirdElephant;
 use Coderjerk\BirdElephant\Compose\Tweet;
 use Coderjerk\BirdElephant\Compose\Media;
+use Abraham\TwitterOAuth\TwitterOAuth;
+
 
 class PostsController extends Controller
 {
@@ -96,6 +97,7 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+       
         $this->validate($request, [
             'title' => 'required|string',
             'description' => 'required|string',
@@ -172,6 +174,7 @@ class PostsController extends Controller
                     $const->aspectRatio();
                 })->encode('jpg', 60);
                 $imageResize->save($path);
+                
 
                 // saving it to the s3 bucket and also making it public so my website can access it
                 Storage::disk('s3')->put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
@@ -592,8 +595,40 @@ class PostsController extends Controller
             $post->status = $status;
             $post->save();
 
-            // only try to upload posts with images to twitter
+            // only try to upload posts with images to twitter and delete them if rejected
             if ($post->images->count() > 0) {
+
+                // make connection
+                $connection = new TwitterOAuth(env('TWITTER_CONSUMER_KEY'), env('TWITTER_CONSUMER_SECRET'), env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
+
+                // set the timeouts incase of network delay
+                $connection->setTimeouts(10, 20);
+
+                // get trending keywords in nigeria
+                $trendingNow = $connection->get("trends/place", ["id" => 1398823]);
+
+                $trendingTopics = [];
+
+                // this if because of how the the data is structured
+                foreach ($trendingNow as $hash) {
+
+                    $inner = $hash->trends;
+
+                    foreach ($inner as $in) {
+
+                        $value = $in->name;
+
+                        array_push($trendingTopics, $value);
+
+                        if (count($trendingTopics) === 15) {
+                            break;
+                        }
+                    }
+                }
+
+                shuffle($trendingTopics);
+
+                $trendingKeywords = "{$trendingTopics[0]} {$trendingTopics[1]}";
 
                 $credentials = array(
                     'bearer_token' => env('TWITTER_BEARER_TOKEN'), // OAuth 2.0 Bearer Token requests
@@ -607,9 +642,10 @@ class PostsController extends Controller
 
                 $image = $twitter->tweets()->upload("https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/public/images/{$post->images()->first()->Image_name}");
 
+                
                 $media = (new Media)->mediaIds([$image->media_id_string]);
 
-                $tweet = (new Tweet)->text("title: '{$post->title}'. \r\n If interested, visit our website for more info: https://www.percampus.com/{$post->user->campus->nick_name}/{$post->subcategory->slug}/{$post->slug} \r\n  #{$post->user->campus->nick_name} #percampus")->media($media);
+                $tweet = (new Tweet)->text("title: '{$post->title}'. \r\n \r\n If interested, visit our website for more info: https://www.percampus.com/{$post->user->campus->nick_name}/{$post->subcategory->slug}/{$post->slug} \r\n \r\n {$trendingKeywords} ")->media($media);
 
                 $twitter->tweets()->tweet($tweet);
 
@@ -619,15 +655,14 @@ class PostsController extends Controller
                     $images = Image::where('post_id', $postID)->get();
 
                     foreach ($images as $image) {
-                        // if ($image->Image_name != 'noimage.jpg') {
-                        //     Storage::disk('s3')->delete('public/images/' . $image->Image_name);
-                        // }
+                        
                         Storage::disk('s3')->delete('public/images/' . $image->Image_name);
                         $image->delete();
                     }
                 }
             }
 
+            //Do not send email if the user is an admin
             if ($post->user->role_id !== 1) {
                 $post->user->notify(new ApprovalEmailNotification($post));
             }

@@ -25,7 +25,7 @@
                     <div class=" col-span-2  ">
                             <a href="/{{$each_post->alias_campus ? $each_post->alias_user_campus->nick_name : $each_post->user->campus->nick_name }}/{{$each_post->subcategory->slug}}/{{$each_post->slug}}">
                                 @if (is_object($each_post->images()->first()))
-                                    <img src="{{$each_post->images()->first()->Image_path}}" class=" w-full  object-fill  rounded-md h-36 md:h-48   md:rounded-b-none md:rounded-t-md" lazy="loading" alt="{{$each_post->title}}">
+                                    <img src="{{$each_post->images()->first()->Image_path}}" class=" w-full  object-cover  rounded-md h-36 md:h-48   md:rounded-b-none md:rounded-t-md" lazy="loading" alt="{{$each_post->title}}">
                                 @endif
                             </a>
                             

@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as ImageOptimizer;
 use Coderjerk\BirdElephant\BirdElephant;
 use Coderjerk\BirdElephant\Compose\Tweet;
+use Abraham\TwitterOAuth\TwitterOAuth;
 
 class PagesController extends Controller
 {
@@ -64,7 +65,7 @@ class PagesController extends Controller
 
         $posts = $marketplace->posts()
             ->where('status', 'active')->with('user', 'images', 'subcategory')->orderBy('created_at', 'desc')
-            ->take(12)
+            ->take(20)
         ->get()->shuffle();
 
         $gigs = $gig->posts()
@@ -76,7 +77,7 @@ class PagesController extends Controller
             'images',
             'subcategory'
         )->orderBy('created_at', 'desc')
-        ->take(8)
+            ->take(12)
             ->get()->shuffle();
 
 
@@ -386,13 +387,15 @@ class PagesController extends Controller
 
     //     // $followers = $twitter->user('ajonyepaul')->followers();
 
-    //     $tweet = (new Tweet)->text("this is actually nice oo \r\n the second line ");
+    //     $tweet = (new Tweet)->text("this is actually 1st line oo \r\n  \r\n then second line after a space ");
 
     //     $twitter->tweets()->tweet($tweet);
 
     //     dd(true);
     // }
 
+
+    
 
 
 }
