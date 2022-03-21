@@ -34,7 +34,7 @@
         </div>
         <div>
             <ul class=" md:max-w-lg">
-                <li class="border-b-2 p-2 font-medium "><a href="/about"
+                <li class="border-b-2 p-2 font-medium "><a href="/about-us"
                         class="flex justify-between focus:bg-gray-800"><span>About</span> <i
                             class=" la la-angle-right "></i></a></li>
                 <li class="border-b-2 p-2 font-medium "><a href="/howto"

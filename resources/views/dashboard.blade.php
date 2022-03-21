@@ -146,7 +146,7 @@
           </div>
           <div class="border-2 border-gray-200 rounded-md text-center p-3 font-semibold"> <span
               class="text-green-600 font-semibold text-3xl mb-3  inline-block rounded-full ">
-              {{ Auth::user()->posts()->sum('view_count') +auth()->user()->postViews->count() }}</span><br>
+              {{ Auth::user()->posts()->sum('view_count') + auth()->user()->postViews->count() }}</span><br>
             Post views
           </div>
 
@@ -159,7 +159,7 @@
 
         <div class=" my-2 lg:my-0 font-semibold bg-gray-50 p-3 flex justify-between items-center">
           <a href="{{ route('user.posts') }}" class=" font-semibold text-green-600 text-lg">View all your posts</a>
-          @if (Auth::user()->role_id == 1)
+          @if (Auth::user()->role_id === 1)
             <button class="addPost bg-green-500 py-2 px-3 rounded-sm text-white">Add a Post</button>
           @endif
 

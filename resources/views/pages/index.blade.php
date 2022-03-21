@@ -25,8 +25,7 @@
 
 
             </nav>
-            <div
-                class="flex flex-col lg:flex-row justify-center lg:justify-between items-center md:max-w-6xl md:mx-auto py-6 lg:py-10">
+            <div class="flex flex-col lg:flex-row justify-center lg:justify-between items-center md:max-w-6xl md:mx-auto py-6 lg:py-10">
                 <div class="px-2  w-full my-10 lg:my-14 lg:max-w-2xl">
 
                     <p class=" text-3xl lg:text-4xl lg:max-w-3xl  font-extrabold my-3">
