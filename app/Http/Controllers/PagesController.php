@@ -373,26 +373,33 @@ class PagesController extends Controller
     // }
 
     // just for testing the twitter API package
-    // public function testTwt()
-    // {
-    //     $credentials = array(
-    //         'bearer_token' => env('TWITTER_BEARER_TOKEN'), // OAuth 2.0 Bearer Token requests
-    //         'consumer_key' =>  env('TWITTER_CONSUMER_KEY'), // identifies your app, always needed
-    //         'consumer_secret' => env('TWITTER_CONSUMER_SECRET'), // app secret, always needed
-    //         'token_identifier' => env('TWITTER_ACCESS_TOKEN'), // OAuth 1.0a User Context requests
-    //         'token_secret' => env('TWITTER_ACCESS_TOKEN_SECRET'), // OAuth 1.0a User Context requests
-    //     );
+    public function testTwt()
+    {
+        // $credentials = array(
+        //     'bearer_token' => env('TWITTER_BEARER_TOKEN'), // OAuth 2.0 Bearer Token requests
+        //     'consumer_key' =>  env('TWITTER_CONSUMER_KEY'), // identifies your app, always needed
+        //     'consumer_secret' => env('TWITTER_CONSUMER_SECRET'), // app secret, always needed
+        //     'token_identifier' => env('TWITTER_ACCESS_TOKEN'), // OAuth 1.0a User Context requests
+        //     'token_secret' => env('TWITTER_ACCESS_TOKEN_SECRET'), // OAuth 1.0a User Context requests
+        // );
 
-    //     $twitter = new BirdElephant($credentials);
+        // $twitter = new BirdElephant($credentials);
 
-    //     // $followers = $twitter->user('ajonyepaul')->followers();
+        // // $followers = $twitter->user('ajonyepaul')->followers();
 
-    //     $tweet = (new Tweet)->text("this is actually 1st line oo \r\n  \r\n then second line after a space ");
+        // $tweets = $twitter->tweets();
 
-    //     $twitter->tweets()->tweet($tweet);
+        // make connection
+        $connection = new TwitterOAuth(env('TWITTER_CONSUMER_KEY'), env('TWITTER_CONSUMER_SECRET'), env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
 
-    //     dd(true);
-    // }
+        // set the timeouts incase of network delay
+        $connection->setTimeouts(10, 20);
+
+        // get trending keywords in nigeria
+        $tweets = $connection->get("/statuses/lookup");
+
+        dd($tweets);
+    }
 
 
     

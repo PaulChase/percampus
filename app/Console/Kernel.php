@@ -25,12 +25,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
-        $schedule->call(function() {
-            Post::query()
-                        ->where('created_at', '<', today()->subDays(30) )
-                        ->update(['status' => 'deleted']);
-        })->daily();
+        // $schedule->command('app:retweet')->everyMinute();
+        // $schedule->call(function() {
+        //     Post::query()
+        //                 ->where('created_at', '<', today()->subDays(30) )
+        //                 ->update(['status' => 'deleted']);
+        // })->daily();
     }
 
     /**

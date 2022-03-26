@@ -30,7 +30,7 @@ use TCG\Voyager\Facades\Voyager;
 
 Route::get('/', 'PagesController@index')->name('welcome');
 Route::view('/about-us', 'pages.about');
-// Route::get('/tweet', [PagesController::class, 'testTwt']);
+Route::get('/tweet', [PagesController::class, 'testTwt']);
 Route::view('/howto', 'pages.howto');
 Route::view('/safety', 'pages.safety');
 Route::view('/terms', 'pages.terms');
