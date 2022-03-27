@@ -39,11 +39,18 @@ class RetweetJob implements ShouldQueue
 
         $marketplace = Category::find(2);
 
+        $twitterConsumerKey = 'mvxMuxYiGqTPb8tFxOn5Oihne';
+        $twitterConsumerSecret = 'zMtUdgidhhTET7PzTb7VPAlghI4mTmdwLJIVEUniWICbIpC2Jt';
+        $twitterAccessToken = '1488982920496914433-niGYmStAYrO7ZQgOGOgqTxFddA6wPu';
+        $twitterAccessTokenSecret = 'FSMiza1TYd2VKGRHVkwHaizp565UEIloBIJ5n4wplnU2S';
+        $twitterBearerToken = 'AAAAAAAAAAAAAAAAAAAAAFoOZAEAAAAAy1JB%2Fw%2FCsDFKjT7S4vZ3T1agytc%3DZGZUTMod5lf5dVsQNoLyN7nWXjdaSjrKf17cocmtlcGrWIjBFS';
+
+
         $post = $marketplace->posts()->inRandomOrder()->first();
 
 
         // make connection
-        $connection = new TwitterOAuth(env('TWITTER_CONSUMER_KEY'), env('TWITTER_CONSUMER_SECRET'), env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
+        $connection = new TwitterOAuth($twitterConsumerKey, $twitterConsumerSecret, $twitterAccessToken, $twitterAccessTokenSecret);
 
         // set the timeouts incase of network delay
         $connection->setTimeouts(10, 20);
@@ -75,11 +82,11 @@ class RetweetJob implements ShouldQueue
         $trendingKeywords = "{$trendingTopics[0]} {$trendingTopics[1]}";
 
         $credentials = array(
-            'bearer_token' => env('TWITTER_BEARER_TOKEN'), // OAuth 2.0 Bearer Token requests
-            'consumer_key' =>  env('TWITTER_CONSUMER_KEY'), // identifies your app, always needed
-            'consumer_secret' => env('TWITTER_CONSUMER_SECRET'), // app secret, always needed
-            'token_identifier' => env('TWITTER_ACCESS_TOKEN'), // OAuth 1.0a User Context requests
-            'token_secret' => env('TWITTER_ACCESS_TOKEN_SECRET'), // OAuth 1.0a User Context requests
+            'bearer_token' => $twitterBearerToken, // OAuth 2.0 Bearer Token requests
+            'consumer_key' =>  $twitterConsumerKey, // identifies your app, always needed
+            'consumer_secret' => $twitterConsumerSecret, // app secret, always needed
+            'token_identifier' => $twitterAccessToken, // OAuth 1.0a User Context requests
+            'token_secret' => $twitterAccessTokenSecret, // OAuth 1.0a User Context requests
         );
 
         $twitter = new BirdElephant($credentials);
@@ -91,7 +98,7 @@ class RetweetJob implements ShouldQueue
 
         // $tweet = (new Tweet)->text("title: '{$post->title}'. \r\n \r\n If interested, visit our website for more info: https://www.percampus.com/{$post->user->campus->nick_name}/{$post->subcategory->slug}/{$post->slug} \r\n \r\n {$trendingKeywords} ")->media($media);
 
-        $tweet = (new Tweet)->text("god is great {$trendingKeywords}");
+        $tweet = (new Tweet)->text("God is so so great {$trendingKeywords}");
 
         $twitter->tweets()->tweet($tweet);
 
