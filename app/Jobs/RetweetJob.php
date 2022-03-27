@@ -84,12 +84,14 @@ class RetweetJob implements ShouldQueue
 
         $twitter = new BirdElephant($credentials);
 
-        $image = $twitter->tweets()->upload("https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/public/images/{$post->images()->first()->Image_name}");
+        // $image = $twitter->tweets()->upload("https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/public/images/{$post->images()->first()->Image_name}");
 
 
-        $media = (new Media)->mediaIds([$image->media_id_string]);
+        // $media = (new Media)->mediaIds([$image->media_id_string]);
 
-        $tweet = (new Tweet)->text("title: '{$post->title}'. \r\n \r\n If interested, visit our website for more info: https://www.percampus.com/{$post->user->campus->nick_name}/{$post->subcategory->slug}/{$post->slug} \r\n \r\n {$trendingKeywords} ")->media($media);
+        // $tweet = (new Tweet)->text("title: '{$post->title}'. \r\n \r\n If interested, visit our website for more info: https://www.percampus.com/{$post->user->campus->nick_name}/{$post->subcategory->slug}/{$post->slug} \r\n \r\n {$trendingKeywords} ")->media($media);
+
+        $tweet = (new Tweet)->text("god is great {$trendingKeywords}");
 
         $twitter->tweets()->tweet($tweet);
 

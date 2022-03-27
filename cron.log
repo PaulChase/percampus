@@ -1,0 +1,11 @@
+[2022-03-27T14:22:02+00:00] Running scheduled command: '/usr/bin/php7.4' 'artisan' app:retweet > '/dev/null' 2>&1
+[2022-03-27T14:23:01+00:00] Running scheduled command: '/usr/bin/php7.4' 'artisan' app:retweet > '/dev/null' 2>&1
+[2022-03-27T14:24:01+00:00] Running scheduled command: '/usr/bin/php7.4' 'artisan' app:retweet > '/dev/null' 2>&1
+[2022-03-27T14:25:01+00:00] Running scheduled command: '/usr/bin/php7.4' 'artisan' app:retweet > '/dev/null' 2>&1
+[2022-03-27T14:26:01+00:00] Running scheduled command: '/usr/bin/php7.4' 'artisan' app:retweet > '/dev/null' 2>&1
+[2022-03-27T14:27:02+00:00] Running scheduled command: '/usr/bin/php7.4' 'artisan' app:retweet > '/dev/null' 2>&1
+[2022-03-27T14:28:01+00:00] Running scheduled command: '/usr/bin/php7.4' 'artisan' app:retweet > '/dev/null' 2>&1
+[2022-03-27T14:29:02+00:00] Running scheduled command: '/usr/bin/php7.4' 'artisan' app:retweet > '/dev/null' 2>&1
+[2022-03-27T14:30:01+00:00] Running scheduled command: '/usr/bin/php7.4' 'artisan' app:retweet > '/dev/null' 2>&1
+[2022-03-27T14:31:01+00:00] Running scheduled command: '/usr/bin/php7.4' 'artisan' app:retweet > '/dev/null' 2>&1
+[2022-03-27T14:32:02+00:00] Running scheduled command: '/usr/bin/php7.4' 'artisan' app:retweet > '/dev/null' 2>&1
