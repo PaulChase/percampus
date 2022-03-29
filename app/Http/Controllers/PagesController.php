@@ -25,6 +25,7 @@ use Intervention\Image\ImageManagerStatic as ImageOptimizer;
 use Coderjerk\BirdElephant\BirdElephant;
 use Coderjerk\BirdElephant\Compose\Tweet;
 use Abraham\TwitterOAuth\TwitterOAuth;
+use App\Models\RemotePost;
 
 class PagesController extends Controller
 {
@@ -390,15 +391,18 @@ class PagesController extends Controller
         // $tweets = $twitter->tweets();
 
         // make connection
-        $connection = new TwitterOAuth(env('TWITTER_CONSUMER_KEY'), env('TWITTER_CONSUMER_SECRET'), env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
+        // $connection = new TwitterOAuth(env('TWITTER_CONSUMER_KEY'), env('TWITTER_CONSUMER_SECRET'), env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
 
-        // set the timeouts incase of network delay
-        $connection->setTimeouts(10, 20);
+        // // set the timeouts incase of network delay
+        // $connection->setTimeouts(10, 20);
 
-        // get trending keywords in nigeria
-        $tweets = $connection->get("/statuses/lookup");
+        // // get trending keywords in nigeria
+        // $tweets = $connection->get("/statuses/lookup");
 
-        dd($tweets);
+        $posts =
+            RemotePost::query()->whereNotIn('subcategory_id', [10, 11, 12])->has('images')->inRandomOrder()->first();
+
+        dd($posts->subcategory->name);
     }
 
 

@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('app:retweet')->everyMinute();
-        $schedule->job(new RetweetJob)->everyMinute();
+        $schedule->job(new RetweetJob)->everyFiveMinutes();
         // $schedule->call(function() {
         //     Post::query()
         //                 ->where('created_at', '<', today()->subDays(30) )

@@ -14,6 +14,7 @@ use Coderjerk\BirdElephant\Compose\Tweet;
 use Coderjerk\BirdElephant\Compose\Media;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Models\Category;
+use App\Models\RemotePost;
 
 class RetweetJob implements ShouldQueue
 {
@@ -37,7 +38,7 @@ class RetweetJob implements ShouldQueue
     public function handle()
     {
 
-        $marketplace = Category::find(2);
+        
 
         $twitterConsumerKey = 'mvxMuxYiGqTPb8tFxOn5Oihne';
         $twitterConsumerSecret = 'zMtUdgidhhTET7PzTb7VPAlghI4mTmdwLJIVEUniWICbIpC2Jt';
@@ -46,7 +47,7 @@ class RetweetJob implements ShouldQueue
         $twitterBearerToken = 'AAAAAAAAAAAAAAAAAAAAAFoOZAEAAAAAy1JB%2Fw%2FCsDFKjT7S4vZ3T1agytc%3DZGZUTMod5lf5dVsQNoLyN7nWXjdaSjrKf17cocmtlcGrWIjBFS';
 
 
-        $post = $marketplace->posts()->inRandomOrder()->first();
+        $post = RemotePost::query()->whereNotIn('subcategory_id', [10, 11, 12])->has('images')->inRandomOrder()->first();
 
 
         // make connection
@@ -91,14 +92,14 @@ class RetweetJob implements ShouldQueue
 
         $twitter = new BirdElephant($credentials);
 
-        // $image = $twitter->tweets()->upload("https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/public/images/{$post->images()->first()->Image_name}");
+        $image = $twitter->tweets()->upload($post->images()->first()->Image_path);
 
 
-        // $media = (new Media)->mediaIds([$image->media_id_string]);
+        $media = (new Media)->mediaIds([$image->media_id_string]);
 
-        // $tweet = (new Tweet)->text("title: '{$post->title}'. \r\n \r\n If interested, visit our website for more info: https://www.percampus.com/{$post->user->campus->nick_name}/{$post->subcategory->slug}/{$post->slug} \r\n \r\n {$trendingKeywords} ")->media($media);
+        $tweet = (new Tweet)->text("title: '{$post->title}'. \r\n \r\n If interested, visit our website for more info: https://www.percampus.com/{$post->user->campus->nick_name}/{$post->subcategory->slug}/{$post->slug} \r\n \r\n {$trendingKeywords} ")->media($media);
 
-        $tweet = (new Tweet)->text("God is so so great {$trendingKeywords}");
+        // $tweet = (new Tweet)->text($post->title)->media($media);
 
         $twitter->tweets()->tweet($tweet);
 
