@@ -35,7 +35,7 @@
                     @endphp
                     <p class=" text-lg text-green-500"> <strong>DeadLine:</strong> {{ $deadline->format("jS F, Y")}} </p>
                     @endif
-                    <p> {{$post->created_at->diffForHumans()}}</p>
+                    {{-- <p> {{$post->created_at->diffForHumans()}}</p> --}}
                 </div>
             </div>
 

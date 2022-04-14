@@ -18,7 +18,7 @@
   <div class=" bg-gray-200 lg:text-xl">
 
     <div class=" max-w-7xl mx-auto py-3 lg:grid lg:grid-cols-6 lg:gap-5">
-      {{-- {{ dd($post->images()->get())}} --}}
+      
       <div class="lg:col-span-4">
         <div class="  w-full  lg:rounded-sm" id='contact'>
           <div class=" overflow-auto whitespace-nowrap">
@@ -232,7 +232,7 @@
 
         {{-- Social share --}}
         <div class=" bg-gray-50 px-4 py-6 rounded-sm  my-3 border  text-center lg:rounded-sm">
-          <p class=" md:text-lg mb-5">Know someone who is interested in this Gig? Do well to share this page to
+          <p class=" md:text-lg mb-5">Know someone who is interested in this Service? Do well to share this page to
             him/her</p>
           {!! $social !!}
         </div>

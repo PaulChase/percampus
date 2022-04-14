@@ -49,7 +49,7 @@
                 {{ 'Contact Me' }}
               @endif
             </p>
-            <p> {{ $post->created_at->diffForHumans() }}</p>
+            {{-- <p> {{ $post->created_at->diffForHumans() }}</p> --}}
           </div>
         </div>
 
@@ -209,10 +209,6 @@
         @endif
 
        
-
-         
-
-
         {{-- Bottom Ads section --}}
         @if ($ads->count() > 0)
           <div class=" mt-3 bg-gray-50 p-3 lg:rounded-sm">
