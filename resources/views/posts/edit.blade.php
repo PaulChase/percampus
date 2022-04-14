@@ -11,7 +11,7 @@
             <h1 class="text-center text-xl font-semibold my-4">Edit post</h1>
 
             <form method="POST" action="{{ route('posts.toupdate', ['id' => $post->id])}}" enctype="multipart/form-data" class=" space-y-4">
-                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+               @csrf
                 <div>
                     <label for="">title</label><br>
                     <input name="title" class="p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" type="text" value="{{$post->title}}" required><br>
