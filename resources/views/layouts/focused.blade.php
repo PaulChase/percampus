@@ -11,9 +11,13 @@
     <!-- End Google Tag Manager -->
 
     {{-- google ads code --}}
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2073252647616982"
+    {{-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2073252647616982"
      crossorigin="anonymous">
-    </script>
+    </script> --}}
+
+    {{-- propeller ads code --}}
+
+    <meta name="propeller" content="635054a5ad2dc2fc887ac53247fd6639">
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
