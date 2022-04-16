@@ -38,8 +38,6 @@ class RetweetJob implements ShouldQueue
     public function handle()
     {
 
-        
-
         $twitterConsumerKey = 'mvxMuxYiGqTPb8tFxOn5Oihne';
         $twitterConsumerSecret = 'zMtUdgidhhTET7PzTb7VPAlghI4mTmdwLJIVEUniWICbIpC2Jt';
         $twitterAccessToken = '1488982920496914433-niGYmStAYrO7ZQgOGOgqTxFddA6wPu';
@@ -47,7 +45,7 @@ class RetweetJob implements ShouldQueue
         $twitterBearerToken = 'AAAAAAAAAAAAAAAAAAAAAFoOZAEAAAAAy1JB%2Fw%2FCsDFKjT7S4vZ3T1agytc%3DZGZUTMod5lf5dVsQNoLyN7nWXjdaSjrKf17cocmtlcGrWIjBFS';
 
 
-        $post = RemotePost::query()->whereNotIn('subcategory_id', [10, 11, 12])->where('status', 'active')->has('images')->inRandomOrder()->first();
+        $post = Post::query()->whereNotIn('subcategory_id', [10, 11, 12])->where('status', 'active')->has('images')->inRandomOrder()->first();
 
 
         // make connection
@@ -97,28 +95,9 @@ class RetweetJob implements ShouldQueue
 
         $media = (new Media)->mediaIds([$image->media_id_string]);
 
-        $tweet = (new Tweet)->text("title: '{$post->title}'. \r\n \r\n If interested, visit our website for more info: https://www.percampus.com/{$post->user->campus->nick_name}/{$post->subcategory->slug}/{$post->slug} \r\n \r\n RT pls \r\n \r\n {$trendingKeywords} ")->media($media);
-
-        // $tweet = (new Tweet)->text($post->title)->media($media);
+        $tweet = (new Tweet)->text("title: '{$post->title}'. \r\n \r\n If interested, visit our website to patronize: https://www.percampus.com/{$post->user->campus->nick_name}/{$post->subcategory->slug}/{$post->slug} \r\n \r\n RT pls \r\n \r\n {$trendingKeywords}")->media($media);
 
         $twitter->tweets()->tweet($tweet);
 
-
-
-        // $post = new Post;
-        // // add post to Database
-        // $post->title = 'title one';
-        // $post->description = 'lorem ipsum ondjdjd';
-        // $post->price = 12345;
-        // $post->venue = 'eskay estate';
-        // $post->contact_info = 9087875656;
-        // $post->item_condition = 'new';
-        // $post->in_stock = 'no';
-        // $post->subcategory_id = 2;
-        // $post->user_id = 23;
-        // $post->status = 'pending';
-
-
-        // $post->save();
     }
 }
