@@ -45,7 +45,7 @@ class RetweetJob implements ShouldQueue
         $twitterBearerToken = 'AAAAAAAAAAAAAAAAAAAAAFoOZAEAAAAAy1JB%2Fw%2FCsDFKjT7S4vZ3T1agytc%3DZGZUTMod5lf5dVsQNoLyN7nWXjdaSjrKf17cocmtlcGrWIjBFS';
 
 
-        $post = Post::query()->whereNotIn('subcategory_id', [10, 11, 12])->where('status', 'active')->has('images')->inRandomOrder()->first();
+        $post = RemotePost::query()->whereNotIn('subcategory_id', [10, 11, 12])->where('status', 'active')->has('images')->inRandomOrder()->first();
 
 
         // make connection
