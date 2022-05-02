@@ -136,8 +136,10 @@ class PostsController extends Controller
         $post->alias_campus = $request->input('campus') ? $request->input('campus') : null;
         $post->save();
 
+
+
         // get the ID of the image that was just added to the Db so I can save it to the images table 
-        $thePostId = Post::latest()->value('id');
+        $thePostId = $post->id;
 
         //  checking if image is set and valid
         if (
@@ -177,10 +179,10 @@ class PostsController extends Controller
 
 
                 // saving it to the s3 bucket and also making it public so my website can access it
-                Storage::disk('s3')->put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
+                Storage::disk('local')->put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
 
                 // get the public url from s3
-                $url  = Storage::disk('s3')->url('public/images/' . $fileNameToStore);
+                $url  = Storage::disk('local')->url('public/images/' . $fileNameToStore);
 
                 // then save the image record to the Db
                 $this->saveImage($thePostId, $fileNameToStore, $url);
@@ -231,12 +233,15 @@ class PostsController extends Controller
         OpenGraph::addProperty('type', 'ecommerce');
 
         // if the post has at least one image
-        if ($post->images->count()) {
+        if ($post->images->count() > 0) {
             OpenGraph::addImage('https://www.percampus.com' . $post->images()->first()->Image_path);
+            TwitterCard::addValue('image', 'https://www.percampus.com' . $post->images()->first()->Image_path);
         }
 
-        TwitterCard::setTitle("Buy " . $post->title);
+        TwitterCard::setTitle($post->title);
         TwitterCard::setSite('@percampus_com');
+        TwitterCard::setUrl(url()->full());
+        TwitterCard::setDescription($post->description);
 
         // the time interval before recording a new post as seen
         $expiresAt = now()->addHours(3);

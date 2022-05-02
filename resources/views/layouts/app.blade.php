@@ -27,7 +27,10 @@
     <meta name="propeller" content="635054a5ad2dc2fc887ac53247fd6639">
 
     {{-- propeller ads  code --}}
-     <script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://inklinkor.com/tag.min.js',5023501,document.body||document.documentElement)</script>
+    @if (config('app.env') !== "local")
+           <script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://inklinkor.com/tag.min.js',5023501,document.body||document.documentElement)</script>
+    @endif
+  
 
     {{-- google ads code --}}
     {{-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2073252647616982"
@@ -50,7 +53,7 @@
 
     {{-- just stoped working all of sudden --}}
     {!! Twitter::generate() !!}
-    <meta property="twitter:title" content="@yield('title')">
+    {{-- <meta property="twitter:title" content="@yield('title')"> --}}
 
     {{-- for social media sharing --}}
     {{-- <meta property="og:site_name" content="Percampus">

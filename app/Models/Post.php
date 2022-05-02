@@ -49,7 +49,7 @@ class Post extends Model implements Viewable
     
 
     // for generating dynamic slug
-    public function Sluggable()
+    public function Sluggable(): array
     {
         return [
             'slug' => [

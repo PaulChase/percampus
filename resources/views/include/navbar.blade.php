@@ -24,8 +24,7 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
 
 
     <nav id="header" class="w-full">
-        <div
-            class="w-full   mx-auto flex flex-wrap items-center justify-between px-3 py-3 md:py-2 lg:p-4 lg:grid lg:grid-cols-8">
+        <div class="w-full   mx-auto flex flex-wrap items-center justify-between px-3 py-3 md:py-2 lg:p-4 lg:grid lg:grid-cols-8">
 
             <button class="cursor-pointer lg:col-span-1 lg:float-left " id="openmenu">
                 <i class="fa fa-bars fa-2x text-gray-600"></i> <span
@@ -214,7 +213,7 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
             <div class="order-3 lg:order-2 w-full  lg:col-span-5  mt-3 md:mt-2 lg:mt-0 @if (Request::is('allcampuses')) {{ 'hidden' }} @endif">
                 <form class="  rounded-md lg:grid lg:grid-cols-5 lg:gap-x-2 " action="{{ url('search') }}"
                     method="GET ">
-                    {{ csrf_field() }}
+                    @csrf
                     <label class="hidden" for="search-form">Search</label>
                     <input class="px-3 py-2 rounded-md w-full focus:outline-none bg-gray-50 shadow lg:col-span-3"
                         placeholder="search the name of the item e.g mattress" type="text" name="query" >

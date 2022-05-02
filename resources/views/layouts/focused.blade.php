@@ -19,8 +19,10 @@
 
     <meta name="propeller" content="635054a5ad2dc2fc887ac53247fd6639">
 
-    {{-- propeller ads  code --}}
-     <script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://inklinkor.com/tag.min.js',5023501,document.body||document.documentElement)</script>
+     {{-- propeller ads  code --}}
+    @if (config('app.env') !== "local")
+           <script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://inklinkor.com/tag.min.js',5023501,document.body||document.documentElement)</script>
+    @endif
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
