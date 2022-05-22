@@ -26,6 +26,7 @@ use Coderjerk\BirdElephant\BirdElephant;
 use Coderjerk\BirdElephant\Compose\Tweet;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Models\RemotePost;
+use Illuminate\Support\Facades\Http;
 
 class PagesController extends Controller
 {
@@ -374,7 +375,7 @@ class PagesController extends Controller
     // }
 
     // just for testing the twitter API package
-    public function testTwt()
+    public function test()
     {
         // $credentials = array(
         //     'bearer_token' => env('TWITTER_BEARER_TOKEN'), // OAuth 2.0 Bearer Token requests
@@ -399,10 +400,20 @@ class PagesController extends Controller
         // // get trending keywords in nigeria
         // $tweets = $connection->get("/statuses/lookup");
 
-        $posts =
-            RemotePost::query()->whereNotIn('subcategory_id', [10, 11, 12])->has('images')->inRandomOrder()->first();
+        // $posts =
+        //     RemotePost::query()->whereNotIn('subcategory_id', [10, 11, 12])->has('images')->inRandomOrder()->first();
 
-        dd($posts->subcategory->name);
+        // dd($posts->subcategory->name);
+
+
+        $res = Http::get('https://newsapi.org/v2/everything', [
+            'q' => 'ASUU',
+            'from' => today()->subWeeks(2),
+            'apiKey' => env('NEWS_API_KEY'),
+
+        ]);
+
+        dd($res->json());
     }
 
 

@@ -27,9 +27,9 @@
     <meta name="propeller" content="635054a5ad2dc2fc887ac53247fd6639">
 
     {{-- propeller ads  code --}}
-    @if (config('app.env') !== "local")
+    {{-- @if (config('app.env') !== "local")
            <script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://inklinkor.com/tag.min.js',5023501,document.body||document.documentElement)</script>
-    @endif
+    @endif --}}
   
 
     {{-- google ads code --}}

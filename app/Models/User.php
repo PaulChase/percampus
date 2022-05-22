@@ -16,15 +16,10 @@ class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'phone',
-        'campus_id',
-        'googleID',
-        'post_limit'
-    ];
+    protected $guarded = [];
+
+    const STUDENT = 1;
+    const BUSINESS_OWNER = 2;
 
     /**
      * The attributes that should be hidden for arrays.

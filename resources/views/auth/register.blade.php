@@ -23,7 +23,7 @@
     <div class="px-4 py-4 md:max-w-lg mx-auto md:shadow-lg rounded-md bg-white ">
 
       <div class=" text-center text-xl font-semibold my-4">Hello, you are about to experince the Joy of online selling. You
-        can login with:
+        can Signup with:
         @if (Cookie::has('referer'))
           {{ $referer->name }} referred you
         @endif
@@ -84,6 +84,20 @@
             </div>
           </div>
 
+           <div class="">
+            <label for="user_type" class=" text-gray-800"><i class=" fa fa-graduation-cap text-gray-500 mr-2"></i> You are a?</label>
+
+            <div class="">
+              <select name="user_type" id="user_type"
+                class=" p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200"
+                required>
+                <option value="1" selected>Student</option>
+                <option value="2" >Business Owner</option>
+              </select>
+            
+            </div>
+          </div>
+
           <div class="">
             <label for="email" class=" text-gray-800"><i class=" fa fa-envelope text-gray-500 mr-2"></i> Your active Email
               Address</label>
@@ -102,16 +116,16 @@
             </div>
           </div>
 
-          <div class="">
+          <div class="" id="campus_id">
             <label for="campus" class=" text-gray-800"><i class=" fa fa-graduation-cap text-gray-500 mr-2"></i> what
               campus are you based in?</label>
 
             <div class="">
 
               <select name="campus" id="campus"
-                class=" p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200"
-                required>
-                <option value="" disabled selected>Pick your campus from this list</option>
+                class=" p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" required
+                >
+                <option value="{{ null}}" disabled selected>Pick your campus from this list</option>
                 @foreach ($campuses as $campus)
                   <option value="{{ $campus->id }}" class="">{{ $campus->name }}</option>
                 @endforeach
@@ -178,9 +192,13 @@
 @section('js')
   <script>
     $(document).ready(function() {
+        
+
       $("#openform").click(function() {
         $("#signup").show(1000)
       })
+
+     
     })
   </script>
 @endsection
