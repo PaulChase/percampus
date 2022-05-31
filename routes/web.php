@@ -34,7 +34,7 @@ Route::get('/test', [PagesController::class, 'test']);
 Route::view('/howto', 'pages.howto');
 Route::view('/safety', 'pages.safety');
 Route::view('/terms', 'pages.terms');
-Route::get('/allcampuses', 'PagesController@getAllCampuses');
+Route::get('/allcampuses', [PagesController::class, 'getAllCampuses']);
 Route::get('/metrics', [PagesController::class, 'showMetricsPage'])->name('metrics')->middleware('auth');
 Route::post('/contactSeller', [PostsController::class, 'contactSeller'])->name('contact.seller');
 Route::post('/screenpost', [PostsController::class, 'screenPost'])->name('screenpost');

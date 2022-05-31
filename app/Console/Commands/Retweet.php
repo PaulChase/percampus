@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\RetweetJob;
+use App\Jobs\TweetAboutWebsite;
 use Illuminate\Console\Command;
 
 class Retweet extends Command
@@ -39,7 +40,7 @@ class Retweet extends Command
     public function handle()
     {
 
-        RetweetJob::dispatch();
+        TweetAboutWebsite::dispatch();
 
         // dispatch(new RetweetJob());
         return 0;

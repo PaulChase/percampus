@@ -179,10 +179,10 @@ class PostsController extends Controller
 
 
                 // saving it to the s3 bucket and also making it public so my website can access it
-                Storage::disk('local')->put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
+                Storage::put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
 
                 // get the public url from s3
-                $url  = Storage::disk('local')->url('public/images/' . $fileNameToStore);
+                $url  = Storage::url('public/images/' . $fileNameToStore);
 
                 // then save the image record to the Db
                 $this->saveImage($thePostId, $fileNameToStore, $url);
@@ -401,8 +401,8 @@ class PostsController extends Controller
                 })->encode('jpg', 60);
                 $imageResize->save($path);
 
-                Storage::disk('s3')->put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
-                $url  = Storage::disk('s3')->url('public/images/' . $fileNameToStore);
+                Storage::put('public/images/' . $fileNameToStore, $imageResize->__toString(), 'public');
+                $url  = Storage::url('public/images/' . $fileNameToStore);
 
                 // get the record
                 $imagedb = Image::where('post_id', $id)->orderBy('updated_at', 'asc')->first();
@@ -413,7 +413,7 @@ class PostsController extends Controller
                 // checking if the record is in the database
                 if ($imagedb != null &&  $imagedb->count() > 0) {
 
-                    Storage::disk('s3')->delete('public/images/' . $imagedb->Image_name);
+                    Storage::delete('public/images/' . $imagedb->Image_name);
                     $imagedb->Image_name = $fileNameToStore;
                     $imagedb->Image_path = $url;
                     $imagedb->save();
@@ -469,10 +469,8 @@ class PostsController extends Controller
         $images = Image::where('post_id', $id)->get();
         // to delete the post with image from storage
         foreach ($images as $image) {
-            // if ($image->Image_name != 'noimage.jpg') {
-            //     Storage::disk('s3')->delete('public/images/' . $image->Image_name);
-            // }
-            Storage::disk('s3')->delete('public/images/' . $image->Image_name);
+
+            Storage::delete('public/images/' . $image->Image_name);
             $image->delete();
         }
 

@@ -9,6 +9,14 @@ class Campus extends Model
 {
     use HasFactory;
 
+    const UNIVERSITY = 1;
+    const STATE = 2;
+    const POLYTHECHNIC = 3;
+    const COLLEGE_OF_EDU = 2;
+
+    protected $guarded = [];
+  
+
 
     public function users()
     {

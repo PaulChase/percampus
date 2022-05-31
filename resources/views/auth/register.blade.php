@@ -12,10 +12,19 @@
       use App\Models\User;
       use App\Models\Campus;
       
-      $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
-          return Campus::orderBy('name')->get();
-      });
-      // $campuses = Campus::orderBy('name')->get();
+      // $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
+      //     return Campus::orderBy('name')->get();
+      // });
+      $univerisities = Campus::orderBy('name')
+          ->where('type', Campus::UNIVERSITY)
+          ->get();
+      $states = Campus::orderBy('name')
+          ->where('type', Campus::STATE)
+          ->get();
+      
+      $student = User::STUDENT;
+      $businessOwner = User::BUSINESS_OWNER;
+      
     @endphp
 
 
@@ -84,17 +93,18 @@
             </div>
           </div>
 
-           <div class="">
-            <label for="user_type" class=" text-gray-800"><i class=" fa fa-graduation-cap text-gray-500 mr-2"></i> You are a?</label>
+          <div class="">
+            <label for="user_type" class=" text-gray-800"><i class=" fa fa-graduation-cap text-gray-500 mr-2"></i> You are
+              a?</label>
 
             <div class="">
               <select name="user_type" id="user_type"
                 class=" p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200"
                 required>
-                <option value="1" selected>Student</option>
-                <option value="2" >Business Owner</option>
+                <option value="{{ $student }}" selected>Student</option>
+                <option value="{{ $businessOwner }}">Business Owner</option>
               </select>
-            
+
             </div>
           </div>
 
@@ -123,11 +133,31 @@
             <div class="">
 
               <select name="campus" id="campus"
-                class=" p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200" required
-                >
-                <option value="{{ null}}" disabled selected>Pick your campus from this list</option>
-                @foreach ($campuses as $campus)
+                class=" p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200"
+                required>
+                <option value="{{ null }}" disabled selected>Pick your campus from this list</option>
+                @foreach ($univerisities as $campus)
                   <option value="{{ $campus->id }}" class="">{{ $campus->name }}</option>
+                @endforeach
+              </select>
+              <small class=" my-2 block">If can't find your campus on the list, <a
+                  href="https://wa.me/2347040214836?text={{ rawurlencode("Hello Paul, I can't find my campus on the list ") }}"
+                  class=" font-semibold text-green-600">click here</a></small>
+            </div>
+          </div>
+
+          <div class=" hidden" id="state_id">
+            <label for="campus" class=" text-gray-800"><i class=" fa fa-graduation-cap text-gray-500 mr-2"></i>Where are
+              you based in?</label>
+
+            <div class="">
+
+              <select name="campus" id="state"
+                class=" p-2 bg-gray-100 rounded-lg w-full mt-1  focus:outline-none focus:ring-2 focus:ring-green-200"
+                required>
+                <option value="{{ null }}" disabled selected>Pick your state from this list</option>
+                @foreach ($states as $state)
+                  <option value="{{ $state->id }}" class="">{{ $state->name }}</option>
                 @endforeach
               </select>
               <small class=" my-2 block">If can't find your campus on the list, <a
@@ -179,10 +209,10 @@
 
         </form>
       </div>
-          <p class=" my-2">
-            <i>Already have an Account? </i> <a href="/login" class=" text-green-500 ml-2"><b>
+      <p class=" my-2">
+        <i>Already have an Account? </i> <a href="/login" class=" text-green-500 ml-2"><b>
             Login</b></a>
-          </p>
+      </p>
     </div>
 
 
@@ -192,13 +222,25 @@
 @section('js')
   <script>
     $(document).ready(function() {
-        
+
+      $("#user_type").change(function() {
+        let value = $(this).val()
+
+        if (value == {{$businessOwner}}) {
+          $("#state_id").show(200)
+          $("#campus_id").hide(200)
+        } else {
+          $("#state_id").hide(200)
+          $("#campus_id").show(200)
+        }
+
+      })
 
       $("#openform").click(function() {
         $("#signup").show(1000)
       })
 
-     
+
     })
   </script>
 @endsection

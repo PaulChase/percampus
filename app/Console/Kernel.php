@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Jobs\RetweetJob;
+use App\Jobs\TweetAboutWebsite;
 use App\Models\Post;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -28,6 +29,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('app:retweet')->everyMinute();
         $schedule->job(new RetweetJob)->everyThirtyMinutes();
+        $schedule->job(new TweetAboutWebsite)->hourly();
         // $schedule->call(function() {
         //     Post::query()
         //                 ->where('created_at', '<', today()->subDays(30) )

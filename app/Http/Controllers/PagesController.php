@@ -165,7 +165,7 @@ class PagesController extends Controller
     public function getAllCampuses()
     {
         $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
-            return Campus::orderBy('name', 'asc')->get();
+            return Campus::orderBy('name')->where('type', Campus::UNIVERSITY)->get();
         });
         
 
@@ -406,18 +406,176 @@ class PagesController extends Controller
         // dd($posts->subcategory->name);
 
 
-        $res = Http::get('https://newsapi.org/v2/everything', [
-            'q' => 'ASUU',
-            'from' => today()->subWeeks(2),
-            'apiKey' => env('NEWS_API_KEY'),
+        // $res = Http::get('https://newsapi.org/v2/everything', [
+        //     'q' => 'ASUU',
+        //     'from' => today()->subWeeks(2),
+        //     'apiKey' => env('NEWS_API_KEY'),
 
-        ]);
+        // ]);
 
-        dd($res->json());
+        // dd($res->json());
+
+        $nigerianStates = [
+            [
+                "code" => "FC",
+                "name" => "Abuja"
+            ],
+            [
+                "code" => "AB",
+                "name" => "Abia"
+            ],
+            [
+                "code" => "AD",
+                "name" => "Adamawa"
+            ],
+            [
+                "code" => "AK",
+                "name" => "AkwaIbom"
+            ],
+            [
+                "code" => "AN",
+                "name" => "Anambra"
+            ],
+            [
+                "code" => "BA",
+                "name" => "Bauchi"
+            ],
+            [
+                "code" => "BY",
+                "name" => "Bayelsa"
+            ],
+            [
+                "code" => "BE",
+                "name" => "Benue"
+            ],
+            [
+                "code" => "BO",
+                "name" => "Borno"
+            ],
+            [
+                "code" => "CR",
+                "name" => "CrossRiver"
+            ],
+            [
+                "code" => "DE",
+                "name" => "Delta"
+            ],
+            [
+                "code" => "EB",
+                "name" => "Ebonyi"
+            ],
+            [
+                "code" => "ED",
+                "name" => "Edo"
+            ],
+            [
+                "code" => "EK",
+                "name" => "Ekiti"
+            ],
+            [
+                "code" => "EN",
+                "name" => "Enugu"
+            ],
+            [
+                "code" => "GO",
+                "name" => "Gombe"
+            ],
+            [
+                "code" => "IM",
+                "name" => "Imo"
+            ],
+            [
+                "code" => "JI",
+                "name" => "Jigawa"
+            ],
+            [
+                "code" => "KD",
+                "name" => "Kaduna"
+            ],
+            [
+                "code" => "KN",
+                "name" => "Kano"
+            ],
+            [
+                "code" => "KT",
+                "name" => "Katsina"
+            ],
+            [
+                "code" => "KE",
+                "name" => "Kebbi"
+            ],
+            [
+                "code" => "KO",
+                "name" => "Kogi"
+            ],
+            [
+                "code" => "KW",
+                "name" => "Kwara"
+            ],
+            [
+                "code" => "LA",
+                "name" => "Lagos"
+            ],
+            [
+                "code" => "NA",
+                "name" => "Nassarawa"
+            ],
+            [
+                "code" => "NI",
+                "name" => "Niger"
+            ],
+            [
+                "code" => "OG",
+                "name" => "Ogun"
+            ],
+            [
+                "code" => "ON",
+                "name" => "Ondo"
+            ],
+            [
+                "code" => "OS",
+                "name" => "Osun"
+            ],
+            [
+                "code" => "OY",
+                "name" => "Oyo"
+            ],
+            [
+                "code" => "PL",
+                "name" => "Plateau"
+            ],
+            [
+                "code" => "RI",
+                "name" => "Rivers"
+            ],
+            [
+                "code" => "SO",
+                "name" => "Sokoto"
+            ],
+            [
+                "code" => "TA",
+                "name" => "Taraba"
+            ],
+            [
+                "code" => "YO",
+                "name" => "Yobe"
+            ],
+            [
+                "code" => "ZA",
+                "name" => "Zamfara"
+            ]
+        ];
+
+        foreach ($nigerianStates as $state) {
+            Campus::create([
+                'name' => $state['name'],
+                'nick_name' => $state['code'],
+                'type' => Campus::STATE,
+                'bg_image' => 'http://campost/storage/images/400168100319_109026_1643387586.jpg'
+            ]);
+        }
+
+        dd("done");
     }
-
-
-    
-
 
 }
