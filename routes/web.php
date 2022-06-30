@@ -9,6 +9,7 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\OpportunitiesController;
 use App\Http\Controllers\SubcategoriesController;
+use App\Models\Post;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -35,15 +36,10 @@ Route::view('/howto', 'pages.howto');
 Route::view('/safety', 'pages.safety');
 Route::view('/terms', 'pages.terms');
 Route::get('/allcampuses', [PagesController::class, 'getAllCampuses']);
-Route::get('/metrics', [PagesController::class, 'showMetricsPage'])->name('metrics')->middleware('auth');
-Route::post('/contactSeller', [PostsController::class, 'contactSeller'])->name('contact.seller');
+
 Route::post('/screenpost', [PostsController::class, 'screenPost'])->name('screenpost');
 Route::get('/join', [PagesController::class, 'join'])->name('join');
-Route::get('/checkpoint', [PagesController::class, 'checkpoint'])->name('checkpoint');
-Route::post('/updateprofilepic', [DashboardController::class, 'updateProfilePic'])->name('update.profilepic');
 
-Route::view('/getuserinfo', 'auth.getuserinfo')->name('getuserinfo');
-Route::post('/pushuserinfo', [DashboardController::class, 'pushUserInfo'])->name('push.userinfo');
 
 
 // to run artisan commands in production
@@ -77,91 +73,113 @@ Route::get('cache-route', function () {
     }
 });
 
- // get the subcategories without going through the campus page so therefore the campus is not known
-Route::get('s/', [SubcategoriesController::class, 'getSubcategories'])->name('getSubCategories');
-
-// get the posts without going through the campus page so therefore the campus is not known
-Route::get('/s/posts', [SubcategoriesController::class, 'getPostsCategory'])->name('getposts.bycategory');
-
-
-// for marketplace posts
-Route::resource('posts', 'PostsController');
-Route::post('/submitPost', 'PostsController@store')->name('posts.save');
-Route::post('/posts/{id}', 'PostsController@update')->name('posts.toupdate');
-Route::delete('/posts/{id}', 'PostsController@destroy')->name('posts.delete');
-
-
-Route::resource('enquiries', 'EnquiriesController');
-Route::post('/enquries/contact', [EnquiriesController::class, 'contactBuyer'])->name('contact.buyer');
-
-
-// for Adverts
-Route::group(['prefix' => 'ads'], function () {
-    Route::get('/create', [AdvertsController::class, 'create']);
-    Route::post('/click', [AdvertsController::class, 'adClick'])->name('ad.click');
-    Route::get('/edit/{id}', [AdvertsController::class, 'edit']);
-    Route::put('/update/{id}', [AdvertsController::class, 'update'])->name('ads.update');
-    Route::delete('/{ad}', [AdvertsController::class, 'destroy'])->name('ads.delete');
-    Route::post('/save', [AdvertsController::class, 'store'])->name('ads.save');
-});
-
-
-// for opportunities
-Route::resource('opportunities', 'OpportunitiesController');
-Route::get('opportunities/latest/{categoryName}', [OpportunitiesController::class, 'latest']);
-
-// for gigs
-Route::resource('gigs', 'GigsController');
-Route::get('gigs/latest/{categoryName}', [GigsController::class, 'latest']);
-
-
-
 Auth::routes(['verify' => true]);
-Route::get('dashboard/posts', [DashboardController::class, 'userPosts'])->name('user.posts');
-Route::get('dashboard/mass-create', [PagesController::class, 'massCreate'])->name('mass.create')->middleware('auth');
-Route::post('dashboard/mass-create', [PagesController::class, 'massStore'])->name('mass.store')->middleware('auth');
 
-// email verification links
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
 
-// the link the user clicks to verify email
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
+Route::middleware(['auth'])->group(function () {
 
-    return redirect('/dashboard');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+    Route::get('/metrics', [PagesController::class, 'showMetricsPage'])->name('metrics');
+    Route::get('/checkpoint', [PagesController::class, 'checkpoint'])->name('checkpoint');
+    Route::get('dashboard/mass-create', [PagesController::class, 'massCreate'])->name('mass.create');
+    Route::post('dashboard/mass-create', [PagesController::class, 'massStore'])->name('mass.store');
 
-// for resend the email verification link
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
+    Route::post('/updateprofilepic', [DashboardController::class, 'updateProfilePic'])->name('update.profilepic');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
+    Route::get('dashboard/posts', [DashboardController::class, 'userPosts'])->name('user.posts');
+    // for users that signed up using google login
+    Route::view('/getuserinfo', 'auth.getuserinfo')->name('getuserinfo');
+    Route::post('/pushuserinfo', [DashboardController::class, 'pushUserInfo'])->name('push.userinfo');
 
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+    // for marketplace posts
 
-Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
-Route::get('/auth/google/user', [LoginController::class, 'getGoogleUser']);
+    Route::post('/contactSeller', [PostsController::class, 'contactSeller'])->name('contact.seller');
+    Route::resource('posts', 'PostsController');
+    Route::post(
+        '/submitPost',
+        'PostsController@store'
+    )->name('posts.save');
+    Route::post('/posts/{id}', [PostsController::class, 'update'])->name('posts.toupdate');
+    Route::delete('/posts/{id}', [PostsController::class, 'destroy'])->name('posts.delete');
+    Route::get('search',  [PostsController::class, 'search']);
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
 
-Route::get('search', [PostsController::class, 'search']);
 
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
+
+    // get the subcategories without going through the campus page so therefore the campus is not known
+    Route::get('s/', [SubcategoriesController::class, 'getSubcategories'])->name('getSubCategories');
+
+    // get the posts without going through the campus page so therefore the campus is not known
+    Route::get('/s/posts', [SubcategoriesController::class, 'getPostsCategory'])->name('getposts.bycategory');
+
+    Route::resource('enquiries', 'EnquiriesController');
+    Route::post('/enquries/contact', [EnquiriesController::class, 'contactBuyer'])->name('contact.buyer');
+
+
+    // for Adverts
+    Route::group(['prefix' => 'ads'], function () {
+        Route::get('/create', [
+            AdvertsController::class, 'create'
+        ]);
+        Route::post('/click', [AdvertsController::class, 'adClick'])->name('ad.click');
+        Route::get('/edit/{id}', [AdvertsController::class, 'edit']);
+        Route::put('/update/{id}', [AdvertsController::class, 'update'])->name('ads.update');
+        Route::delete('/{ad}', [AdvertsController::class, 'destroy'])->name('ads.delete');
+        Route::post('/save', [AdvertsController::class, 'store'])->name('ads.save');
+    });
+
+
+    // for opportunities
+    Route::resource('opportunities', 'OpportunitiesController');
+    Route::get('opportunities/latest/{categoryName}', [OpportunitiesController::class, 'latest']);
+
+    // for gigs
+    Route::resource('gigs', 'GigsController');
+    Route::get(
+        'gigs/latest/{categoryName}',
+        [GigsController::class, 'latest']
+    );
+
+    // email verification links
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->name('verification.notice');
+
+    // the link the user clicks to verify email
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+        return redirect()->route('home');
+    })->middleware(['auth', 'signed'])->name('verification.verify');
+
+    // for resend the email verification link
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+
+        return redirect()->route('home')->with('message', 'Verification link sent!');
+    })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+    Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
+    Route::get('/auth/google/user', [LoginController::class, 'getGoogleUser']);
+
+
+
+    Route::group(['prefix' => 'admin'], function () {
+        Voyager::routes();
+    });
+
+    // these routes should stay here, for some reason if its above, some routes won't work
+    Route::get('/{campus}', [PagesController::class, 'showCampusPage'])->name('campus.home');
+    Route::get('/{campusNickName}/{categoryName}/{slug}', [PostsController::class, 'show']);
+    // Route::get('/{campus}/{subCategoryName}', [PostsController::class, 'byCategory']);
+
+
+    // not offering library services for now
+    // Route::get('/{campus}/library', [PagesController::class, 'library'])->name('library');
+
+    // to all the subcategories in that parent category
+    Route::get('/{campus}/subcategories', [PagesController::class, 'subCategory'])->name('subcategory');
+
+    // to all the posts in that category
+    Route::get('/{campus}/posts', [PostsController::class, 'byCategory'])->name('campus.posts.bycategory');
 });
 
-// these routes should stay here, for some reason if its above, some routes won't work
-Route::get('/{campus}', [PagesController::class, 'showCampusPage'])->name('campus.home');
-Route::get('/{campusNickName}/{categoryName}/{slug}', [PostsController::class, 'show']);
-// Route::get('/{campus}/{subCategoryName}', [PostsController::class, 'byCategory']);
-
-
-// not offering library services for now
-// Route::get('/{campus}/library', [PagesController::class, 'library'])->name('library');
-
-// to all the subcategories in that parent category
-Route::get('/{campus}/subcategories', [PagesController::class, 'subCategory'])->name('subcategory');
-
-// to all the posts in that category
-Route::get('/{campus}/posts', [PostsController::class, 'byCategory'])->name('campus.posts.bycategory');
+ 

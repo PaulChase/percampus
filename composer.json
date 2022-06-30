@@ -25,6 +25,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "league/flysystem-aws-s3-v3": "^1.0",
+        "livewire/livewire": "^2.10",
         "tcg/voyager": "^1.4"
     },
     "require-dev": {

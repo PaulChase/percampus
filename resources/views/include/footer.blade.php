@@ -141,17 +141,7 @@
             localStorage.setItem('subscribed', true)
         })
 
-        // close form for users to make enquiries
-        $("#closeEnquiry").click(function() {
-            $("#Enquiry").hide(500)
-        })
-
-        // show form for users to make enquiries
-        $(".showEnquiry").click(function() {
-            $("#menu").hide()
-            $("#Enquiry").show(500)
-        })
-
+      
         // open pop up for user to add post
         $(".addPost").click(function() {
 
@@ -172,48 +162,7 @@
             $("#menu").hide(500)
         })
 
-        $("#contact_mode").change(function() {
-            let contactMode = $(this).val()
-            $("#contact_label").text(`Enter ${contactMode} number`)
-        })
-
-
-
-        //  submit details from the form to the database
-        $("#enquiryform").submit(function(e) {
-            e.preventDefault()
-            let submitBtn = $("input[name='submitEnquiry']")
-            submitBtn.val('Submitting...')
-            let _token = $('meta[name="csrf-token"]').attr('content');
-            let name = $("input[name='name']").val();
-            let campus = $("select[name='campusID']").val();
-            let contact_mode = $("select[name='contact_mode']").val();
-            let contact_info = $("input[name='contact_info']").val();
-            let message = $("textarea[name='message']").val();
-
-
-            $.ajax({
-                type: "POST",
-                url: "{{ route('enquiries.store') }}",
-                data: {
-                    name,
-                    campus,
-                    contact_mode,
-                    contact_info,
-                    message
-                },
-                success: function(data) {
-                    console.log(data.feedback);
-                    if (data.feedback == 'success') {
-                        $("#enquiryBg").hide(200)
-                        $(".enquiryContainer").css("height", "40%")
-                        $("#successMessage").show(400).css("display", "flex")
-                    }
-                },
-            });
-
-        });
-
+      
         // tracking the number of contacts that buyer that made the enquiry received
         $(".contactBuyer").click(function() {
             console.log($(this).attr('id'));

@@ -54,14 +54,6 @@ class PagesController extends Controller
         //          return Campus::orderBy('name', 'asc')->get();
         //     });
 
-        $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
-            return Campus::orderBy('name', 'asc')->get();
-        });
-
-        $enquiries = Enquiry::where('status', 'active')->orderBy('created_at', 'desc')
-            ->take(10)->with('campus')
-            ->get()->shuffle();
-
         $marketplace = Category::find(2);
         $gig = Category::find(4);
 
@@ -91,9 +83,7 @@ class PagesController extends Controller
         return view('pages.index')
             ->with('social', $socialLinks)
             ->with('posts', $posts)
-            ->with('gigs', $gigs)
-            ->with('enquiries', $enquiries)
-            ->with('campuses', $campuses); // for enquiry form
+        ->with('gigs', $gigs);
     }
 
    

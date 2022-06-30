@@ -108,7 +108,6 @@ class EnquiriesController extends Controller
 
 
         if (!Cookie::has($enquiry->id)) {
-
             Cookie::queue($enquiry->id, 'contactedBuyer', 1440);
             $enquiry->incrementEnquiryCount();
         }

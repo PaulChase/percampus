@@ -90,6 +90,7 @@
 
   </style>
 
+    @livewireStyles
 
 </head>
 
@@ -106,6 +107,9 @@
 
 
   @yield('js')
+
+    @livewireScripts
+
 </body>
 
 </html>

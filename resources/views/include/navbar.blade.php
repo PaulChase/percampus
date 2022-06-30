@@ -73,9 +73,7 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
 
 
                     <ul class="grid grid-cols-1 gap-3  items-center  text-gray-700 pt-4">
-                        <li class="md:ml-2 hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
-                            <button  class=" showEnquiry font-semibold  no-underline hover:no-underline py-2  hover:text-black md:font-medium md:border-none md:p-0" ><i class=" fa fa-question text-gray-500 mr-2" > </i>Ask for an item/service</button>
-                        </li>
+                       
                         <li class="md:ml-2 hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                             <a class="block font-semibold  no-underline hover:no-underline py-2  hover:text-black md:font-medium md:border-none md:p-0 "
                                 href="/dashboard"> <span class=""><i
@@ -277,7 +275,5 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
     </div>
 </div>
 
-@include('include.enquiryform')
 
 
-<button class="showEnquiry fixed bg-green-600 focus:bg-green-800 text-white font-semibold bottom-4 right-4 py-2 px-4 shadow-xl rounded-full " >Ask for?</button>

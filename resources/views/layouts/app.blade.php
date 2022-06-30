@@ -110,6 +110,8 @@
         }
 
     </style>
+
+    @livewireStyles
 </head>
 
 <body class="bg-grey-50 h-full w-full text-gray-600 font-sourcesans">
@@ -131,9 +133,9 @@
 
     @yield('js')
 
-   
 
 
+    @livewireScripts
 </body>
 
 </html>
