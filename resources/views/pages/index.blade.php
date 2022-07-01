@@ -78,9 +78,9 @@
         @foreach ($posts as $each_item)
           <div class=" md:border-none md:shadow-md  bg-white     rounded-md md:grid-cols-1  md:gap-y-2 ">
 
-            <div class="   ">
+            <div class="">
               <a
-                href="/{{ $each_item->alias_campus ? $each_item->alias_user_campus->nick_name : $each_item->user->campus->nick_name }}/{{ $each_item->subcategory->slug }}/{{ $each_item->slug }}">
+                href="{{ route('posts.show', $each_item->slug)}}">
                 @if (is_object($each_item->images()->first()))
                   <img src="{{ $each_item->images()->first()->Image_path }}"
                     class=" w-full  object-cover  rounded-md h-36 md:h-48   md:rounded-b-none md:rounded-t-md"
@@ -92,7 +92,7 @@
             <div class="col-span-4  flex flex-col justify-center md:justify-start px-3 py-2">
               <h3
                 class=" text-sm md:text-lg text-gray-600 mb-2 font-semibold overflow-hidden whitespace-nowrap overflow-ellipsis">
-                <a href="/{{ $each_item->alias_campus ? $each_item->alias_user_campus->nick_name : $each_item->user->campus->nick_name }}/{{ $each_item->subcategory->slug }}/{{ $each_item->slug }}"
+                <a href="{{ route('posts.show', $each_item->slug)}}"
                   class="focus:text-green-600">{{ $each_item->title }}</a>
               </h3>
 
@@ -124,25 +124,25 @@
     <div class="p-3 bg-green-700 text-white py-6">
       <h3 class=" uppercase font-bold text-2xl lg:text-4xl text-center my-5 p-2">Top categories</h3>
       <div class="grid gap-x-4 gap-y-8  grid-cols-2 text-center">
-        <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'phones']) }}"
+        <a href="{{ route('posts.index', ['sub_category'=> 2])}}"
           class="focus:bg-green-700 rounded-md">
           <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/smartphone.png"
             alt="" class=" h-24  w-24 mx-auto my-2 lg:w-40 lg:h-40">
           <h4 class=" font-semibold">Mobile Phones</h4>
         </a>
         <a class="focus:bg-green-700 rounded-md"
-          href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'men']) }}">
+          href="{{ route('posts.index', ['sub_category'=> 4])}}">
           <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/clothes-hanger.png"
             alt="" class=" h-24  w-24 mx-auto my-2 lg:w-40 lg:h-40">
           <h4 class=" font-semibold"> Men's Clothing</h4>
         </a>
-        <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'laptops']) }}"
+        <a href="{{ route('posts.index', ['sub_category'=> 8])}}"
           class="focus:bg-green-700 rounded-md">
           <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/laptop.png"
             alt="" class=" h-24  w-24 mx-auto my-2 lg:w-40 lg:h-40">
           <h4 class=" font-semibold">Laptops & PC</h4>
         </a>
-        <a href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => 'beauty']) }}"
+        <a href="{{ route('posts.index', ['sub_category'=> 5])}}"
           class="focus:bg-green-700 rounded-md">
           <img src="https://elasticbeanstalk-us-east-2-481189719363.s3.us-east-2.amazonaws.com/icons/cosmetics.png"
             alt="" class=" h-24  w-24 mx-auto my-2 lg:w-40 lg:h-40">
@@ -150,7 +150,7 @@
         </a>
       </div>
       <div class="my-8">
-        <a href="{{ route('getSubCategories', ['mainCategoryID' => 2]) }}"
+        <a href="{{ route('getSubCategories') }}"
           class="block mx-auto w-3/4 p-3 bg-white rounded-full text-green-500 text-center font-semibold focus:bg-green-500 focus:text-white lg:w-1/3 lg:p-5 lg:text-xl ">
           Explore All Categories <i class="fa fa-chevron-right ml-2"></i></a>
       </div>
@@ -167,7 +167,7 @@
 
             <div class=" col-span-2   ">
               <a
-                href="/{{ $each_gig->alias_campus ? $each_gig->alias_user_campus->nick_name : $each_gig->user->campus->nick_name }}/{{ $each_gig->subcategory->slug }}/{{ $each_gig->slug }}">
+                href="{{ route('posts.show', $each_gig->slug)}}">
                 @if (is_object($each_gig->images()->first()))
                   <img src="{{ $each_gig->images()->first()->Image_path }}"
                     class=" w-full  object-cover  rounded-l-md h-32 md:h-48   md:rounded-b-none md:rounded-t-md"
@@ -178,7 +178,7 @@
             </div>
             <div class="col-span-3  flex flex-col justify-between md:justify-start p-3">
               <h3 class=" text-sm md:text-lg text-gray-600 mb-2 font-semibold gigtext">
-                <a href="/{{ $each_gig->alias_campus ? $each_gig->alias_user_campus->nick_name : $each_gig->user->campus->nick_name }}/{{ $each_gig->subcategory->slug }}/{{ $each_gig->slug }}"
+                <a href="{{ route('posts.show', $each_gig->slug)}}"
                   class="focus:text-green-600 ">{{ $each_gig->title }}</a>
               </h3>
 
@@ -197,7 +197,7 @@
         @endforeach
       </div>
       <div class="mt-12 flex justify-between items-center text-sm">
-        <a href="/s?mainCategoryID=4"
+        <a href="{{ route('getSubCategories') }}"
           class="block col-span-2 lg:w-1/3 lg:p-5 lg:text-xl p-3  rounded-full text-green-500 text-center font-semibold focus:bg-green-700 focus:text-white">
           View by Category <i class="fa fa-chevron-right ml-2"></i></a>
         <a href="/gigs"

@@ -136,21 +136,7 @@ class PagesController extends Controller
         return view('pages.library')->with('campus', $campus);
     }
 
-    public function subcategory($campusNickName, Request $request)
-    {
-        $categoryName = $request->get('c');
-
-        $campus = Campus::where('nick_name', $campusNickName)->firstOrFail();
-
-        $category = Category::where('name', $categoryName)->firstOrFail();
-
-        $subCategories = $category->subcategories()->orderBy('name')->get();
-
-        return view('pages.subcategory')
-            ->with('subCategories', $subCategories)
-            ->with('campus', $campus)
-            ->with('mainCategory', $category);
-    }
+  
 
     public function getAllCampuses()
     {

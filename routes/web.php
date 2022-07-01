@@ -40,8 +40,6 @@ Route::get('/allcampuses', [PagesController::class, 'getAllCampuses']);
 Route::post('/screenpost', [PostsController::class, 'screenPost'])->name('screenpost');
 Route::get('/join', [PagesController::class, 'join'])->name('join');
 
-
-
 // to run artisan commands in production
 Route::get('cache-config', function () {
 
@@ -75,6 +73,18 @@ Route::get('cache-route', function () {
 
 Auth::routes(['verify' => true]);
 
+Route::get('/posts', [PostsController::class, 'index'])->name('posts.index');
+Route::get('search',  [PostsController::class, 'search']);
+Route::post('/contactSeller', [PostsController::class, 'contactSeller'])->name('contact.seller');
+Route::get('/post/{slug}', [PostsController::class, 'show'])->name('posts.show');
+
+
+// get the subcategories without going through the campus page so therefore the campus is not known
+Route::get('/sub-categories', [SubcategoriesController::class, 'getSubcategories'])->name('getSubCategories');
+
+
+Route::get('/campus/{campus}', [PagesController::class, 'showCampusPage'])->name('campus.home');
+
 
 Route::middleware(['auth'])->group(function () {
 
@@ -83,7 +93,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard/mass-create', [PagesController::class, 'massCreate'])->name('mass.create');
     Route::post('dashboard/mass-create', [PagesController::class, 'massStore'])->name('mass.store');
 
-    Route::post('/updateprofilepic', [DashboardController::class, 'updateProfilePic'])->name('update.profilepic');
+    Route::post('/update-profile-pic', [DashboardController::class, 'updateProfilePic'])->name('update.profilepic');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
     Route::get('dashboard/posts', [DashboardController::class, 'userPosts'])->name('user.posts');
     // for users that signed up using google login
@@ -91,29 +101,19 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pushuserinfo', [DashboardController::class, 'pushUserInfo'])->name('push.userinfo');
 
     // for marketplace posts
-
-    Route::post('/contactSeller', [PostsController::class, 'contactSeller'])->name('contact.seller');
-    Route::resource('posts', 'PostsController');
-    Route::post(
-        '/submitPost',
-        'PostsController@store'
-    )->name('posts.save');
-    Route::post('/posts/{id}', [PostsController::class, 'update'])->name('posts.toupdate');
+    Route::get('/posts/create', [PostsController::class, 'create'])->name('posts.create');
+    Route::get('/posts/{id}/edit', [PostsController::class, 'edit'])->name('posts.edit');
+    Route::post('/posts/store', [PostsController::class, 'store'])->name('posts.store');
+    Route::put('/posts/{id}', [PostsController::class, 'update'])->name('posts.update');
     Route::delete('/posts/{id}', [PostsController::class, 'destroy'])->name('posts.delete');
-    Route::get('search',  [PostsController::class, 'search']);
 
-
-
-
-    // get the subcategories without going through the campus page so therefore the campus is not known
-    Route::get('s/', [SubcategoriesController::class, 'getSubcategories'])->name('getSubCategories');
+    
 
     // get the posts without going through the campus page so therefore the campus is not known
-    Route::get('/s/posts', [SubcategoriesController::class, 'getPostsCategory'])->name('getposts.bycategory');
+    // Route::get('/s/posts', [SubcategoriesController::class, 'getPostsCategory'])->name('getposts.bycategory');
 
     Route::resource('enquiries', 'EnquiriesController');
     Route::post('/enquries/contact', [EnquiriesController::class, 'contactBuyer'])->name('contact.buyer');
-
 
     // for Adverts
     Route::group(['prefix' => 'ads'], function () {
@@ -166,20 +166,7 @@ Route::middleware(['auth'])->group(function () {
         Voyager::routes();
     });
 
-    // these routes should stay here, for some reason if its above, some routes won't work
-    Route::get('/{campus}', [PagesController::class, 'showCampusPage'])->name('campus.home');
-    Route::get('/{campusNickName}/{categoryName}/{slug}', [PostsController::class, 'show']);
-    // Route::get('/{campus}/{subCategoryName}', [PostsController::class, 'byCategory']);
 
-
-    // not offering library services for now
-    // Route::get('/{campus}/library', [PagesController::class, 'library'])->name('library');
-
-    // to all the subcategories in that parent category
-    Route::get('/{campus}/subcategories', [PagesController::class, 'subCategory'])->name('subcategory');
-
-    // to all the posts in that category
-    Route::get('/{campus}/posts', [PostsController::class, 'byCategory'])->name('campus.posts.bycategory');
 });
 
  

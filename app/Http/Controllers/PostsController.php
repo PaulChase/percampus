@@ -37,7 +37,7 @@ class PostsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'verified'], ['except' => ['index', 'show', 'byCategory', 'search', 'contactSeller']]);
+        $this->middleware(['verified'], ['except' => ['index', 'show', 'byCategory', 'search', 'contactSeller']]);
     }
 
 
@@ -54,8 +54,20 @@ class PostsController extends Controller
         // $post = DB::table('posts')->join('users', 'users.id' ,'=', 'posts.user_id'  )->join('roles', 'roles.id', '=','users.role_id')->select('posts.*', 'users.*')->orderBy('roles.id', 'desc')->get();
 
         // $post2 = Post::join('users', 'users.id', '=', 'posts.user_id')->join('roles', 'roles.id', '=', 'users.role_id')->select('posts.*', 'users.*')->orderBy('roles.id', 'desc')->get();
-        // dd($post2);
-        $posts = $marketplace->posts()->where('status', 'active')->orderBy('created_at', 'desc')->with(
+
+        $campusId = request('campus');
+        $campus = [];
+        if ($campusId) {
+            $campus = Campus::findOrFail($campusId);
+        }
+
+        $subCategory = request('sub_category');
+
+        $posts = $marketplace->posts()->where('status', 'active')->when($campusId, function ($query) use ($campus) {
+            $query->whereIn('user_id', $campus->users()->pluck('id'));
+        })->when($subCategory, function ($query, $subCategory) {
+            $query->where('subcategory_id', $subCategory);
+        })->orderBy('created_at', 'desc')->with(
             'user',
             'images',
             'subcategory'
@@ -212,7 +224,7 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($campusNickName, $categoryName, $slug)
+    public function show($slug)
     {
 
         // to generate social share links
@@ -524,35 +536,7 @@ class PostsController extends Controller
         return view('posts.index')->with('query', $query)->with('posts', $results);
     }
 
-    public function byCategory($campusNickName,  Request $request)
-    {
-
-        $categoryName = $request->get('c');
-        $mainCategory = $request->get('m');
-        if ($mainCategory == 'opportunities') {
-            
-            return redirect()->action([OpportunitiesController::class, 'latest'], ['categoryName' => $categoryName]);
-        }
-
-        if ($mainCategory == 'gigs') {
-            return redirect()->action([GigsController::class, 'latest'], ['categoryName' => $categoryName]);
-        }
-        // get the logged user campus
-        // if (Auth::user()) {
-        //     $campus = auth()->user()->campus;
-        // } else {
-        //     // or get it from the arguments from the URL
-        //     $campus = Campus::where('nick_name', $campusNickName)->firstOrFail();
-        // }
-        $campus = Campus::where('nick_name', $campusNickName)->firstOrFail();
-        $categoryID = SubCategory::where('slug', $categoryName)->value('id');
-
-        // get posts from the campus above the match the category
-        $posts = $campus->posts()->where('subcategory_id', $categoryID)->where('status', 'active')->orderBy('created_at', 'desc')->paginate(16);
-
-
-        return view('posts.index')->with('posts', $posts)->with('cName', $categoryName);
-    }
+ 
 
 
     public function contactSeller(Request $request)

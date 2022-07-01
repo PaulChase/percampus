@@ -105,7 +105,7 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
                         </li>
                         <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                             <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
-                                href="/about"><i class=" fa fa-bookmark text-gray-500 mr-2"></i>About
+                                href="/about-us"><i class=" fa fa-bookmark text-gray-500 mr-2"></i>About
                                 
                             </a>
                         </li>
@@ -124,6 +124,7 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
                                 
                             </a>
                         </li>
+
 
 
 
@@ -171,21 +172,21 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
                         @else
                             <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                                 <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
-                                    href="{{ route('subcategory', ['campus' => Auth::user()->campus->nick_name, 'c' => 'marketplace']) }}">
+                                    href="{{ route('getSubCategories') }}">
                                     <i class=" fa fa-shopping-cart text-gray-500 mr-2"></i>Marketplace
                                     
                                 </a>
                             </li>
                             <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                                 <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
-                                    href="{{ route('subcategory', ['campus' => Auth::user()->campus->nick_name, 'c' => 'gigs']) }}">
+                                    href="{{ route('getSubCategories') }}">
                                     <i class=" fa fa-toggle-on text-gray-500 mr-2"></i>Services
                                     
                                 </a>
                             </li>
                             <li class=" hover:bg-green-100  p-2 focus:bg-green-100 bg-gray-100 md:bg-transparent">
                                 <a class="block font-semibold md:font-medium no-underline hover:no-underline py-2  hover:text-black md:border-none md:p-0 "
-                                    href="{{ route('subcategory', ['campus' => Auth::user()->campus->nick_name, 'c' => 'opportunities']) }}">
+                                    href="{{ route('getSubCategories') }}">
                                     <i class=" fa fa-graduation-cap text-gray-500 mr-2"></i>Opportunities
                                     
                                 </a>

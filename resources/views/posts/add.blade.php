@@ -26,7 +26,7 @@ $campuses = Cache::remember('campuses', Carbon::now()->addDay(), function () {
         <h1 class="text-center text-xl font-semibold my-4">Add an Item</h1>
       </div>
 
-      <form method="POST" action="{{ route('posts.save') }}" enctype="multipart/form-data"
+      <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data"
         class=" space-y-4 text-gray-500">
         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
         <div>

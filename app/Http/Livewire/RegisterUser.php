@@ -6,8 +6,10 @@ use App\Models\Campus;
 use App\Models\Referral;
 use App\Models\User;
 use App\Notifications\WelcomeEmailNotification;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class RegisterUser extends Component
@@ -43,9 +45,12 @@ class RegisterUser extends Component
             return  $this->addError('password_mismatch', 'the password is not the same with the confirm password');
         }
 
+        $data['password'] = Hash::make($this->password);
+
         $user =   User::create($data);
 
-        Auth::login($user);
+        event(new Registered($user));
+
 
         $user->notify(new WelcomeEmailNotification());
 
@@ -57,7 +62,7 @@ class RegisterUser extends Component
         }
 
 
-        return redirect()->route('home');
+        return redirect()->route('login');
     }
 
     public function render()

@@ -29,8 +29,7 @@
                             @else
                                 w-4/5 lg:w-auto @endif
                              mr-3">
-                <img src="{{ $image->Image_path }}" class=" w-full h-80 md:h-96 object-cover "
-                  alt="{{ $post->title }}">
+                <img src="{{ $image->Image_path }}" class=" w-full h-80 md:h-96 object-cover " alt="{{ $post->title }}">
               </div>
             @endforeach
           </div>
@@ -108,7 +107,7 @@
           <tr class=" border-b border-gray-200">
             <td class="p-3 font-semibold"> Category</td>
             <td class=" float-right p-3"> <a
-                href="{{ route('getposts.bycategory', ['m' => 'marketplace', 'c' => $post->subcategory->slug]) }}"
+                href="{{ route('posts.index', ['sub_category' => $post->subcategory->id]) }}"
                 class=" float-right p-3 text-green-500 italic">{{ $post->subcategory->name }}</a> </td>
           </tr>
           <tr>
@@ -175,7 +174,7 @@
 
                   <div class=" col-span-2  ">
                     <a
-                      href="/{{ $similarPost->user->campus->nick_name }}/{{ $similarPost->subcategory->slug }}/{{ $similarPost->slug }}">
+                      href="{{ route('posts.show', $similarPost->slug )}}">
                       @if (is_object($similarPost->images()->first()))
                         <img src="{{ $similarPost->images()->first()->Image_path }}"
                           class=" w-full  object-cover  rounded-t-sm h-32 md:h-40   md:rounded-b-none md:rounded-t-sm"
@@ -187,7 +186,7 @@
                   <div class="col-span-4  flex flex-col justify-center md:justify-start px-3 py-2">
                     <h3
                       class=" text-sm md:text-lg text-gray-600 mb-2 font-semibold overflow-hidden whitespace-nowrap overflow-ellipsis">
-                      <a href="/{{ $similarPost->user->campus->nick_name }}/{{ $similarPost->subcategory->slug }}/{{ $similarPost->slug }}"
+                      <a href="{{ route('posts.show', $similarPost->slug)}}"
                         class="focus:text-green-600">{{ $similarPost->title }}</a>
                     </h3>
 
