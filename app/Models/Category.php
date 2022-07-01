@@ -9,6 +9,9 @@ class Category extends Model
 {
     use HasFactory;
 
+    const PRODUCTS_CATEGORY = 2;
+    const SERVICES_CATEGORY = 4;
+
     public function subcategories()
     {
         return $this->hasMany(SubCategory::class);

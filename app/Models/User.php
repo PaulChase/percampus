@@ -46,6 +46,11 @@ class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
         $this->notify(new QueuedVerifyEmail());
     }
 
+    public function isAdmin()
+    {
+        return $this->role_id === 1;
+    }
+
     // connectiong the users to all the posts added by the user
 
     public function posts()

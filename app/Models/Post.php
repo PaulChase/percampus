@@ -14,6 +14,10 @@ class Post extends Model implements Viewable
 
     protected $guarded = ['id', 'created_at'];
 
+    const STATUS_ACTIVE = 'active';
+    const STATUS_PENDING = 'pending';
+    const STATUS_DELETED = 'deleted';
+
     /*
     creating relatioship b/w the post and user that added it.  The function means that a post belongs to a particular user
 
@@ -46,7 +50,7 @@ class Post extends Model implements Viewable
 
 
 
-    
+
 
     // for generating dynamic slug
     public function Sluggable(): array
@@ -67,8 +71,9 @@ class Post extends Model implements Viewable
     //     return $this->save();
     // }
 
-    public function incrementContactCount() {
+    public function incrementContactCount()
+    {
         $this->no_of_contacts++;
         return $this->save();
-}
+    }
 }
