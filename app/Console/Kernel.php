@@ -29,9 +29,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('app:retweet')->everyMinute();
-        $schedule->job(new RetweetJob)->everyThirtyMinutes();
-        $schedule->job(new TweetAboutWebsite)->hourly();
-        $schedule->job(new PostAboutViralocal)->everyTwoHours();
+        // $schedule->job(new RetweetJob)->everyThirtyMinutes();
+        // $schedule->job(new TweetAboutWebsite)->hourly();
+        // $schedule->job(new PostAboutViralocal)->everyTwoHours();
         // $schedule->call(function() {
         //     Post::query()
         //                 ->where('created_at', '<', today()->subDays(30) )
@@ -46,7 +46,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
