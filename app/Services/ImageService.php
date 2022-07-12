@@ -13,7 +13,7 @@ class ImageService
 
   public function save($image, $postId)
   {
-    // dd($image->temporaryUrl());
+
     $fileNameWithExt = $image->getClientOriginalName();
 
     // get only the file name
@@ -35,7 +35,9 @@ class ImageService
     $imageResize->resize(1000, 1000, function ($const) {
       $const->aspectRatio();
     })->encode('jpg', 60);
-    $imageResize->save($path);
+    // $home = $imageResize->save('/test/testing.jpg');
+
+
 
 
     // saving it to the s3 bucket and also making it public so my website can access it
