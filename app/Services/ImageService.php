@@ -13,7 +13,7 @@ class ImageService
 
   public function save($image, $postId)
   {
-    // dd($image);
+    // dd($image->temporaryUrl());
     $fileNameWithExt = $image->getClientOriginalName();
 
     // get only the file name
@@ -31,7 +31,7 @@ class ImageService
     $path = $image->getRealPath() . '.jpg';
 
     // reducing the file size of the image and also optimizing it for fast loading
-    $imageResize = ImageOptimizer::make($image);
+    $imageResize = ImageOptimizer::make($image->temporaryUrl());
     $imageResize->resize(1000, 1000, function ($const) {
       $const->aspectRatio();
     })->encode('jpg', 60);
