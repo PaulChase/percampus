@@ -54,6 +54,7 @@ class AddProduct extends Component
 
 	public function addProduct()
 	{
+		// dd($this->image1);
 		$data = 	$this->validate([
 			'title' => 'required|string|min:8',
 			'alias' => 'nullable|string',

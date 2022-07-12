@@ -13,6 +13,7 @@ class ImageService
 
   public function save($image, $postId)
   {
+    // dd($image);
     $fileNameWithExt = $image->getClientOriginalName();
 
     // get only the file name
